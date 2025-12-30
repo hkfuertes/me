@@ -1,0 +1,14 @@
+services:
+  rendercv:
+    image: ghcr.io/rendercv/rendercv:latest
+    volumes:
+      - cv-data:/work
+    working_dir: /work
+
+volumes:
+  cv-data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${PWD}

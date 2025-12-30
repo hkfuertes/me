@@ -1,0 +1,207 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/rendercv/rendercv/refs/tags/v2.6/schema.json
+cv:
+  name: Miguel Fuertes
+  headline: Let's Talk!
+  location:
+  email: mjfuertesf@gmail.com
+  photo:
+  phone:
+  website: https://mfuertes.net
+  social_networks:
+    - network: LinkedIn
+      username: hkfuertes
+    - network: GitHub
+      username: hkfuertes
+  custom_connections:
+  sections:
+    experience:
+      - company: Gartner
+        position: Senior Software Engineer
+        date:
+        start_date: 2022-06
+        end_date: 2025-12
+        location: Barcelona, Spain (Remote)
+        summary: Backend engineer for search, personalization, and SEO platforms across GetApp, Capterra, and Software Advice (RoR, Elixir, PostgreSQL, Kafka, AWS, OpenSearch).
+        highlights:
+          - Migrated Sinatra → Rails and Solr → OpenSearch for GetApp backend
+          - Built RoR personalization service for product recommendations
+          - Contributed to RoR Published Pages for SEO-controlled indexing
+          - Led/owned Elixir Published Pages Monitoring (frontend validation)
+          - Led/owned Elixir Sitemaps (S3/CloudFront integration)
+          - Led/owned Elixir Similarity platform (in-house OnCrawl replacement)
+      - company: ATOS
+        position: Lead Software Engineer
+        date:
+        start_date: 2019-03
+        end_date: 2022-06
+        location: Madrid, Spain
+        summary: Lead maintainer of Microsoft Sports Digital Platform (MSDP) for Ligue 1 (LFP) fan engagement (C# .NET 4.6, Azure B2C, CosmosDB, Data Lake, multi-region).
+        highlights:
+          - Maintained enterprise fan platform across Azure services
+          - Primary technical liaison with Cenova integrator
+          - Core member of 3-person team leveraging MSDP expertise
+          - Managed high-scale fan interaction pipelines
+      - company: Microsoft
+        position: Program Manager
+        date:
+        start_date: 2016-10
+        end_date: 2019-03
+        location: Madrid, Spain
+        summary: Program Manager for MSDP white-label fan platform deployed to LFP, LaLiga, Club Brugges, Real Sociedad, FIT.
+        highlights:
+          - Coordinated multi-project deployments across sports orgs
+          - Liaison between teams for white-label feature sharing
+          - Managed roadmap for cross-client feature reuse
+          - Provided technical support and PoCs
+      - company: Vitale Intelligent System
+        position: Fullstack Developer
+        date:
+        start_date: 2015-10
+        end_date: 2016-10
+        location: Pamplona, Spain
+        summary: PHP Symfony2 backend + Photoshop-to-HTML/CSS maquetado + Cordova-to-Android migration for fitness portal.
+        highlights:
+          - Built Symfony2 backend for personalized workouts
+          - Converted Photoshop designs to pixel-perfect HTML/CSS
+          - Led Cordova hybrid → native Android migration
+      - company: Openbravo
+        position: Support Engineer Intern
+        date:
+        start_date: 2015-06
+        end_date: 2015-10
+        location: Pamplona, Spain
+        summary: Java/Tomcat support for enterprise retail POS/ERP platform.
+        highlights:
+          - Diagnosed deployment/performance issues
+          - Supported customer installations/upgrades
+          - Hands-on Java enterprise troubleshooting
+      - company: Systia
+        position: PHP Developer
+        date:
+        start_date: 2013-09
+        end_date: 2015-06
+        location: Pamplona, Spain
+        summary: PHP Symfony1 developer for local business web apps.
+        highlights:
+          - Delivered full-cycle Symfony1 client projects
+          - Early Symfony framework experience
+    education:
+      - institution: Nebrija University
+        area: Teacher Training
+        degree: M.Ed.
+        date:
+        end_date: 2022-06
+        start_date: 2020-09
+        location: Madrid, Spain
+        summary: Master to be able to teach in secoundary schools as IT professor
+        highlights:
+      - institution: Public University of Navarra
+        area: Biomedical Engineering
+        degree: M.Sc.
+        date:
+        end_date: 2019-06
+        start_date: 2017-09
+        location: Pamplona, Spain
+        summary:
+        highlights:
+      - institution: Public University of Navarra
+        area: Computer Science
+        degree: Major
+        date:
+        end_date: 2014-06
+        start_date: 2011-09
+        location: Pamplona, Spain
+        summary:
+        highlights:
+          - Year abroad in Millersvile, Lancaster (PA) in 2012
+      - institution: Public University of Navarra
+        area: Computer Science
+        degree: Minor
+        date:
+        end_date: 2011-06
+        start_date: 2008-09
+        location: Pamplona, Spain
+        summary:
+        highlights:
+    projects:
+    - name: "[doceacordes.es](https://doceacordes.es)"
+      date:
+      start_date: 2020-01
+      end_date: present
+      location:
+      summary: Song book for guitar songs
+      highlights:
+    - name: "[msm8916-openwrt](https://github.com/hkfuertes/msm8916-openwrt)"
+      date:
+      start_date:
+      end_date: 2025-10
+      location:
+      summary: OpenWrt SNAPSHOT for Chinese 4G Dongles/MiFis
+      highlights:
+        - 13 stars, 3 forks
+    - name: "[nisargjhaveri/WirelessAndroidAutoDongle](https://github.com/nisargjhaveri/WirelessAndroidAutoDongle)"
+      date:
+      start_date:
+      end_date:
+      location:
+      summary: Use Wireless Android Auto with a car that supports only wired AA using a Raspberry Pi. 
+      highlights:
+        - Contributed
+    - name: "[telegram-db-backup](https://github.com/hkfuertes/telegram-db-backup)"
+      date:
+      start_date:
+      end_date: 2023-01
+      location:
+      summary: Docker Container to backup MySQL/MariaDB to a *.sql.zip file to a Telegram Bot Chat.
+      highlights:
+    - name: "[UxPlay-Buildroot](https://github.com/hkfuertes/UxPlay-Buildroot)"
+      date:
+      start_date:
+      end_date: 2024-10
+      location:
+      summary: Minimal OS Raspberry Pi images with UxPlay installed for AirPlay 2 Mirroring.
+      highlights:
+    - name: "[AAGW](https://github.com/hkfuertes/AAGW)"
+      date:
+      start_date:
+      end_date: 2025-01
+      location:
+      summary: Android Auto Wireless Gateway
+      highlights:
+        - 7 stars, 1 fork
+    - name: "[tags](https://github.com/hkfuertes/tags)"
+      date:
+      start_date:
+      end_date: 2022-03
+      location:
+      summary: THE app to reuse NFC cards in Home Assistant
+      highlights:
+    skills:
+      - label: Languages
+        details: PHP (Symfony1/2), Ruby (Rails), Elixir (Phoenix), C# (.NET 4.6), Java, JavaScript, HTML/CSS
+      - label: Frameworks & Tools
+        details: Symfony, Ruby on Rails, Elixir Phoenix, Bootstrap, Cordova, Flutter, Tomcat
+      - label: Cloud & Infrastructure
+        details: AWS (S3, CloudFront, App Services), Azure (B2C, CosmosDB, Data Lake, DocumentDB, Search, Blobs), Kafka, PostgreSQL, OpenSearch, Solr
+      - label: Domains
+        details: SEO platforms, fan engagement, personalization engines, sitemaps generation, content similarity analysis, multi-region deployments
+design:
+  theme: classic
+locale:
+  language: english
+settings:
+  current_date: "2025-12-30"
+  render_command:
+    design:
+    locale:
+    typst_path: rendercv_output/NAME_IN_SNAKE_CASE_CV.typ
+    pdf_path: rendercv_output/NAME_IN_SNAKE_CASE_CV.pdf
+    markdown_path: rendercv_output/NAME_IN_SNAKE_CASE_CV.md
+    html_path: rendercv_output/NAME_IN_SNAKE_CASE_CV.html
+    png_path: rendercv_output/NAME_IN_SNAKE_CASE_CV.png
+    dont_generate_markdown: false
+    dont_generate_html: false
+    dont_generate_typst: false
+    dont_generate_pdf: false
+    dont_generate_png: false
+  bold_keywords: []
