@@ -1,5 +1,10 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+// Obtener posts directamente de content/
+const posts = await getCollection('blog');
+console.log(posts)
 ---
 
 <Layout title="Home Page">

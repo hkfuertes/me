@@ -13,7 +13,6 @@ Contenido del post con **imágenes locales**:
 
 ## Diagrama del sistema
 
-![Diagrama del proyecto](./diagrama.png)
 
 ## Código de ejemplo
 
