@@ -1,9 +1,28 @@
 services:
-  rendercv:
-    image: ghcr.io/rendercv/rendercv:latest
+  x-common: &common
+    build:
+      context: .
+      dockerfile: Dockerfile
     volumes:
       - cv-data:/work
-    working_dir: /work
+      - ./portfolio:/app
+
+  rendercv:
+    <<: *common
+    entrypoint: ["rendercv"]
+
+  build:
+    <<: *common
+    command: /bin/bash -c "npm i && npm run build"
+
+  app:
+    <<: *common
+    command: /bin/bash -c "npm i && npm run dev"
+    ports:
+      - "4321:4321"
+    environment:
+      - HOST=0.0.0.0
+      - PORT=4321
 
 volumes:
   cv-data:
