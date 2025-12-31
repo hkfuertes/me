@@ -6,7 +6,7 @@ services:
     volumes:
       - cv-data:/work
       - ./portfolio:/app
-      - ./blog:/app/src/content/blog
+      - ./blog:/blog
 
   rendercv:
     <<: *common
