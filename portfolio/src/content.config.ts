@@ -14,6 +14,7 @@ const blogCollection = defineCollection({
     draft: z.boolean().default(false),
     image: z.string().optional(),
     author: z.string().optional().default("Miguel Fuertes"),
+    url: z.string().optional(),
   }),
 });
 

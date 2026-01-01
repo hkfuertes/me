@@ -2,16 +2,75 @@
 import '../styles/global.css'
 
 const { title } = Astro.props;
+const currentPath = Astro.url.pathname;
 ---
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-	</head>
-	<body>
-        <slot />
-	</body>
+
+<html lang="es" class="dark">
+    <head>
+        <meta charset="utf-8" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="viewport" content="width=device-width" />
+        <meta name="generator" content={Astro.generator} />
+        <title>{title}</title>
+    </head>
+    <body class="bg-black text-gray-100 min-h-screen flex flex-col pb-20">
+        <!-- Contenido principal -->
+        <main class="flex-1 max-w-6xl mx-auto px-4 py-8 w-full">
+            <slot />
+        </main>
+
+        <!-- Navegación sticky en la parte inferior -->
+        <nav class="fixed bottom-0 left-0 right-0 bg-black/95 backdrop-blur border-t border-gray-800 z-50">
+            <div class="max-w-6xl mx-auto px-4 py-4">
+                <div class="flex items-center justify-between">
+                    <!-- Logo/Nombre -->
+                    <a href="/" class="text-xl font-bold text-blue-400 hover:text-blue-300 transition-colors">
+                        tu_nombre.dev
+                    </a>
+                    
+                    <!-- Navegación -->
+                    <ul class="flex items-center gap-6">
+                        <li>
+                            <a 
+                                href="/" 
+                                class={`hover:text-blue-400 transition-colors ${currentPath === '/' ? 'text-blue-400' : 'text-gray-300'}`}
+                            >
+                                Inicio
+                            </a>
+                        </li>
+                        <li>
+                            <a 
+                                href="/blog" 
+                                class={`hover:text-blue-400 transition-colors ${currentPath.startsWith('/blog') ? 'text-blue-400' : 'text-gray-300'}`}
+                            >
+                                Blog
+                            </a>
+                        </li>
+                        <li>
+                            <a 
+                                href="/cv" 
+                                class={`hover:text-blue-400 transition-colors ${currentPath === '/cv' ? 'text-blue-400' : 'text-gray-300'}`}
+                            >
+                                CV
+                            </a>
+                        </li>
+                        <li>
+                            <a 
+                                href="/proyectos" 
+                                class={`hover:text-blue-400 transition-colors ${currentPath === '/proyectos' ? 'text-blue-400' : 'text-gray-300'}`}
+                            >
+                                Proyectos
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </body>
 </html>
+
+<style>
+    html {
+        scroll-behavior: smooth;
+    }
+</style>

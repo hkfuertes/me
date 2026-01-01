@@ -1,0 +1,33 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('blog');
+
+function formatDate(date: Date) {
+    return new Date(date).toLocaleDateString('es-ES', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric'
+    });
+}
+---
+
+<Layout title="Blog">
+    <div class="mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold mb-8">Blog Posts</h1>
+        <ul class="space-y-4">
+            {posts.map(post => (
+                <li class="border-b pb-4">
+                    <a 
+                        href={`/blog/${post.id}`}
+                        class="text-xl font-semibold"
+                    >
+                        {post.data.title}
+                    </a>
+                    <p class="text-gray-600 text-sm mt-1">{formatDate(post.data.date)} - <i>{post.data.description}</i></p>
+                </li>
+            ))}
+        </ul>
+    </div>
+</Layout>
