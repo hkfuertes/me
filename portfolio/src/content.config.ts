@@ -4,7 +4,7 @@ import { glob } from 'astro/loaders';
 const blogCollection = defineCollection({
   loader: glob({ 
     pattern: '**/index.md',
-    base: '/blog'
+    base: '/blog' //Mounted under /blog route in docker-compose
   }),
   schema: z.object({
     title: z.string(),

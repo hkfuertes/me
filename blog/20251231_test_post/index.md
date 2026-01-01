@@ -15,4 +15,8 @@ Contenido del post con **imágenes locales**:
 
 
 ## Código de ejemplo
-
+```json
+{
+    "test": "test"
+}
+```
