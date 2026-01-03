@@ -2,7 +2,7 @@
 import Position from "./Position.astro"
 import data from "/Miguel_Fuertes_CV.yaml"
 
-const experiences = data["cv"]["sections"]["experience"];
+const experiences = data["cv"]["sections"]["experience"] as any[];
 ---
 <div class="pl-6 pr-6">
 	<div class="mt-4 block max-w p-6 border rounded-lg shadow bg-gray-800 border-gray-700">

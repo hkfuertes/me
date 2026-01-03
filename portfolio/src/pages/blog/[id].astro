@@ -1,13 +1,14 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import { getCollection } from 'astro:content';
+import BlogDate from "../../components/BlogDate.astro";
+import Layout from "../../layouts/Layout.astro";
+import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
-    const posts = await getCollection('blog');
-    
+    const posts = await getCollection("blog");
+
     return posts.map((post) => ({
         params: { id: post.id },
-        props: { post }
+        props: { post },
     }));
 }
 
@@ -15,5 +16,38 @@ const { post } = Astro.props;
 ---
 
 <Layout title={post.data.title}>
-    <div class="prose-invert lg:prose-xl mx-auto" set:html={post.rendered?.html} />
+    <div class="mx-auto max-w-3xl">
+        <div class="flex gap-4 items-center mb-4">
+            <BlogDate dateString={post.data.date} />
+            <div class="flex-1">
+                <h1 class="text-4xl font-bold text-right">{post.data.title}</h1>
+                <h3 class="text-lg text-right text-gray-400">
+                    {post.data.description}
+                </h3>
+            </div>
+        </div>
+        <hr class="mb-8 -mt-2 text-white/20" />
+        <div
+            class="prose-invert prose max-w-3xl"
+            set:html={post.rendered?.html}
+        />
+        
+        
+        {post.data.url && (
+            <>
+            <hr class="mt-8 mb-2 border-white/20" />
+            <div class="flex items-center place-content-end gap-1 text-sm text-gray-400 italic text-white/50">
+                <span class="font-bold">Source:</span>
+                <a
+                    href={post.data.url}
+                    class="text-blue-400 hover:text-blue-300 transition-colors"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    {post.data.url}
+                </a>
+            </div>
+            </>
+        )}
+    </div>
 </Layout>
