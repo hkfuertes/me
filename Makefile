@@ -26,3 +26,12 @@ render:
 
 bootstrap:
 	docker run -it --rm -v ${PWD}:/app -w /app node:lts bash
+
+up:
+	docker compose up app
+
+down:
+	docker compose down
+
+build:
+	docker compose run --rm build

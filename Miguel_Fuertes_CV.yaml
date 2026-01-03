@@ -29,6 +29,7 @@ cv:
           - Led/owned Elixir Published Pages Monitoring (frontend validation)
           - Led/owned Elixir Sitemaps (S3/CloudFront integration)
           - Led/owned Elixir Similarity platform (in-house OnCrawl replacement)
+        stack: [Ruby, Rails, Elixir, PostgreSQL, Kafka, AWS S3, CloudFront, OpenSearch]
       - company: ATOS
         position: Lead Software Engineer
         date:
@@ -41,6 +42,7 @@ cv:
           - Primary technical liaison with Cenova integrator
           - Core member of 3-person team leveraging MSDP expertise
           - Managed high-scale fan interaction pipelines
+        stack: [C# .NET 4.6, Azure B2C, CosmosDB, Data Lake, DocumentDB, Search, Blobs]
       - company: Microsoft
         position: Program Manager
         date:
@@ -53,6 +55,7 @@ cv:
           - Liaison between teams for white-label feature sharing
           - Managed roadmap for cross-client feature reuse
           - Provided technical support and PoCs
+        stack: [C# .NET 4.6, Azure B2C, CosmosDB, Data Lake, DocumentDB, Search, Blobs]
       - company: Vitale Intelligent System
         position: Fullstack Developer
         date:
@@ -64,6 +67,7 @@ cv:
           - Built Symfony2 backend for personalized workouts
           - Converted Photoshop designs to pixel-perfect HTML/CSS
           - Led Cordova hybrid → native Android migration
+        stack: [PHP, Symfony2, JavaScript, HTML/CSS, Cordova, Android]
       - company: Openbravo
         position: Support Engineer Intern
         date:
@@ -75,6 +79,7 @@ cv:
           - Diagnosed deployment/performance issues
           - Supported customer installations/upgrades
           - Hands-on Java enterprise troubleshooting
+        stack: [Java, Tomcat, PostgreSQL, Hibernate]
       - company: Systia
         position: PHP Developer
         date:
@@ -85,6 +90,7 @@ cv:
         highlights:
           - Delivered full-cycle Symfony1 client projects
           - Early Symfony framework experience
+        stack: [PHP, Symfony1, JavaScript, HTML/CSS]
     education:
       - institution: Nebrija University
         area: Teacher Training
@@ -199,9 +205,9 @@ settings:
     markdown_path: rendercv_output/NAME_IN_SNAKE_CASE_CV.md
     html_path: rendercv_output/NAME_IN_SNAKE_CASE_CV.html
     png_path: rendercv_output/NAME_IN_SNAKE_CASE_CV.png
-    dont_generate_markdown: false
-    dont_generate_html: false
-    dont_generate_typst: false
+    dont_generate_markdown: true
+    dont_generate_html: true
+    dont_generate_typst: true
     dont_generate_pdf: false
-    dont_generate_png: false
+    dont_generate_png: true
   bold_keywords: []

@@ -7,9 +7,11 @@ services:
       - cv-data:/work
       - ./portfolio:/app
       - ./blog:/blog
+      - ./Miguel_Fuertes_CV.yaml:/Miguel_Fuertes_CV.yaml:ro
 
   rendercv:
     <<: *common
+    working_dir: /work
     entrypoint: ["rendercv"]
 
   build:

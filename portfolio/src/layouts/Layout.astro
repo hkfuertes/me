@@ -8,7 +8,7 @@ const currentPath = Astro.url.pathname;
 <html lang="es" class="dark">
     <head>
         <meta charset="utf-8" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="icon" type="image/png" href="/favicon.png" />
         <meta name="viewport" content="width=device-width" />
         <meta name="generator" content={Astro.generator} />
         <title>{title}</title>
@@ -23,9 +23,17 @@ const currentPath = Astro.url.pathname;
         <nav class="fixed bottom-0 left-0 right-0 bg-black/95 backdrop-blur border-t border-gray-800 z-50">
             <div class="max-w-6xl mx-auto px-4 py-4">
                 <div class="flex items-center justify-between">
-                    <!-- Logo/Nombre -->
-                    <a href="/" class="text-xl font-bold text-blue-400 hover:text-blue-300 transition-colors">
-                        tu_nombre.dev
+                    <!-- Logo/Nombre con foto -->
+                    <a href="/" class="flex items-center gap-3 hover:opacity-80 transition-opacity">
+                        <img 
+                            src="/images/profile.jpeg" 
+                            alt="Miguel Fuertes" 
+                            class="w-12 h-12 rounded-full object-cover border-2 border-blue-400"
+                        />
+                        <div class="flex flex-col">
+                            <span class="text-xl font-bold text-blue-400">Miguel Fuertes</span>
+                            <span class="text-xs text-gray-400">Senior Software Engineer</span>
+                        </div>
                     </a>
                     
                     <!-- Navegación -->
@@ -35,7 +43,7 @@ const currentPath = Astro.url.pathname;
                                 href="/" 
                                 class={`hover:text-blue-400 transition-colors ${currentPath === '/' ? 'text-blue-400' : 'text-gray-300'}`}
                             >
-                                Inicio
+                                About
                             </a>
                         </li>
                         <li>
@@ -48,18 +56,10 @@ const currentPath = Astro.url.pathname;
                         </li>
                         <li>
                             <a 
-                                href="/cv" 
-                                class={`hover:text-blue-400 transition-colors ${currentPath === '/cv' ? 'text-blue-400' : 'text-gray-300'}`}
+                                href="/Miguel_Fuertes_CV.pdf" 
+                                class={`px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg transition-colors`}
                             >
-                                CV
-                            </a>
-                        </li>
-                        <li>
-                            <a 
-                                href="/proyectos" 
-                                class={`hover:text-blue-400 transition-colors ${currentPath === '/proyectos' ? 'text-blue-400' : 'text-gray-300'}`}
-                            >
-                                Proyectos
+                                Download
                             </a>
                         </li>
                     </ul>
