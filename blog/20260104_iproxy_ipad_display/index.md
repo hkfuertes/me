@@ -1,4 +1,10 @@
 ---
+title: "USB Moonlight iPad Display"
+description: "Use iProxy to tunnel network traffic through USB to iPad to use Moonlight as external display (windows/linux)"
+date: 2026-01-04
+tags: ["iPad", "moonlight", "sunshine", "linux"]
+image: "banner.jpg"
+draft: false
 ---
 
 Excelente elección, **Moonlight + Sunshine** es probablemente la mejor opción para tu caso porque tiene latencia mucho más baja que VNC y mejor calidad de video gracias a la codificación por hardware (H.264/H.265).[1]
