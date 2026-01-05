@@ -22,7 +22,7 @@ const isHome = currentPath === '/';
                 <img 
                     src="/images/profile.jpeg" 
                     alt="Miguel Fuertes" 
-                    class="w-32 h-32 rounded-full object-cover border-4 border-blue-400 mb-4"
+                    class="w-32 h-32 rounded-full object-cover border-2 border-blue-400 mb-4"
                 />
                 <h1 class="text-2xl font-bold text-blue-400 mb-2">Miguel Fuertes</h1>
                 
@@ -35,14 +35,13 @@ const isHome = currentPath === '/';
 
             <!-- Botones Download (Posts solo fuera de /) -->
             <div class="mb-8 space-y-4">
-                {!isHome && (
                     <a 
                         href="/"
-                        class="w-full px-6 py-3 border-2 border-blue-500 hover:border-blue-600 hover:bg-blue-500 text-white font-semibold rounded-lg text-center transition-all block"
+                        class="w-full px-6 py-3 border border-blue-500 hover:bg-blue-500 text-white font-semibold rounded-lg text-center transition-all block"
                     >
                         Posts
                     </a>
-                )}
+                
                 <a 
                     href="/Miguel_Fuertes_CV.pdf"
                     target="_blank"

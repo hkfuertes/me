@@ -5,8 +5,6 @@ import { getCollection } from "astro:content";
 const posts = await getCollection("blog");
 const gists = await getCollection("gists");
 
-console.log(gists);
-
 function formatDate(date: Date) {
     return date.toLocaleDateString("en-US", {
         month: "long",
@@ -28,14 +26,10 @@ const postsByYear = [...posts, ...gists].reduce((groups, post) => {
 
 <Layout title="Blog">
     <div class="max-w-3xl px-4 py-8">
-        <div class="flex gap-4">
-            <h1 class="text-3xl font-bold mb-4">Posts</h1>
-            <p class="mb-2 text-white/50 text-sm text-right flex-1 italic">
-                ... a collection of code experiments, quick hacks, and project
-                highlights<br />
-                Some ideas live here as snippets, others graduate to full GitHub repositories...
-            </p>
-        </div>
+        <p class="mb-2 text-white/50 text-sm text-center flex-1 italic">
+            ... a collection of code experiments, quick hacks, and project highlights<br />
+            Some ideas live here as snippets, others graduate to full GitHub repositories...
+        </p>
         {
             Object.entries(postsByYear)
                 .sort((a, b) => Number(b[0]) - Number(a[0]))
