@@ -1,6 +1,7 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { GistLoader } from './utils/gist-loader';
+import { gists } from '/blog/gists.yaml';
 
 const postSchema = z.object({
     title: z.string(),
@@ -11,7 +12,7 @@ const postSchema = z.object({
     image: z.string().optional(),
     author: z.string().optional().default("Miguel Fuertes"),
     url: z.string().optional(),
-  })
+})
 
 const blogCollection = defineCollection({
   loader: glob({ 
@@ -22,7 +23,9 @@ const blogCollection = defineCollection({
 });
 
 const gistsCollection = defineCollection({
-  loader: GistLoader({ username: 'hkfuertes' }),
+  loader: GistLoader({ 
+    gists: gists
+  }),
   schema: postSchema,
 });
 

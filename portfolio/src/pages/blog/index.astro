@@ -3,6 +3,9 @@ import Layout from "../../layouts/Layout.astro";
 import { getCollection } from "astro:content";
 
 const posts = await getCollection("blog");
+const gists = await getCollection("gists");
+
+console.log(gists);
 
 function formatDate(date: Date) {
     return date.toLocaleDateString("en-US", {
@@ -11,7 +14,7 @@ function formatDate(date: Date) {
     });
 }
 
-const postsByYear = posts.reduce((groups, post) => {
+const postsByYear = [...posts, ...gists].reduce((groups, post) => {
     const year = post.data.date.getFullYear();
 
     if (!groups[year]) {
@@ -54,8 +57,22 @@ const postsByYear = posts.reduce((groups, post) => {
                                             {post.data.title}
                                         </a>
                                         <p class="text-gray-600 text-sm mt-1">
-                                            <b class="text-white/60">{formatDate(post.data.date)}</b> -{" "}
-                                            <i>{post.data.description}</i>
+                                            <b class="text-white/60">
+                                                {formatDate(post.data.date)}
+                                            </b>{" "}
+                                            -{" "}
+                                            <i>
+                                                {post.collection === "gists" ? (
+                                                    <a
+                                                        href={post.data.url}
+                                                        class="text-blue-400 hover:text-blue-300 transition-colors"
+                                                    >
+                                                        {post.data.url}
+                                                    </a>
+                                                ) : (
+                                                    post.data.description
+                                                )}
+                                            </i>
                                         </p>
                                     </li>
                                 ))}
