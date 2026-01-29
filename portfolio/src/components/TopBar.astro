@@ -16,44 +16,43 @@ const { currentPath = "/", headings = [] } = Astro.props;
     <nav class="max-w-5xl mx-auto px-6 py-4">
         <div class="flex items-center justify-between">
             <!-- Left: Back arrow + ToC select -->
-            <div class="flex items-center gap-4">
-                <a href="/" class="text-gray-600 hover:text-blue-600 transition-colors">
+            <div class="flex items-center gap-4 flex-1 mr-6">
+                <a href="/" class="text-gray-600 hover:text-blue-600 transition-colors flex-shrink-0">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
                     </svg>
                 </a>
                 
                 {headings.length > 0 && (
-                    <select 
-                        id="toc-select"
-                        class="text-sm text-gray-600 border border-gray-300 rounded px-3 py-2 hover:border-blue-600 focus:border-blue-600 focus:outline-none focus:ring-1 focus:ring-blue-600"
-                        size="1"
-                        style="min-height: 42px;"
-                    >
-                        <option value="">Jump to...</option>
-                        {(() => {
-                            let h2Counter = 0;
-                            let h3Counter = 0;
-                            return headings.map((heading) => {
-                                if (heading.level === 2) {
-                                    h2Counter++;
-                                    h3Counter = 0;
-                                    return (
-                                        <option value={`#${heading.id}`}>
-                                            {h2Counter}. {heading.text}
-                                        </option>
-                                    );
-                                } else {
-                                    h3Counter++;
-                                    return (
-                                        <option value={`#${heading.id}`}>
-                                            {h2Counter}.{h3Counter} {heading.text}
-                                        </option>
-                                    );
-                                }
-                            });
-                        })()}
-                    </select>
+                    <div class="relative group flex-1">
+                        <div class="border border-gray-300 rounded bg-white group-hover:rounded-b-none group-hover:border-b-transparent transition-all">
+                            <button
+                                class="w-full text-sm text-gray-600 px-3 py-2 flex items-center justify-between gap-2 transition-colors"
+                                style="min-height: 42px;"
+                            >
+                                <span>Jump to...</span>
+                                <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <ul class="hidden group-hover:block absolute left-0 right-0 top-full bg-white border border-gray-300 border-t-0 rounded-b shadow-lg overflow-hidden z-50">
+                            {headings.map((heading) => (
+                                <li class="border-b border-gray-100 last:border-b-0">
+                                    <a
+                                        href={`#${heading.id}`}
+                                        class={`block px-4 py-3 text-sm transition-all ${
+                                            heading.level === 2 
+                                                ? 'hover:bg-blue-50 hover:text-blue-600 text-gray-900 font-medium' 
+                                                : 'hover:bg-gray-50 hover:text-gray-900 text-gray-700 pl-8'
+                                        }`}
+                                    >
+                                        {heading.text}
+                                    </a>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
                 )}
             </div>
             
@@ -126,20 +125,4 @@ const { currentPath = "/", headings = [] } = Astro.props;
     
     // Initial call
     updateProgressBar();
-    
-    // ToC select navigation
-    const tocSelect = document.getElementById('toc-select') as HTMLSelectElement;
-    if (tocSelect) {
-        tocSelect.addEventListener('change', (e) => {
-            const target = (e.target as HTMLSelectElement).value;
-            if (target) {
-                const element = document.querySelector(target);
-                if (element) {
-                    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-                // Reset to placeholder immediately
-                tocSelect.value = '';
-            }
-        });
-    }
 </script>
