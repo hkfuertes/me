@@ -2,6 +2,7 @@ import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { GistLoader } from './utils/gist-loader';
 import { GitHubReadmeLoader } from './utils/github-readme-loader';
+import { GitHubReposLoader } from './utils/github-repos-loader';
 import { loadCV } from './utils/cv-loader';
 import { gists } from '/blog/gists.yaml';
 
@@ -46,8 +47,20 @@ const githubCollection = defineCollection({
   schema: githubSchema,
 });
 
+// New collection: All public GitHub repos
+const githubReposCollection = defineCollection({
+  loader: GitHubReposLoader({
+    username: 'hkfuertes',
+    excludeForks: true,      // No mostrar forks
+    excludeArchived: true,   // No mostrar archivados
+    minStars: 0,             // Mínimo de estrellas
+  }),
+  schema: githubSchema,
+});
+
 export const collections = {
   blog: blogCollection,
   gists: gistsCollection,
   github: githubCollection,
+  githubRepos: githubReposCollection,
 };

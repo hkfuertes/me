@@ -59,8 +59,8 @@ export function GistLoader(options: GistLoaderOptions): Loader {
                         store.set({
                             id: gist.id,
                             data: {
-                                title: gist.description || mdFile.filename,
-                                description: gist.description,
+                                title: gist.description || 'Interesting Post',
+                                description: mdFile.filename,
                                 date: new Date(gist.created_at),
                                 updated: new Date(gist.updated_at),
                                 author: gist.owner?.login || 'Unknown',

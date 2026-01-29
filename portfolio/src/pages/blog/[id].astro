@@ -4,11 +4,10 @@ import { getCollection } from "astro:content";
 import { addHeadingIds } from "../../utils/add-heading-ids";
 
 export async function getStaticPaths() {
-    const posts = await getCollection("blog");
     const gists = await getCollection("gists");
-    const github = await getCollection("github");
+    const githubRepos = await getCollection("githubRepos");
 
-    return [...posts, ...gists, ...github].map((post) => ({
+    return [...gists, ...githubRepos].map((post) => ({
         params: { id: post.id },
         props: { post },
     }));

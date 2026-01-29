@@ -26,6 +26,7 @@ services:
     environment:
       - HOST=0.0.0.0
       - PORT=4321
+      - GITHUB_TOKEN=${GITHUB_TOKEN}
 
 volumes:
   cv-data:
