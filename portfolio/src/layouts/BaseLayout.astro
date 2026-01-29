@@ -1,0 +1,48 @@
+---
+import '../styles/global.css'
+import TopBar from '../components/TopBar.astro';
+
+interface Props {
+    title: string;
+    description?: string;
+    showTopBar?: boolean;
+}
+
+const { title, description = "Senior Software Engineer with 10+ years experience in backend development, cloud platforms, and embedded systems.", showTopBar = true } = Astro.props;
+const currentPath = Astro.url.pathname;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <link rel="icon" type="image/png" href="/favicon.png" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="generator" content={Astro.generator} />
+        <meta name="description" content={description} />
+        <meta name="author" content="Miguel Fuertes" />
+        
+        <!-- Open Graph / Social Media -->
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:site_name" content="Miguel Fuertes" />
+        
+        <!-- Twitter Card -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+        
+        <title>{title}</title>
+    </head>
+    <body class="bg-white text-gray-900 min-h-screen antialiased">
+        {showTopBar && <TopBar currentPath={currentPath} />}
+        <slot />
+    </body>
+</html>
+
+<style is:global>
+    html {
+        scroll-behavior: smooth;
+    }
+</style>

@@ -1,43 +1,88 @@
-# Astro Starter Kit: Minimal
+# Portfolio Personal - Miguel Fuertes
 
-```sh
-npm create astro@latest -- --template minimal
+Portfolio minimalista con diseño Swiss construido con Astro y desplegado en GitHub Pages.
+
+## 🎨 Diseño
+
+**Swiss Design / International Typographic Style**
+- Grid preciso y tipografía clara
+- Layout en columnas
+- Mucho espacio negativo
+- Bordes finos y elementos geométricos
+- Jerarquía visual clara
+- Color usado con moderación (azul como acento)
+
+## 🚀 Características
+
+- **Landing Minimalista**: Bio, contacto, y tech stack en grid de 3 columnas
+- **Work Unificado**: Timeline cronológica mezclando experiencia, proyectos y posts
+- **GitHub Gists como CMS**: Escribe en Gists, se importan automáticamente
+- **100% Estático**: Build-time rendering, sin JavaScript del lado del cliente
+- **SEO Optimizado**: Meta tags, sitemap, Open Graph
+
+## 📁 Estructura
+
+```
+https://mfuertes.net/
+├── /              # Landing page minimalista
+├── /work          # Timeline unificado (todo mezclado)
+├── /work/[id]     # Posts individuales
+└── /Miguel_Fuertes_CV.pdf
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## 🛠️ Stack Tecnológico
 
-## 🚀 Project Structure
+- **Framework**: [Astro 5.x](https://astro.build)
+- **Estilos**: [TailwindCSS 4.x](https://tailwindcss.com)
+- **CMS**: GitHub Gists + YAML
+- **Deploy**: GitHub Pages + Actions
 
-Inside of your Astro project, you'll see the following folders and files:
+## 🚀 Comandos
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+```bash
+# Desarrollo (Docker)
+make up
+
+# Desarrollo (local)
+npm install
+npm run dev
+
+# Build
+npm run build
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## 📝 Gestión de Contenido
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+### Blog Posts
 
-Any static assets, like images, can be placed in the `public/` directory.
+Añadir URLs a `/blog/gists.yaml`:
 
-## 🧞 Commands
+```yaml
+gists:
+  - https://gist.github.com/hkfuertes/[gist-id]
+```
 
-All commands are run from the root of the project, from a terminal:
+### Proyectos y Experiencia
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+Editar `/Miguel_Fuertes_CV.yaml` - Se mezcla automáticamente en `/work`
 
-## 👀 Want to learn more?
+## 🌐 Deploy
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Push a `main` → Deploy automático a GitHub Pages
+
+O manual:
+1. Actions > Deploy to GitHub Pages
+2. Run workflow
+
+## 🎯 Filosofía de Diseño
+
+Inspirado en el diseño suizo:
+- **Claridad**: Jerarquía tipográfica obvia
+- **Objetividad**: Sin elementos decorativos innecesarios
+- **Funcionalidad**: Grid matemático y espaciado consistente
+- **Universalidad**: Diseño atemporal y accesible
+
+## 📄 Licencia
+
+MIT
+

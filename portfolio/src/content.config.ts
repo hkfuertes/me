@@ -1,6 +1,8 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { GistLoader } from './utils/gist-loader';
+import { GitHubReadmeLoader } from './utils/github-readme-loader';
+import { loadCV } from './utils/cv-loader';
 import { gists } from '/blog/gists.yaml';
 
 const postSchema = z.object({
@@ -12,6 +14,13 @@ const postSchema = z.object({
     image: z.string().optional(),
     author: z.string().optional().default("Miguel Fuertes"),
     url: z.string().optional(),
+})
+
+const githubSchema = postSchema.extend({
+    stars: z.number().optional(),
+    forks: z.number().optional(),
+    language: z.string().optional(),
+    updated: z.date().optional(),
 })
 
 const blogCollection = defineCollection({
@@ -29,7 +38,16 @@ const gistsCollection = defineCollection({
   schema: postSchema,
 });
 
+const cvData = loadCV();
+const githubCollection = defineCollection({
+  loader: GitHubReadmeLoader({
+    projects: cvData.cv.sections.projects || []
+  }),
+  schema: githubSchema,
+});
+
 export const collections = {
   blog: blogCollection,
   gists: gistsCollection,
+  github: githubCollection,
 };
