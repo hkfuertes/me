@@ -21,21 +21,33 @@ import BaseLayout from "../layouts/BaseLayout.astro";
                     </p>
                 </div>
                 
-                <!-- Columna 2: Info de contacto -->
-                <div class="text-sm space-y-3 md:text-right">
-                    <div class="text-gray-500 uppercase tracking-wider text-xs mb-4">Contact</div>
-                    <a href="mailto:mjfuertesf@gmail.com" class="block text-gray-700 hover:text-blue-600 transition-colors">
-                        mjfuertesf@gmail.com
-                    </a>
-                    <a href="https://github.com/hkfuertes" target="_blank" class="block text-gray-700 hover:text-blue-600 transition-colors">
-                        GitHub
-                    </a>
-                    <a href="https://linkedin.com/in/hkfuertes" target="_blank" class="block text-gray-700 hover:text-blue-600 transition-colors">
-                        LinkedIn
-                    </a>
-                    <a href="/Miguel_Fuertes_CV.pdf" target="_blank" class="block text-gray-700 hover:text-blue-600 transition-colors">
-                        Download CV
-                    </a>
+                <!-- Columna 2: Foto de perfil + Info de contacto -->
+                <div class="space-y-6">
+                    <!-- Foto de perfil -->
+                    <div class="mb-6">
+                        <img 
+                            src="/images/profile.jpeg" 
+                            alt="Miguel Fuertes"
+                            class="w-32 h-32 md:w-40 md:h-40 object-cover grayscale hover:grayscale-0 transition-all duration-300 md:ml-auto"
+                        />
+                    </div>
+                    
+                    <!-- Info de contacto -->
+                    <div class="text-sm space-y-3 md:text-right">
+                        <div class="text-gray-500 uppercase tracking-wider text-xs mb-4">Contact</div>
+                        <a href="mailto:mjfuertesf@gmail.com" class="block text-gray-700 hover:text-blue-600 transition-colors">
+                            mjfuertesf@gmail.com
+                        </a>
+                        <a href="https://github.com/hkfuertes" target="_blank" class="block text-gray-700 hover:text-blue-600 transition-colors">
+                            GitHub
+                        </a>
+                        <a href="https://linkedin.com/in/hkfuertes" target="_blank" class="block text-gray-700 hover:text-blue-600 transition-colors">
+                            LinkedIn
+                        </a>
+                        <a href="/Miguel_Fuertes_CV.pdf" target="_blank" class="block text-gray-700 hover:text-blue-600 transition-colors">
+                            Download CV
+                        </a>
+                    </div>
                 </div>
             </div>
             
@@ -71,10 +83,10 @@ import BaseLayout from "../layouts/BaseLayout.astro";
             <!-- CTA simple -->
             <div class="border-t border-gray-200 pt-12">
                 <a 
-                    href="/work"
+                    href="/blog"
                     class="inline-flex items-center gap-3 text-lg font-medium group"
                 >
-                    <span class="text-gray-900 group-hover:text-blue-600 transition-colors">View my work</span>
+                    <span class="text-gray-900 group-hover:text-blue-600 transition-colors">About me</span>
                     <svg class="w-5 h-5 text-blue-600 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
                     </svg>
