@@ -74,6 +74,131 @@ interface Contribution {
 
 ---
 
+### 3. **Mejorar Pipeline de Development, Build y CV/PDF**
+**Fecha**: 2026-01-30
+**Descripción**: Optimizar y documentar el flujo de desarrollo, build y generación del CV
+
+#### Estado Actual
+
+**Archivos de pipeline**:
+- ✅ `Makefile` - Comandos para CV (new, render)
+- ✅ `docker-compose.yml` - Servicios: rendercv, build, app
+- ✅ `dev.sh` - Script rápido para dev/build/logs
+- ✅ `.github/workflows/deploy.yml` - CI/CD a GitHub Pages
+
+**Servicios Docker**:
+1. **rendercv**: Genera PDF del CV desde YAML
+2. **build**: Build del portfolio Astro
+3. **app**: Dev server (puerto 4321)
+
+**GitHub Actions**:
+- Trigger: push a main/master
+- Build portfolio con Node 20
+- Deploy a GitHub Pages
+- ❌ NO genera CV/PDF en CI
+
+#### Mejoras Propuestas
+
+**1. Pipeline de CV/PDF**:
+```yaml
+# Añadir step en .github/workflows/deploy.yml
+- name: Generate CV PDF
+  run: |
+    pip install rendercv
+    rendercv render Miguel_Fuertes_CV.yaml
+    cp rendercv_output/Miguel_Fuertes_CV.pdf portfolio/public/
+```
+- Generar PDF automáticamente en CI
+- Publicar PDF en `/cv.pdf` del portfolio
+- Versionar PDFs con fecha/commit
+
+**2. Unificar comandos**:
+```makefile
+# Añadir al Makefile
+.PHONY: dev build cv all
+
+dev:
+	@./dev.sh dev
+
+build-portfolio:
+	@./dev.sh build
+
+build-cv:
+	@$(MAKE) render
+
+all: build-cv build-portfolio
+	@echo "✅ CV y Portfolio generados"
+```
+
+**3. Script de deployment local**:
+```bash
+#!/bin/bash
+# deploy.sh - Test build completo antes de push
+make build-cv
+./dev.sh build
+echo "✅ Build completo OK - Ready to push"
+```
+
+**4. Environment variables**:
+- ✅ `GITHUB_TOKEN` ya configurado en docker-compose
+- ❌ Falta en GitHub Actions secrets
+- Añadir: `GITHUB_TOKEN` en repo secrets para loaders
+
+**5. Caché y optimización**:
+```yaml
+# En GitHub Actions
+- uses: actions/cache@v3
+  with:
+    path: |
+      ~/.npm
+      portfolio/node_modules
+      portfolio/.astro
+    key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+```
+
+**6. Validación pre-build**:
+```bash
+# pre-build.sh
+echo "🔍 Validando CV YAML..."
+rendercv render Miguel_Fuertes_CV.yaml --validate-only
+
+echo "🔍 Verificando gists.yaml..."
+test -f blog/gists.yaml || echo "⚠️  gists.yaml no encontrado"
+
+echo "🔍 Chequeando GITHUB_TOKEN..."
+test -n "$GITHUB_TOKEN" || echo "⚠️  GITHUB_TOKEN no configurado"
+```
+
+#### Archivos a Modificar
+
+1. **`.github/workflows/deploy.yml`**:
+   - Añadir step de generación de CV
+   - Añadir caché de node_modules
+   - Añadir GITHUB_TOKEN secret
+   - Añadir validaciones pre-build
+
+2. **`Makefile`**:
+   - Añadir target `all` (cv + portfolio)
+   - Añadir target `deploy-test`
+   - Simplificar comandos comunes
+
+3. **`dev.sh`**:
+   - Añadir comando `cv` (genera PDF)
+   - Añadir comando `test` (valida build)
+   - Añadir comando `deploy` (build completo)
+
+4. **Nuevo `scripts/pre-build.sh`**:
+   - Validaciones antes del build
+   - Check de env vars
+   - Verificación de archivos requeridos
+
+#### Referencias
+- RenderCV Docs: https://docs.rendercv.com/
+- Astro Build: https://docs.astro.build/en/guides/deploy/
+- GitHub Actions Cache: https://github.com/actions/cache
+
+---
+
 ## Completed
 - ✅ Grid de 3 columnas para timeline
 - ✅ Gists automáticos desde YAML
