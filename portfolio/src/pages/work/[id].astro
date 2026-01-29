@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
+import { addHeadingIds } from "../../utils/add-heading-ids";
 
 export async function getStaticPaths() {
     const posts = await getCollection("blog");
@@ -19,6 +20,9 @@ const { post } = Astro.props;
 const isGitHub = post.id.includes('-');
 const typeLabel = isGitHub ? 'Project' : 'Writing';
 
+// Add IDs to headings and extract ToC
+const { html, headings } = addHeadingIds(post.rendered?.html || '');
+
 function formatDate(date: Date) {
     return date.toLocaleDateString("en-US", {
         month: "long",
@@ -28,7 +32,7 @@ function formatDate(date: Date) {
 }
 ---
 
-<BaseLayout title={`${post.data.title} - Miguel Fuertes`} description={post.data.description}>
+<BaseLayout title={`${post.data.title} - Miguel Fuertes`} description={post.data.description} headings={headings}>
     <div class="min-h-screen bg-white">
         <!-- Grid de fondo -->
         <div class="fixed inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none"></div>
@@ -106,13 +110,19 @@ function formatDate(date: Date) {
                 </header>
 
                 <!-- Content -->
-                <div class="article-content" set:html={post.rendered?.html} />
+                <div class="article-content" set:html={html} />
             </article>
         </div>
     </div>
 </BaseLayout>
 
 <style>
+    /* Smooth scroll for anchor links */
+    html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 100px; /* Account for fixed header */
+    }
+    
     .article-content {
         max-width: none;
         font-size: 1.125rem;

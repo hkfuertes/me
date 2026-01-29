@@ -1,16 +1,61 @@
 ---
-const { currentPath = "/" } = Astro.props;
+import type { Heading } from '../utils/add-heading-ids';
+
+interface Props {
+    currentPath?: string;
+    headings?: Heading[];
+}
+
+const { currentPath = "/", headings = [] } = Astro.props;
 ---
 
 <header class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-sm border-b border-gray-200">
+    <!-- Progress bar -->
+    <div id="progress-bar" class="absolute bottom-[-1px] left-0 h-0.5 bg-blue-600 transition-all duration-150" style="width: 0%"></div>
+    
     <nav class="max-w-5xl mx-auto px-6 py-4">
         <div class="flex items-center justify-between">
-            <!-- Left: Back arrow -->
-            <a href="/" class="text-gray-600 hover:text-blue-600 transition-colors">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
-                </svg>
-            </a>
+            <!-- Left: Back arrow + ToC select -->
+            <div class="flex items-center gap-4">
+                <a href="/" class="text-gray-600 hover:text-blue-600 transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                    </svg>
+                </a>
+                
+                {headings.length > 0 && (
+                    <select 
+                        id="toc-select"
+                        class="text-sm text-gray-600 border border-gray-300 rounded px-3 py-2 hover:border-blue-600 focus:border-blue-600 focus:outline-none focus:ring-1 focus:ring-blue-600"
+                        size="1"
+                        style="min-height: 42px;"
+                    >
+                        <option value="">Jump to...</option>
+                        {(() => {
+                            let h2Counter = 0;
+                            let h3Counter = 0;
+                            return headings.map((heading) => {
+                                if (heading.level === 2) {
+                                    h2Counter++;
+                                    h3Counter = 0;
+                                    return (
+                                        <option value={`#${heading.id}`}>
+                                            {h2Counter}. {heading.text}
+                                        </option>
+                                    );
+                                } else {
+                                    h3Counter++;
+                                    return (
+                                        <option value={`#${heading.id}`}>
+                                            {h2Counter}.{h3Counter} {heading.text}
+                                        </option>
+                                    );
+                                }
+                            });
+                        })()}
+                    </select>
+                )}
+            </div>
             
             <!-- Right: All content -->
             <div class="flex items-center gap-6 text-sm">
@@ -61,3 +106,40 @@ const { currentPath = "/" } = Astro.props;
 
 <!-- Spacer para compensar el fixed header -->
 <div class="h-[57px]"></div>
+
+<script>
+    // Update progress bar on scroll
+    function updateProgressBar() {
+        const progressBar = document.getElementById('progress-bar');
+        if (!progressBar) return;
+        
+        const windowHeight = window.innerHeight;
+        const documentHeight = document.documentElement.scrollHeight - windowHeight;
+        const scrolled = window.scrollY;
+        const progress = (scrolled / documentHeight) * 100;
+        
+        progressBar.style.width = `${Math.min(progress, 100)}%`;
+    }
+    
+    window.addEventListener('scroll', updateProgressBar, { passive: true });
+    window.addEventListener('resize', updateProgressBar, { passive: true });
+    
+    // Initial call
+    updateProgressBar();
+    
+    // ToC select navigation
+    const tocSelect = document.getElementById('toc-select') as HTMLSelectElement;
+    if (tocSelect) {
+        tocSelect.addEventListener('change', (e) => {
+            const target = (e.target as HTMLSelectElement).value;
+            if (target) {
+                const element = document.querySelector(target);
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+                // Reset to placeholder immediately
+                tocSelect.value = '';
+            }
+        });
+    }
+</script>

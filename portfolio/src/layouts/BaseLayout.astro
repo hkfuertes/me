@@ -1,14 +1,16 @@
 ---
 import '../styles/global.css'
 import TopBar from '../components/TopBar.astro';
+import type { Heading } from '../utils/add-heading-ids';
 
 interface Props {
     title: string;
     description?: string;
     showTopBar?: boolean;
+    headings?: Heading[];
 }
 
-const { title, description = "Senior Software Engineer with 10+ years experience in backend development, cloud platforms, and embedded systems.", showTopBar = true } = Astro.props;
+const { title, description = "Senior Software Engineer with 10+ years experience in backend development, cloud platforms, and embedded systems.", showTopBar = true, headings = [] } = Astro.props;
 const currentPath = Astro.url.pathname;
 ---
 
@@ -36,7 +38,7 @@ const currentPath = Astro.url.pathname;
         <title>{title}</title>
     </head>
     <body class="bg-white text-gray-900 min-h-screen antialiased">
-        {showTopBar && <TopBar currentPath={currentPath} />}
+        {showTopBar && <TopBar currentPath={currentPath} headings={headings} />}
         <slot />
     </body>
 </html>
