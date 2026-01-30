@@ -1,37 +1,56 @@
 # Makefile
-.PHONY: new render watch clean help list
+.PHONY: new render dev build cv all test up down help
 
 NAME ?= Miguel Fuertes
 FILE = $(shell echo "$(NAME)" | tr ' ' '_')_CV.yaml
 
+# CV
 new:
-	@if [ -f "$(FILE)" ]; then \
-		echo "Error: $(FILE) already exists!"; \
-		echo "Delete it first or use a different name."; \
-		exit 1; \
-	fi
-	@echo "Creating $(FILE)..."
+	@[ ! -f "$(FILE)" ] || (echo "Error: $(FILE) exists" && exit 1)
 	docker compose run --rm rendercv new "$(NAME)"
-	@echo "Created $(FILE)"
 
 render:
-	@if [ ! -f "$(FILE)" ]; then \
-		echo "Error: $(FILE) not found!"; \
-		echo "Create it first with: make new NAME=\"Your Name\""; \
-		exit 1; \
-	fi
-	@echo "Rendering $(FILE)..."
+	@[ -f "$(FILE)" ] || (echo "Error: $(FILE) not found" && exit 1)
 	docker compose run --rm rendercv render "$(FILE)"
-	@echo "PDF generated in rendercv_output/"
 
-bootstrap:
-	docker run -it --rm -v ${PWD}:/app -w /app node:lts bash
+cv: render
+	@mkdir -p portfolio/public
+	@cp rendercv_output/$(FILE:.yaml=.pdf) portfolio/public/cv.pdf
 
+# Portfolio
+dev:
+	@./dev.sh dev
+
+build:
+	@./dev.sh build
+
+# Combined
+all: cv build
+
+test: all
+
+# Docker
 up:
 	docker compose up app
 
 down:
 	docker compose down
 
-build:
-	docker compose run --rm build
+# Help
+help:
+	@echo "CV:"
+	@echo "  make new NAME=\"Name\"  - Create CV"
+	@echo "  make render            - Generate PDF"
+	@echo "  make cv                - Generate and copy to public/"
+	@echo ""
+	@echo "Portfolio:"
+	@echo "  make dev               - Dev server"
+	@echo "  make build             - Build site"
+	@echo ""
+	@echo "Combined:"
+	@echo "  make all               - CV + Portfolio"
+	@echo "  make test              - Build everything"
+	@echo ""
+	@echo "Docker:"
+	@echo "  make up                - Start app"
+	@echo "  make down              - Stop app"

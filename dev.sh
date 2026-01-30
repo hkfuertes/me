@@ -1,43 +1,49 @@
 #!/bin/bash
 
-# Script de desarrollo rápido para el portfolio
-
 case "$1" in
   dev)
-    echo "🚀 Iniciando servidor de desarrollo..."
     docker compose up app
     ;;
   
   build)
-    echo "🔨 Construyendo sitio estático..."
     docker compose run --rm build
     ;;
   
+  cv)
+    make cv
+    ;;
+  
+  test)
+    ./scripts/pre-build.sh && docker compose run --rm build
+    ;;
+  
+  all)
+    make all
+    ;;
+  
   down)
-    echo "🛑 Deteniendo servicios..."
     docker compose down
     ;;
   
   logs)
-    echo "📋 Mostrando logs..."
     docker logs me-app-1 --tail 100 -f
     ;;
   
   clean)
-    echo "🧹 Limpiando contenedores y volúmenes..."
     docker compose down -v
     ;;
   
   *)
-    echo "Portfolio - Script de desarrollo"
+    echo "Usage: ./dev.sh [command]"
     echo ""
-    echo "Uso: ./dev.sh [comando]"
-    echo ""
-    echo "Comandos disponibles:"
-    echo "  dev     - Inicia servidor de desarrollo"
-    echo "  build   - Construye el sitio estático"
-    echo "  down    - Detiene servicios"
-    echo "  logs    - Muestra logs del contenedor"
-    echo "  clean   - Limpia contenedores y volúmenes"
+    echo "Commands:"
+    echo "  dev    - Dev server"
+    echo "  build  - Build site"
+    echo "  cv     - Generate CV PDF"
+    echo "  test   - Validate and build"
+    echo "  all    - Build CV + Portfolio"
+    echo "  down   - Stop services"
+    echo "  logs   - Show logs"
+    echo "  clean  - Clean containers"
     ;;
 esac

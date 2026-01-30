@@ -17,6 +17,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       
+      - name: Validate configuration
+        run: |
+          chmod +x scripts/pre-build.sh
+          ./scripts/pre-build.sh
+      
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
@@ -24,12 +29,39 @@ jobs:
           cache: 'npm'
           cache-dependency-path: portfolio/package-lock.json
       
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Install RenderCV
+        run: pip install rendercv
+      
+      - name: Generate CV PDF
+        run: |
+          rendercv render Miguel_Fuertes_CV.yaml
+          mkdir -p portfolio/public
+          cp rendercv_output/Miguel_Fuertes_CV.pdf portfolio/public/cv.pdf
+          echo "CV PDF generated and copied to public/"
+      
       - name: Install dependencies
         working-directory: ./portfolio
         run: npm ci
       
+      - name: Cache Astro build
+        uses: actions/cache@v4
+        with:
+          path: |
+            portfolio/.astro
+            portfolio/node_modules/.astro
+          key: ${{ runner.os }}-astro-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-astro-
+      
       - name: Build Astro site
         working-directory: ./portfolio
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npm run build
       
       - name: Upload artifact
