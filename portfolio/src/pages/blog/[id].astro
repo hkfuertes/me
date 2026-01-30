@@ -33,31 +33,31 @@ function formatDate(date: Date) {
 ---
 
 <BaseLayout title={`${post.data.title} - Miguel Fuertes`} description={post.data.description} headings={headings}>
-    <div class="min-h-screen bg-white">
+    <div class="min-h-screen bg-[#0a1a0f]">
         <!-- Grid de fondo -->
-        <div class="fixed inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none"></div>
+        <div class="fixed inset-0 bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none"></div>
         
         <div class="relative max-w-5xl mx-auto px-6 py-12">
             <!-- Article container with white background -->
-            <article class="bg-white border border-gray-200">
-                <header class="bg-gray-50 px-8 md:px-12 pt-8 md:pt-12 pb-12 mb-16 border-b border-gray-200">
+            <article class="bg-[#0f2415] border border-[#1a3a24]">
+                <header class="bg-[#0a1a0f] px-8 md:px-12 pt-8 md:pt-12 pb-12 mb-16 border-b border-[#1a3a24]">
                     <div class="mb-4">
-                        <span class="inline-block px-2 py-1 text-xs font-medium border border-gray-300 text-gray-700 uppercase tracking-wider">
+                        <span class="inline-block px-2 py-1 text-xs font-medium border border-[#1a3a24] text-gray-300 uppercase tracking-wider">
                             {typeLabel}
                         </span>
                     </div>
                     
-                    <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4 leading-tight">
+                    <h1 class="text-4xl md:text-5xl font-bold text-gray-100 mb-4 leading-tight">
                         {post.data.title}
                     </h1>
                     
                     {post.data.description && (
-                        <p class="text-xl text-gray-600 font-light mb-4">
+                        <p class="text-xl text-gray-400 font-light mb-4">
                             {post.data.description}
                         </p>
                     )}
                     
-                    <div class="flex items-center gap-4 text-sm text-gray-500">
+                    <div class="flex items-center gap-4 text-sm text-gray-400">
                         <time datetime={post.data.date.toISOString()}>
                             {formatDate(post.data.date)}
                         </time>
@@ -68,7 +68,7 @@ function formatDate(date: Date) {
                                 {post.data.stars !== undefined && post.data.stars > 0 && (
                                     <>
                                         <span>·</span>
-                                        <div class="flex items-center gap-1 text-gray-600">
+                                        <div class="flex items-center gap-1 text-gray-400">
                                             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                                                 <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
                                             </svg>
@@ -79,7 +79,7 @@ function formatDate(date: Date) {
                                 {post.data.forks !== undefined && post.data.forks > 0 && (
                                     <>
                                         <span>·</span>
-                                        <div class="flex items-center gap-1 text-gray-600">
+                                        <div class="flex items-center gap-1 text-gray-400">
                                             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                                                 <path d="M8 3a3 3 0 100 6 3 3 0 000-6zm8 12a3 3 0 100 6 3 3 0 000-6zM7 7v4a4 4 0 004 4h2a4 4 0 004-4V7M16 3a3 3 0 100 6 3 3 0 000-6z"/>
                                             </svg>
@@ -97,7 +97,7 @@ function formatDate(date: Date) {
                                     href={post.data.url} 
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    class="text-gray-800 hover:text-gray-900 inline-flex items-center gap-1"
+                                    class="text-emerald-400 hover:text-emerald-300 inline-flex items-center gap-1"
                                 >
                                     View on GitHub
                                     <Icon name="tabler:external-link" class="w-3 h-3" />
@@ -134,7 +134,7 @@ function formatDate(date: Date) {
     .article-content :global(h4),
     .article-content :global(h5),
     .article-content :global(h6) {
-        color: #111827;
+        color: #f3f4f6;
         font-weight: 700;
         margin-top: 2em;
         margin-bottom: 1em;
@@ -147,36 +147,36 @@ function formatDate(date: Date) {
     
     /* Paragraphs */
     .article-content :global(p) {
-        color: #374151;
+        color: #d1d5db;
         margin-bottom: 1.25em;
     }
     
     /* Links */
     .article-content :global(a) {
-        color: #1f2937;
+        color: #6ee7b7;
         text-decoration: underline;
-        text-decoration-color: #9ca3af;
+        text-decoration-color: #2d5a3d;
     }
     
     .article-content :global(a:hover) {
-        color: #111827;
-        text-decoration-color: #1f2937;
+        color: #a7f3d0;
+        text-decoration-color: #6ee7b7;
     }
     
     /* Inline code */
     .article-content :global(code:not(pre code)) {
-        color: #1f2937;
-        background-color: #f3f4f6;
+        color: #a7f3d0;
+        background-color: #0a1a0f;
         padding: 0.125rem 0.375rem;
         border-radius: 0.25rem;
         font-size: 0.875em;
         font-family: ui-monospace, monospace;
     }
     
-    /* Code blocks - Let Shiki handle all styling */
+    /* Code blocks - darker background */
     .article-content :global(pre) {
-        background-color: #f6f8fa;
-        border: 1px solid #e5e7eb;
+        background-color: #0d1117 !important;
+        border: 1px solid #1a3a24;
         border-radius: 0.5rem;
         padding: 1rem;
         overflow-x: auto;
@@ -193,7 +193,7 @@ function formatDate(date: Date) {
     /* Lists */
     .article-content :global(ul),
     .article-content :global(ol) {
-        color: #374151;
+        color: #d1d5db;
         margin-bottom: 1.25em;
         padding-left: 1.625em;
         list-style-position: outside;
@@ -214,9 +214,9 @@ function formatDate(date: Date) {
     
     /* Blockquotes */
     .article-content :global(blockquote) {
-        border-left: 4px solid #2563eb;
+        border-left: 4px solid #6ee7b7;
         padding-left: 1em;
-        color: #374151;
+        color: #d1d5db;
         font-style: italic;
         margin: 1.5em 0;
     }
@@ -224,13 +224,13 @@ function formatDate(date: Date) {
     /* Horizontal rule */
     .article-content :global(hr) {
         border: 0;
-        border-top: 1px solid #e5e7eb;
+        border-top: 1px solid #1a3a24;
         margin: 2em 0;
     }
     
     /* Strong/Bold */
     .article-content :global(strong) {
-        color: #111827;
+        color: #f9fafb;
         font-weight: 600;
     }
     
@@ -245,14 +245,14 @@ function formatDate(date: Date) {
     
     .article-content :global(th),
     .article-content :global(td) {
-        border: 1px solid #e5e7eb;
+        border: 1px solid #1a3a24;
         padding: 0.75em;
         text-align: left;
         white-space: nowrap;
     }
     
     .article-content :global(th) {
-        background-color: #f9fafb;
+        background-color: #0a1a0f;
         font-weight: 600;
     }
 </style>

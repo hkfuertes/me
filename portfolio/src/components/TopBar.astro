@@ -16,15 +16,15 @@ const isArticlePage = currentPath.startsWith('/blog/') && currentPath !== '/blog
 const backLink = isArticlePage ? '/blog' : '/';
 ---
 
-<header class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-sm border-b border-gray-200">
+<header class="fixed top-0 left-0 right-0 z-50 bg-[#0a1a0f]/90 backdrop-blur-sm border-b border-[#1a3a24]">
     <!-- Progress bar -->
-    <div id="progress-bar" class="absolute bottom-[-1px] left-0 h-0.5 bg-gray-800 transition-all duration-150" style="width: 0%"></div>
+    <div id="progress-bar" class="absolute bottom-[-1px] left-0 h-0.5 bg-emerald-400 transition-all duration-150" style="width: 0%"></div>
     
     <nav class="max-w-5xl mx-auto px-6 py-4">
         <div class="flex items-center justify-between">
             <!-- Left: Back arrow + slot (search/toc) -->
             <div class="flex items-center gap-4 flex-1 mr-6" style="min-height: 42px;">
-                <a href={backLink} class="text-gray-600 hover:text-gray-900 transition-colors flex-shrink-0">
+                <a href={backLink} class="text-gray-400 hover:text-emerald-300 transition-colors flex-shrink-0">
                     <Icon name="tabler:arrow-left" class="w-5 h-5" />
                 </a>
                 
@@ -32,20 +32,20 @@ const backLink = isArticlePage ? '/blog' : '/';
                     <slot name="left" />
                 ) : headings.length > 0 && (
                     <div class="relative group flex-1">
-                        <div class="border border-gray-300 rounded bg-white group-hover:rounded-b-none group-hover:border-b-transparent transition-all">
+                        <div class="border border-[#1a3a24] rounded bg-[#0f2415] group-hover:rounded-b-none group-hover:border-b-transparent transition-all">
                             <button
-                                class="w-full text-sm text-gray-600 px-3 py-2 flex items-center justify-between gap-2 transition-colors"
+                                class="w-full text-sm text-gray-400 px-3 py-2 flex items-center justify-between gap-2 transition-colors"
                                 style="min-height: 42px;"
                             >
                                 <span>Jump to...</span>
                                 <Icon name="tabler:chevron-down" class="w-4 h-4 transition-transform group-hover:rotate-180" />
                             </button>
                         </div>
-                        <ul class="hidden group-hover:block absolute left-0 right-0 top-full bg-white border border-gray-300 border-t-0 rounded-b shadow-lg overflow-hidden z-50 max-h-[400px] overflow-y-auto">
+                        <ul class="hidden group-hover:block absolute left-0 right-0 top-full bg-[#0f2415] border border-[#1a3a24] border-t-0 rounded-b shadow-lg overflow-hidden z-50 max-h-[400px] overflow-y-auto">
                             <li>
                                 <a
                                     href="#"
-                                    class="block px-4 py-2.5 text-sm transition-all hover:bg-gray-50 text-gray-500 italic font-mono"
+                                    class="block px-4 py-2.5 text-sm transition-all hover:bg-[#1a3a24] text-gray-400 italic font-mono"
                                     onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;"
                                 >
                                     GOTO 0;
@@ -62,9 +62,9 @@ const backLink = isArticlePage ? '/blog' : '/';
                                             <li>
                                                 <a
                                                     href={`#${heading.id}`}
-                                                    class="block px-4 py-2.5 text-sm transition-all hover:bg-gray-100 hover:text-gray-900 text-gray-900 font-medium"
+                                                    class="block px-4 py-2.5 text-sm transition-all hover:bg-[#1a3a24] hover:text-emerald-300 text-gray-100 font-medium"
                                                 >
-                                                    <span class="text-gray-800 font-mono mr-2">{h2Counter}.</span>
+                                                    <span class="text-emerald-400 font-mono mr-2">{h2Counter}.</span>
                                                     {heading.text}
                                                 </a>
                                             </li>
@@ -75,9 +75,9 @@ const backLink = isArticlePage ? '/blog' : '/';
                                             <li>
                                                 <a
                                                     href={`#${heading.id}`}
-                                                    class="block px-4 py-2.5 text-sm transition-all hover:bg-gray-50 text-gray-700 pl-8"
+                                                    class="block px-4 py-2.5 text-sm transition-all hover:bg-[#1a3a24] text-gray-300 pl-8"
                                                 >
-                                                    <span class="text-gray-400 font-mono mr-2">{h2Counter}.{h3Counter}</span>
+                                                    <span class="text-gray-500 font-mono mr-2">{h2Counter}.{h3Counter}</span>
                                                     {heading.text}
                                                 </a>
                                             </li>
@@ -92,14 +92,14 @@ const backLink = isArticlePage ? '/blog' : '/';
             
             <!-- Right: All content -->
             <div class="flex items-center gap-6 text-sm">
-                <a href="/" class="text-lg font-bold tracking-tight text-gray-900 hover:text-gray-800 transition-colors">
+                <a href="/" class="text-lg font-bold tracking-tight text-gray-100 hover:text-emerald-300 transition-colors">
                     Miguel Fuertes
                 </a>
                 <a 
                     href="https://github.com/hkfuertes" 
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="text-gray-600 hover:text-gray-900 transition-colors"
+                    class="text-gray-400 hover:text-emerald-300 transition-colors"
                     aria-label="GitHub"
                 >
                     <Icon name="tabler:brand-github" class="w-5 h-5" />
@@ -108,7 +108,7 @@ const backLink = isArticlePage ? '/blog' : '/';
                     href="https://linkedin.com/in/hkfuertes" 
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="text-gray-600 hover:text-gray-900 transition-colors"
+                    class="text-gray-400 hover:text-emerald-300 transition-colors"
                     aria-label="LinkedIn"
                 >
                     <Icon name="tabler:brand-linkedin" class="w-5 h-5" />
@@ -116,7 +116,7 @@ const backLink = isArticlePage ? '/blog' : '/';
                 <a 
                     href="/Miguel_Fuertes_CV.pdf" 
                     target="_blank"
-                    class="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium border border-gray-300 text-gray-700 uppercase tracking-wider transition-all hover:bg-gray-800 hover:text-white hover:border-gray-800"
+                    class="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium border border-[#1a3a24] text-gray-300 uppercase tracking-wider transition-all hover:bg-emerald-600 hover:text-white hover:border-emerald-600"
                 >
                     <Icon name="tabler:download" class="w-3.5 h-3.5" />
                     RESUME
