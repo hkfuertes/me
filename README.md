@@ -13,6 +13,7 @@ This monorepo contains:
 
 - **`portfolio/`** - Portfolio website (Astro + TailwindCSS)
   - **`src/data/`** - Content configuration (gists.yaml, projects.yaml)
+- **`mcp/`** - MCP (Model Context Protocol) server for AI agents
 - **`Miguel_Fuertes_CV.yaml`** - CV in YAML format (RenderCV compatible)
 
 ## Tech Stack

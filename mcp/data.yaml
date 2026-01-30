@@ -1,0 +1,178 @@
+# Miguel Fuertes - Portfolio Data
+# Auto-generated from CV and portfolio data
+
+profile:
+  name: Miguel Fuertes
+  title: Senior Software Engineer
+  headline: Let's Talk!
+  bio: |
+    Backend engineer with over 10 years of experience building robust systems, SEO platforms, 
+    and embedded solutions. Currently focused on search infrastructure, personalization engines, 
+    and making complex systems simple.
+    
+    Worked at Gartner (search/personalization for GetApp/Capterra), Microsoft (fan engagement platforms), 
+    and ATOS (enterprise sports platforms). Experience spans from early-stage startups to 
+    enterprise-scale multi-region deployments.
+  location: Barcelona, Spain
+  email: mjfuertesf@gmail.com
+  website: https://mfuertes.net
+  github: https://github.com/hkfuertes
+  linkedin: https://linkedin.com/in/hkfuertes
+
+experience:
+  - company: Gartner
+    position: Senior Software Engineer
+    period: "June 2022 - December 2025"
+    location: Barcelona, Spain (Remote)
+    summary: Backend engineer for search, personalization, and SEO platforms across GetApp, Capterra, and Software Advice
+    highlights:
+      - Migrated Sinatra to Rails and Solr to OpenSearch for GetApp backend
+      - Built Ruby on Rails personalization service for product recommendations
+      - Contributed to RoR Published Pages for SEO-controlled indexing
+      - Led Elixir Published Pages Monitoring (frontend validation)
+      - Led Elixir Sitemaps with S3/CloudFront integration
+      - Led Elixir Similarity platform (in-house OnCrawl replacement)
+    stack:
+      - Ruby
+      - Rails
+      - Elixir
+      - Phoenix
+      - PostgreSQL
+      - Kafka
+      - AWS S3
+      - CloudFront
+      - OpenSearch
+      
+  - company: ATOS
+    position: Lead Software Engineer
+    period: "March 2019 - June 2022"
+    location: Madrid, Spain
+    summary: Lead maintainer of Microsoft Sports Digital Platform for Ligue 1 fan engagement
+    highlights:
+      - Maintained enterprise fan platform across Azure services
+      - Primary technical liaison with Cenova integrator
+      - Core member of 3-person team leveraging MSDP expertise
+      - Managed high-scale fan interaction pipelines
+    stack:
+      - C# .NET 4.6
+      - Azure B2C
+      - CosmosDB
+      - Data Lake
+      - DocumentDB
+      - Azure Search
+      - Azure Blobs
+      
+  - company: Microsoft
+    position: Program Manager
+    period: "October 2016 - March 2019"
+    location: Madrid, Spain
+    summary: Program Manager for MSDP white-label fan platform
+    highlights:
+      - Coordinated multi-project deployments across sports organizations
+      - Liaison between teams for white-label feature sharing
+      - Managed roadmap for cross-client feature reuse
+      - Provided technical support and proof of concepts
+    stack:
+      - C# .NET 4.6
+      - Azure platform
+
+skills:
+  languages:
+    - PHP (Symfony1/2)
+    - Ruby (Rails)
+    - Elixir (Phoenix)
+    - C# (.NET 4.6)
+    - Java
+    - JavaScript
+    - Python
+    - HTML/CSS
+    
+  frameworks:
+    - Symfony
+    - Ruby on Rails
+    - Elixir Phoenix
+    - .NET Framework
+    - Bootstrap
+    - Cordova
+    - Flutter
+    
+  cloud_infrastructure:
+    - AWS (S3, CloudFront, App Services)
+    - Azure (B2C, CosmosDB, Data Lake, DocumentDB, Search, Blobs)
+    - Kafka
+    - PostgreSQL
+    - Redis
+    - OpenSearch
+    - Solr
+    
+  domains:
+    - SEO platforms
+    - Search infrastructure
+    - Personalization engines
+    - Fan engagement platforms
+    - Sitemaps generation
+    - Content similarity analysis
+    - Multi-region deployments
+    - Embedded systems (OpenWrt, Buildroot)
+
+education:
+  - degree: M.Ed. in Teacher Training
+    institution: Nebrija University
+    period: "2020-2022"
+    location: Madrid, Spain
+    
+  - degree: M.Sc. in Biomedical Engineering
+    institution: Public University of Navarra
+    period: "2017-2019"
+    location: Pamplona, Spain
+    
+  - degree: Major in Computer Science
+    institution: Public University of Navarra
+    period: "2011-2014"
+    location: Pamplona, Spain
+    note: Year abroad in Millersville, Lancaster (PA) in 2012
+
+featured_projects:
+  - name: doceacordes.es
+    url: https://doceacordes.es
+    description: Song book for guitar songs
+    status: active
+    period: "2020-present"
+    
+  - name: msm8916-openwrt
+    url: https://github.com/hkfuertes/msm8916-openwrt
+    description: OpenWrt SNAPSHOT for Chinese 4G Dongles/MiFis
+    stars: 13
+    forks: 3
+    topics: [openwrt, embedded, 4g]
+    
+  - name: AAGW
+    url: https://github.com/hkfuertes/AAGW
+    description: Android Auto Wireless Gateway
+    stars: 7
+    forks: 1
+    topics: [android-auto, raspberry-pi, wireless]
+    
+  - name: UxPlay-Buildroot
+    url: https://github.com/hkfuertes/UxPlay-Buildroot
+    description: Minimal OS Raspberry Pi images with UxPlay installed for AirPlay 2 Mirroring
+    topics: [airplay, raspberry-pi, buildroot]
+    
+  - name: telegram-db-backup
+    url: https://github.com/hkfuertes/telegram-db-backup
+    description: Docker Container to backup MySQL/MariaDB to a *.sql.zip file to a Telegram Bot Chat
+    topics: [docker, backup, telegram]
+    
+  - name: tags
+    url: https://github.com/hkfuertes/tags
+    description: THE app to reuse NFC cards in Home Assistant
+    topics: [nfc, home-assistant, android]
+
+interests:
+  - Embedded systems (OpenWrt, Buildroot)
+  - Home automation
+  - Raspberry Pi projects
+  - Android Auto/AirPlay integration
+  - Search and personalization systems
+  - SEO optimization
+  - Open source contributions

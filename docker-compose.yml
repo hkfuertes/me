@@ -28,6 +28,19 @@ services:
       - PORT=4321
       - GITHUB_TOKEN=${GITHUB_TOKEN}
 
+  mcp:
+    build:
+      context: ./mcp
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./mcp:/app
+      - ./mcp/data.yaml:/app/data.yaml:ro
+    environment:
+      - HOST=0.0.0.0
+      - PORT=8000
+
 volumes:
   cv-data:
     driver: local
