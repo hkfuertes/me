@@ -1,16 +1,10 @@
-FROM python:3.11-slim
-
+FROM node:20-slim
 WORKDIR /app
-
-# Copy requirements and install dependencies
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Copy server code
-COPY server.py .
-
-# Expose port
+COPY package*.json ./
+RUN npm ci
+COPY tsconfig.json ./
+COPY src/ ./src/
+COPY data.yaml ./
+RUN npm run build
 EXPOSE 8000
-
-# Run server
-CMD ["uvicorn", "server:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["node", "dist/index.js"]

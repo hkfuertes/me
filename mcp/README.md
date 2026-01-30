@@ -31,10 +31,14 @@ All data is loaded from `data.yaml` which includes:
 
 ```bash
 # Install dependencies
-pip install -r requirements.txt
+npm install
 
-# Run server
-python server.py
+# Run in development mode (with tsx)
+npm run dev
+
+# Or build and run
+npm run build
+npm start
 ```
 
 ### Production (Docker in LXC/Proxmox)
@@ -85,7 +89,7 @@ Add to your Claude Desktop configuration:
 {
   "mcpServers": {
     "mfuertes-portfolio": {
-      "url": "http://localhost:8000/mcp"
+      "url": "http://localhost:8000/sse"
     }
   }
 }
@@ -97,7 +101,7 @@ Add to your Claude Desktop configuration:
 {
   "mcpServers": {
     "mfuertes-portfolio": {
-      "url": "http://YOUR_PROXMOX_IP:8000/mcp"
+      "url": "http://YOUR_PROXMOX_IP:8000/sse"
     }
   }
 }
@@ -129,32 +133,34 @@ Once connected, you can ask Claude:
 
 ```
 mcp/
-├── server.py           # Main MCP server implementation
-├── data.yaml          # Portfolio data (loaded at startup)
-├── requirements.txt    # Python dependencies
-├── Dockerfile         # Docker configuration
-├── test_server.py     # Testing script
-└── README.md          # This file
+├── src/
+│   └── index.ts        # Main MCP server implementation
+├── data.yaml           # Portfolio data (loaded at startup)
+├── package.json        # Node.js dependencies
+├── tsconfig.json       # TypeScript configuration
+├── Dockerfile          # Docker configuration
+└── README.md           # This file
 ```
 
 ## API Endpoints
 
 - `GET /` - Server information and instructions
 - `GET /health` - Health check
-- `POST /mcp` - MCP protocol endpoint (SSE)
+- `GET /sse` - SSE connection endpoint (MCP protocol)
+- `POST /messages` - MCP message endpoint
 
 ## Environment Variables
 
-None required. All configuration is in `data.yaml`.
+- `PORT` - Server port (default: `8000`)
 
 ## Development
 
 ### Adding New Tools
 
-Edit `server.py`:
+Edit `src/index.ts`:
 
-1. Add tool definition in `list_tools()`
-2. Implement handler in `call_tool()`
+1. Add a new `server.tool(...)` call with name, description, schema, and handler
+2. Rebuild: `npm run build`
 3. Restart server
 
 ### Updating Data
@@ -163,11 +169,9 @@ Portfolio data is loaded from `data.yaml` at server startup. To update:
 
 1. Edit `mcp/data.yaml`
 2. Restart the server:
-   - Local: `python server.py` (re-run)
+   - Local: `npm start` (re-run)
    - Docker: `docker restart mfuertes-mcp`
    - Docker Compose: `docker compose restart mcp`
-
-The data is extracted from the main CV file (`Miguel_Fuertes_CV.yaml`) and includes complete professional profile, experience, skills, projects, and education.
 
 ## License
 

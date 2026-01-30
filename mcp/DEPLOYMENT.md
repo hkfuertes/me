@@ -91,7 +91,7 @@ Edit Claude Desktop configuration:
 {
   "mcpServers": {
     "mfuertes-portfolio": {
-      "url": "http://YOUR_LXC_IP:8000/mcp"
+      "url": "http://YOUR_LXC_IP:8000/sse"
     }
   }
 }
@@ -219,7 +219,7 @@ docker save mfuertes-mcp -o mfuertes-mcp.tar
 ## Performance
 
 The server is lightweight:
-- Memory: ~100MB
+- Memory: ~80MB
 - CPU: Minimal (idle most of the time)
 - No database required
 - All data loaded in memory at startup
