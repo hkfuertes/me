@@ -16,9 +16,9 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 
-// Determine the type based on collection
+// Both gists and GitHub repos with README are "Writing"
 const isGitHub = post.id.includes('-');
-const typeLabel = isGitHub ? 'Project' : 'Writing';
+const typeLabel = 'Writing';
 
 // Add IDs to headings and extract ToC
 const { html, headings } = addHeadingIds(post.rendered?.html || '');
