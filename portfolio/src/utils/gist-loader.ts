@@ -68,6 +68,8 @@ export function GistLoader(options: GistLoaderOptions): Loader {
                                 draft: false,
                                 tags: [],
                                 url: gist.html_url,
+                                stars: gist.stargazers_count || 0,
+                                forks: gist.forks?.length || 0,
                             },
                             rendered,
                         });

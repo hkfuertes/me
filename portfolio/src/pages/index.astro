@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { Icon } from "astro-icon/components";
 ---
 
 <BaseLayout title="Miguel Fuertes" showTopBar={false}>
@@ -15,7 +16,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
                     <h1 class="text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-none mb-4">
                         Miguel<br/>Fuertes
                     </h1>
-                    <div class="h-1 w-20 bg-blue-600 mb-6"></div>
+                    <div class="h-1 w-20 bg-gray-800 mb-6"></div>
                     <p class="text-xl md:text-2xl text-gray-600 font-light leading-relaxed">
                         Software Engineer
                     </p>
@@ -35,16 +36,16 @@ import BaseLayout from "../layouts/BaseLayout.astro";
                     <!-- Info de contacto -->
                     <div class="text-sm space-y-3 md:text-right">
                         <div class="text-gray-500 uppercase tracking-wider text-xs mb-4">Contact</div>
-                        <a href="mailto:mjfuertesf@gmail.com" class="block text-gray-700 hover:text-blue-600 transition-colors">
+                        <a href="mailto:mjfuertesf@gmail.com" class="block text-gray-700 hover:text-gray-900 transition-colors">
                             mjfuertesf@gmail.com
                         </a>
-                        <a href="https://github.com/hkfuertes" target="_blank" class="block text-gray-700 hover:text-blue-600 transition-colors">
+                        <a href="https://github.com/hkfuertes" target="_blank" class="block text-gray-700 hover:text-gray-900 transition-colors">
                             GitHub
                         </a>
-                        <a href="https://linkedin.com/in/hkfuertes" target="_blank" class="block text-gray-700 hover:text-blue-600 transition-colors">
+                        <a href="https://linkedin.com/in/hkfuertes" target="_blank" class="block text-gray-700 hover:text-gray-900 transition-colors">
                             LinkedIn
                         </a>
-                        <a href="/Miguel_Fuertes_CV.pdf" target="_blank" class="block text-gray-700 hover:text-blue-600 transition-colors">
+                        <a href="/Miguel_Fuertes_CV.pdf" target="_blank" class="block text-gray-700 hover:text-gray-900 transition-colors">
                             Download CV
                         </a>
                     </div>
@@ -86,10 +87,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
                     href="/blog"
                     class="inline-flex items-center gap-3 text-lg font-medium group"
                 >
-                    <span class="text-gray-900 group-hover:text-blue-600 transition-colors">About me</span>
-                    <svg class="w-5 h-5 text-blue-600 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                    </svg>
+                    <span class="text-gray-900 group-hover:text-gray-800 transition-colors">About me</span>
+                    <Icon name="tabler:arrow-right" class="w-5 h-5 text-gray-800 group-hover:translate-x-1 transition-transform" />
                 </a>
             </div>
         </div>

@@ -3,6 +3,7 @@ import { glob } from 'astro/loaders';
 import { GistLoader } from './utils/gist-loader';
 import { GitHubReadmeLoader } from './utils/github-readme-loader';
 import { GitHubReposLoader } from './utils/github-repos-loader';
+import { GitHubContributionsLoader } from './utils/github-contributions-loader';
 import { loadCV } from './utils/cv-loader';
 import { gists } from '/blog/gists.yaml';
 
@@ -22,6 +23,15 @@ const githubSchema = postSchema.extend({
     forks: z.number().optional(),
     language: z.string().optional(),
     updated: z.date().optional(),
+})
+
+const contributionSchema = postSchema.extend({
+    repo: z.string(),
+    mergedAt: z.date().nullable(),
+    additions: z.number().optional(),
+    deletions: z.number().optional(),
+    prNumber: z.number(),
+    state: z.string().optional(),
 })
 
 const blogCollection = defineCollection({
@@ -58,9 +68,18 @@ const githubReposCollection = defineCollection({
   schema: githubSchema,
 });
 
+// New collection: GitHub Contributions (merged PRs to third-party repos)
+const contributionsCollection = defineCollection({
+  loader: GitHubContributionsLoader({
+    username: 'hkfuertes',
+  }),
+  schema: contributionSchema,
+});
+
 export const collections = {
   blog: blogCollection,
   gists: gistsCollection,
   github: githubCollection,
   githubRepos: githubReposCollection,
+  contributions: contributionsCollection,
 };

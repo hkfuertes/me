@@ -22,7 +22,7 @@ const { headings } = Astro.props;
                         class={`
                             toc-link block py-1 transition-colors
                             ${heading.level === 2 ? 'pl-4' : 'pl-8'}
-                            text-gray-600 hover:text-blue-600
+                            text-gray-600 hover:text-gray-900
                         `}
                     >
                         {heading.text}
@@ -51,13 +51,13 @@ const { headings } = Astro.props;
                     if (entry.isIntersecting) {
                         // Remove active from all links
                         tocLinks.forEach((link) => {
-                            link.classList.remove('text-blue-600', 'font-medium', 'border-blue-600');
+                            link.classList.remove('text-gray-900', 'font-medium');
                             link.classList.add('text-gray-600');
                         });
                         
                         // Add active to current link
                         tocLink.classList.remove('text-gray-600');
-                        tocLink.classList.add('text-blue-600', 'font-medium');
+                        tocLink.classList.add('text-gray-900', 'font-medium');
                     }
                 });
             },

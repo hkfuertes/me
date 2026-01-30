@@ -10,9 +10,12 @@
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.2.2",
+    "@iconify-json/tabler": "^1.2.26",
     "@rollup/plugin-yaml": "^4.1.2",
+    "@tabler/icons": "^3.36.1",
     "@tailwindcss/vite": "^4.1.18",
     "astro": "^5.16.6",
+    "astro-icon": "^1.1.5",
     "tailwindcss": "^4.1.18",
     "yaml": "^2.6.1"
   },
