@@ -175,6 +175,8 @@ function formatDate(date: Date) {
     
     /* Code blocks - Let Shiki handle all styling */
     .article-content :global(pre) {
+        background-color: #f6f8fa;
+        border: 1px solid #e5e7eb;
         border-radius: 0.5rem;
         padding: 1rem;
         overflow-x: auto;
@@ -194,10 +196,20 @@ function formatDate(date: Date) {
         color: #374151;
         margin-bottom: 1.25em;
         padding-left: 1.625em;
+        list-style-position: outside;
+    }
+    
+    .article-content :global(ul) {
+        list-style-type: disc;
+    }
+    
+    .article-content :global(ol) {
+        list-style-type: decimal;
     }
     
     .article-content :global(li) {
         margin-bottom: 0.5em;
+        display: list-item;
     }
     
     /* Blockquotes */

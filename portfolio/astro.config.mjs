@@ -10,6 +10,11 @@ import yaml from '@rollup/plugin-yaml';
 export default defineConfig({
   site: 'https://mfuertes.net',
   integrations: [sitemap(), icon()],
+  markdown: {
+    shikiConfig: {
+      theme: 'github-light',
+    },
+  },
   vite: {
     plugins: [tailwindcss(), yaml()]
   }
