@@ -12,7 +12,7 @@ Personal portfolio and professional website built with Astro, featuring automate
 This monorepo contains:
 
 - **`portfolio/`** - Portfolio website (Astro + TailwindCSS)
-- **`blog/`** - Blog content (Markdown + Gists YAML)
+  - **`src/data/`** - Content configuration (gists.yaml, projects.yaml)
 - **`Miguel_Fuertes_CV.yaml`** - CV in YAML format (RenderCV compatible)
 
 ## Tech Stack
@@ -139,13 +139,9 @@ ESLint runs automatically on Pull Requests:
 
 ### Blog Posts
 
-**Option 1: Local Markdown**
-1. Create a `.md` file in `/blog/`
-2. Post appears automatically
-
-**Option 2: GitHub Gists**
+**Option 1: GitHub Gists**
 1. Create a public gist on GitHub
-2. Add URL to `/blog/gists.yaml`:
+2. Add URL to `portfolio/src/data/gists.yaml`:
    ```yaml
    gists:
      - https://gist.github.com/hkfuertes/[gist-id]
@@ -153,10 +149,16 @@ ESLint runs automatically on Pull Requests:
 
 ### Projects
 
-Projects are automatically loaded from your public GitHub repositories. To exclude repos:
-- Archive them on GitHub
-- Make them private
-- They must have at least 0 stars (configurable in content.config.ts)
+Add GitHub repository URLs to `portfolio/src/data/projects.yaml`:
+```yaml
+projects:
+  - https://github.com/username/repo-name
+```
+
+Projects will automatically:
+- Fetch repository metadata (stars, forks, description)
+- Load README if available
+- Display in timeline with proper formatting
 
 ### CV Updates
 
@@ -194,6 +196,9 @@ GITHUB_TOKEN=ghp_xxxxxxxxxxxxx
 │   └── dev.sh                      # Development script
 ├── portfolio/
 │   ├── src/
+│   │   ├── data/
+│   │   │   ├── gists.yaml          # Configured gists
+│   │   │   └── projects.yaml       # GitHub projects
 │   │   ├── content.config.ts       # Content configuration
 │   │   ├── pages/                  # Astro pages
 │   │   └── utils/                  # GitHub loaders
@@ -201,8 +206,6 @@ GITHUB_TOKEN=ghp_xxxxxxxxxxxxx
 │   │   └── cv.pdf                  # Generated CV (auto)
 │   ├── eslint.config.js            # ESLint config
 │   └── package.json
-├── blog/
-│   └── gists.yaml                  # Configured gists
 ├── Miguel_Fuertes_CV.yaml          # CV source
 ├── Makefile                        # Make commands
 └── docker-compose.yml              # Docker services

@@ -33,9 +33,27 @@ fi
 
 # gists.yaml
 echo -n "gists.yaml... "
-if [ -f "blog/gists.yaml" ]; then
+if [ -f "portfolio/src/data/gists.yaml" ]; then
     if command -v python3 &> /dev/null; then
-        if python3 -c "import yaml; yaml.safe_load(open('blog/gists.yaml'))" 2>/dev/null; then
+        if python3 -c "import yaml; yaml.safe_load(open('portfolio/src/data/gists.yaml'))" 2>/dev/null; then
+            echo -e "${GREEN}OK${NC}"
+        else
+            echo -e "${RED}INVALID${NC}"
+            ERRORS=$((ERRORS + 1))
+        fi
+    else
+        echo -e "${YELLOW}SKIP${NC}"
+    fi
+else
+    echo -e "${RED}NOT FOUND${NC}"
+    ERRORS=$((ERRORS + 1))
+fi
+
+# projects.yaml
+echo -n "projects.yaml... "
+if [ -f "portfolio/src/data/projects.yaml" ]; then
+    if command -v python3 &> /dev/null; then
+        if python3 -c "import yaml; yaml.safe_load(open('portfolio/src/data/projects.yaml'))" 2>/dev/null; then
             echo -e "${GREEN}OK${NC}"
         else
             echo -e "${RED}INVALID${NC}"
