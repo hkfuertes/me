@@ -38,9 +38,9 @@ function formatDate(date: Date) {
         <div class="fixed inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none"></div>
         
         <div class="relative max-w-5xl mx-auto px-6 py-12">
-            <!-- Header -->
-            <article>
-                <header class="mb-12 pb-8 border-b border-gray-200">
+            <!-- Article container with white background -->
+            <article class="bg-white border border-gray-200">
+                <header class="bg-gray-50 px-8 md:px-12 pt-8 md:pt-12 pb-12 mb-16 border-b border-gray-200">
                     <div class="mb-4">
                         <span class="inline-block px-2 py-1 text-xs font-medium border border-gray-300 text-gray-700 uppercase tracking-wider">
                             {typeLabel}
@@ -108,7 +108,7 @@ function formatDate(date: Date) {
                 </header>
 
                 <!-- Content -->
-                <div class="article-content" set:html={html} />
+                <div class="article-content px-8 md:px-12 pb-8 md:pb-12" set:html={html} />
             </article>
         </div>
     </div>
@@ -227,6 +227,8 @@ function formatDate(date: Date) {
         width: 100%;
         border-collapse: collapse;
         margin: 1.5em 0;
+        display: block;
+        overflow-x: auto;
     }
     
     .article-content :global(th),
@@ -234,6 +236,7 @@ function formatDate(date: Date) {
         border: 1px solid #e5e7eb;
         padding: 0.75em;
         text-align: left;
+        white-space: nowrap;
     }
     
     .article-content :global(th) {

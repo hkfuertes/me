@@ -91,13 +91,6 @@ const backLink = isArticlePage ? '/blog' : '/';
                 <a href="/" class="text-lg font-bold tracking-tight text-gray-900 hover:text-gray-800 transition-colors">
                     Miguel Fuertes
                 </a>
-                <div class="w-px h-4 bg-gray-300"></div>
-                <a 
-                    href="/blog" 
-                    class={`transition-colors ${currentPath.startsWith('/blog') ? 'text-gray-900 font-medium' : 'text-gray-600 hover:text-gray-900'}`}
-                >
-                    Blog
-                </a>
                 <a 
                     href="https://github.com/hkfuertes" 
                     target="_blank"
@@ -116,12 +109,12 @@ const backLink = isArticlePage ? '/blog' : '/';
                 >
                     <Icon name="tabler:brand-linkedin" class="w-5 h-5" />
                 </a>
-                <div class="w-px h-4 bg-gray-300"></div>
                 <a 
                     href="/Miguel_Fuertes_CV.pdf" 
                     target="_blank"
-                    class="text-gray-900 hover:text-gray-800 transition-colors font-semibold"
+                    class="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium border border-gray-300 text-gray-700 uppercase tracking-wider transition-all hover:bg-gray-800 hover:text-white hover:border-gray-800"
                 >
+                    <Icon name="tabler:download" class="w-3.5 h-3.5" />
                     RESUME
                 </a>
             </div>
