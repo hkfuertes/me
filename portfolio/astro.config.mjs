@@ -12,7 +12,7 @@ export default defineConfig({
   integrations: [sitemap(), icon()],
   markdown: {
     shikiConfig: {
-      theme: 'github-light',
+      theme: 'github-dark',
     },
   },
   vite: {

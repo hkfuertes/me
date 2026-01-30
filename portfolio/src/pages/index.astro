@@ -4,39 +4,39 @@ import { Icon } from "astro-icon/components";
 ---
 
 <BaseLayout title="Miguel Fuertes" showTopBar={false}>
-    <div class="min-h-screen bg-white flex items-center justify-center px-6">
+    <div class="min-h-screen bg-[#0a1a0f] flex items-center justify-center px-6">
         <!-- Grid de fondo -->
-        <div class="fixed inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none"></div>
+        <div class="fixed inset-0 bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none"></div>
         
         <!-- Tarjeta centrada -->
-        <div class="relative bg-white border border-gray-200 p-12 md:p-16 max-w-2xl w-full">
+        <div class="relative bg-[#0f2415] border border-[#1a3a24] p-12 md:p-16 max-w-2xl w-full">
             <!-- Foto de perfil -->
             <div class="mb-8 flex justify-center">
                 <img 
                     src="/images/profile.jpeg" 
                     alt="Miguel Fuertes"
-                    class="w-32 h-32 object-cover border border-black"
+                    class="w-32 h-32 object-cover border border-emerald-400"
                 />
             </div>
             
             <!-- Nombre y título -->
             <div class="text-center mb-8">
-                <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-2">
+                <h1 class="text-5xl md:text-6xl font-bold text-gray-100 mb-2">
                     Miguel Fuertes
                 </h1>
-                <div class="h-0.5 w-16 bg-gray-800 mx-auto mb-6"></div>
-                <p class="text-xl text-gray-600 font-light">
+                <div class="h-0.5 w-16 bg-emerald-400 mx-auto mb-6"></div>
+                <p class="text-xl text-gray-400 font-light">
                     Senior Software Engineer
                 </p>
             </div>
             
             <!-- Bio corta -->
             <div class="text-center mb-10 max-w-xl mx-auto">
-                <p class="text-gray-700 leading-relaxed mb-4">
+                <p class="text-gray-300 leading-relaxed mb-4">
                     I build backend systems, SEO platforms, and embedded solutions. 
                     Over 10 years working with Ruby, Elixir, C#, AWS, and Azure.
                 </p>
-                <p class="text-gray-600 text-sm mb-6">
+                <p class="text-gray-400 text-sm mb-6">
                     Currently focused on search infrastructure and personalization engines.
                 </p>
                 
@@ -46,7 +46,7 @@ import { Icon } from "astro-icon/components";
                         href="https://github.com/hkfuertes" 
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="text-gray-600 hover:text-gray-900 transition-colors"
+                        class="text-gray-400 hover:text-emerald-300 transition-colors"
                         aria-label="GitHub"
                     >
                         <Icon name="tabler:brand-github" class="w-5 h-5" />
@@ -55,7 +55,7 @@ import { Icon } from "astro-icon/components";
                         href="https://linkedin.com/in/hkfuertes" 
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="text-gray-600 hover:text-gray-900 transition-colors"
+                        class="text-gray-400 hover:text-emerald-300 transition-colors"
                         aria-label="LinkedIn"
                     >
                         <Icon name="tabler:brand-linkedin" class="w-5 h-5" />
@@ -67,14 +67,14 @@ import { Icon } from "astro-icon/components";
             <div class="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-sm mx-auto">
                 <a 
                     href="/blog"
-                    class="w-full sm:flex-1 text-center inline-flex items-center justify-center gap-1.5 px-6 py-3 text-sm font-medium bg-gray-800 text-white transition-all hover:bg-gray-900"
+                    class="w-full sm:flex-1 text-center inline-flex items-center justify-center gap-1.5 px-6 py-3 text-sm font-medium bg-emerald-600 text-white transition-all hover:bg-emerald-700"
                 >
                     Blog
                 </a>
                 <a 
                     href="/Miguel_Fuertes_CV.pdf" 
                     target="_blank"
-                    class="w-full sm:flex-1 text-center inline-flex items-center justify-center gap-1.5 px-6 py-3 text-sm font-medium border border-gray-300 text-gray-700 transition-all hover:bg-gray-800 hover:text-white hover:border-gray-800"
+                    class="w-full sm:flex-1 text-center inline-flex items-center justify-center gap-1.5 px-6 py-3 text-sm font-medium border border-[#1a3a24] text-gray-300 transition-all hover:bg-emerald-600 hover:text-white hover:border-emerald-600"
                 >
                     <Icon name="tabler:download" class="w-3.5 h-3.5" />
                     Resume
