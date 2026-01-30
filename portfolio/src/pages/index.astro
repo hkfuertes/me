@@ -4,91 +4,80 @@ import { Icon } from "astro-icon/components";
 ---
 
 <BaseLayout title="Miguel Fuertes" showTopBar={false}>
-    <div class="min-h-screen bg-white">
-        <!-- Grid sutil de fondo -->
+    <div class="min-h-screen bg-white flex items-center justify-center px-6">
+        <!-- Grid de fondo -->
         <div class="fixed inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none"></div>
         
-        <div class="relative max-w-5xl mx-auto px-6 py-20 md:py-32">
-            <!-- Header con grid de 3 columnas en desktop -->
-            <div class="grid md:grid-cols-3 gap-8 mb-20">
-                <!-- Columna 1: Nombre -->
-                <div class="md:col-span-2">
-                    <h1 class="text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-none mb-4">
-                        Miguel<br/>Fuertes
-                    </h1>
-                    <div class="h-1 w-20 bg-gray-800 mb-6"></div>
-                    <p class="text-xl md:text-2xl text-gray-600 font-light leading-relaxed">
-                        Software Engineer
-                    </p>
-                </div>
+        <!-- Tarjeta centrada -->
+        <div class="relative bg-white border border-gray-200 p-12 md:p-16 max-w-2xl w-full">
+            <!-- Foto de perfil -->
+            <div class="mb-8 flex justify-center">
+                <img 
+                    src="/images/profile.jpeg" 
+                    alt="Miguel Fuertes"
+                    class="w-32 h-32 object-cover border border-black"
+                />
+            </div>
+            
+            <!-- Nombre y título -->
+            <div class="text-center mb-8">
+                <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-2">
+                    Miguel Fuertes
+                </h1>
+                <div class="h-0.5 w-16 bg-gray-800 mx-auto mb-6"></div>
+                <p class="text-xl text-gray-600 font-light">
+                    Senior Software Engineer
+                </p>
+            </div>
+            
+            <!-- Bio corta -->
+            <div class="text-center mb-10 max-w-xl mx-auto">
+                <p class="text-gray-700 leading-relaxed mb-4">
+                    I build backend systems, SEO platforms, and embedded solutions. 
+                    Over 10 years working with Ruby, Elixir, C#, AWS, and Azure.
+                </p>
+                <p class="text-gray-600 text-sm mb-6">
+                    Currently focused on search infrastructure and personalization engines.
+                </p>
                 
-                <!-- Columna 2: Foto de perfil + Info de contacto -->
-                <div class="space-y-6">
-                    <!-- Foto de perfil -->
-                    <div class="mb-6">
-                        <img 
-                            src="/images/profile.jpeg" 
-                            alt="Miguel Fuertes"
-                            class="w-32 h-32 md:w-40 md:h-40 object-cover grayscale hover:grayscale-0 transition-all duration-300 md:ml-auto"
-                        />
-                    </div>
-                    
-                    <!-- Info de contacto -->
-                    <div class="text-sm space-y-3 md:text-right">
-                        <div class="text-gray-500 uppercase tracking-wider text-xs mb-4">Contact</div>
-                        <a href="mailto:mjfuertesf@gmail.com" class="block text-gray-700 hover:text-gray-900 transition-colors">
-                            mjfuertesf@gmail.com
-                        </a>
-                        <a href="https://github.com/hkfuertes" target="_blank" class="block text-gray-700 hover:text-gray-900 transition-colors">
-                            GitHub
-                        </a>
-                        <a href="https://linkedin.com/in/hkfuertes" target="_blank" class="block text-gray-700 hover:text-gray-900 transition-colors">
-                            LinkedIn
-                        </a>
-                        <a href="/Miguel_Fuertes_CV.pdf" target="_blank" class="block text-gray-700 hover:text-gray-900 transition-colors">
-                            Download CV
-                        </a>
-                    </div>
+                <!-- Redes sociales -->
+                <div class="flex items-center justify-center gap-4 text-sm">
+                    <a 
+                        href="https://github.com/hkfuertes" 
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="text-gray-600 hover:text-gray-900 transition-colors"
+                        aria-label="GitHub"
+                    >
+                        <Icon name="tabler:brand-github" class="w-5 h-5" />
+                    </a>
+                    <a 
+                        href="https://linkedin.com/in/hkfuertes" 
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="text-gray-600 hover:text-gray-900 transition-colors"
+                        aria-label="LinkedIn"
+                    >
+                        <Icon name="tabler:brand-linkedin" class="w-5 h-5" />
+                    </a>
                 </div>
             </div>
             
-            <!-- Bio en grid de 2 columnas -->
-            <div class="grid md:grid-cols-3 gap-8 mb-20">
-                <div class="md:col-span-2">
-                    <div class="prose prose-lg max-w-none">
-                        <p class="text-gray-700 leading-relaxed text-lg mb-6">
-                            I build backend systems, SEO platforms, and embedded solutions. 
-                            Over 10 years working with Ruby, Elixir, C#, AWS, and Azure at companies 
-                            like Gartner, Microsoft, and ATOS.
-                        </p>
-                        <p class="text-gray-600 leading-relaxed">
-                            Currently focused on search infrastructure, personalization engines, 
-                            and making complex systems simple.
-                        </p>
-                    </div>
-                </div>
-                
-                <!-- Tech stack en columna derecha -->
-                <div class="text-sm">
-                    <div class="text-gray-500 uppercase tracking-wider text-xs mb-4">Stack</div>
-                    <div class="space-y-2 text-gray-700">
-                        <div>Ruby, Rails</div>
-                        <div>Elixir, Phoenix</div>
-                        <div>C#, .NET</div>
-                        <div>AWS, Azure</div>
-                        <div>PostgreSQL, Redis</div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- CTA simple -->
-            <div class="border-t border-gray-200 pt-12">
+            <!-- CTAs -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-sm mx-auto">
                 <a 
                     href="/blog"
-                    class="inline-flex items-center gap-3 text-lg font-medium group"
+                    class="w-full sm:flex-1 text-center inline-flex items-center justify-center gap-1.5 px-6 py-3 text-sm font-medium bg-gray-800 text-white transition-all hover:bg-gray-900"
                 >
-                    <span class="text-gray-900 group-hover:text-gray-800 transition-colors">About me</span>
-                    <Icon name="tabler:arrow-right" class="w-5 h-5 text-gray-800 group-hover:translate-x-1 transition-transform" />
+                    Blog
+                </a>
+                <a 
+                    href="/Miguel_Fuertes_CV.pdf" 
+                    target="_blank"
+                    class="w-full sm:flex-1 text-center inline-flex items-center justify-center gap-1.5 px-6 py-3 text-sm font-medium border border-gray-300 text-gray-700 transition-all hover:bg-gray-800 hover:text-white hover:border-gray-800"
+                >
+                    <Icon name="tabler:download" class="w-3.5 h-3.5" />
+                    Resume
                 </a>
             </div>
         </div>
