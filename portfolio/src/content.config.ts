@@ -2,10 +2,11 @@ import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { GistLoader } from './utils/gist-loader';
 import { GitHubReadmeLoader } from './utils/github-readme-loader';
-import { GitHubReposLoader } from './utils/github-repos-loader';
+import { GitHubProjectsLoader } from './utils/github-projects-loader';
 import { GitHubContributionsLoader } from './utils/github-contributions-loader';
 import { loadCV } from './utils/cv-loader';
-import { gists } from '/blog/gists.yaml';
+import { gists } from './data/gists.yaml';
+import { projects } from './data/projects.yaml';
 
 const postSchema = z.object({
     title: z.string(),
@@ -57,13 +58,10 @@ const githubCollection = defineCollection({
   schema: githubSchema,
 });
 
-// New collection: All public GitHub repos
+// GitHub Projects collection (from YAML)
 const githubReposCollection = defineCollection({
-  loader: GitHubReposLoader({
-    username: 'hkfuertes',
-    excludeForks: true,      // No mostrar forks
-    excludeArchived: true,   // No mostrar archivados
-    minStars: 0,             // Mínimo de estrellas
+  loader: GitHubProjectsLoader({
+    projects: projects
   }),
   schema: githubSchema,
 });
