@@ -1,5 +1,5 @@
 # Makefile
-.PHONY: new render dev build cv all test up down help
+.PHONY: new render dev build lint cv all test up down help
 
 NAME ?= Miguel Fuertes
 FILE = $(shell echo "$(NAME)" | tr ' ' '_')_CV.yaml
@@ -24,6 +24,9 @@ dev:
 build:
 	@./dev.sh build
 
+lint:
+	@./dev.sh lint
+
 # Combined
 all: cv build
 
@@ -46,6 +49,7 @@ help:
 	@echo "Portfolio:"
 	@echo "  make dev               - Dev server"
 	@echo "  make build             - Build site"
+	@echo "  make lint              - Run ESLint"
 	@echo ""
 	@echo "Combined:"
 	@echo "  make all               - CV + Portfolio"

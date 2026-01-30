@@ -9,6 +9,10 @@ case "$1" in
     docker compose run --rm build
     ;;
   
+  lint)
+    docker compose run --rm app npm run lint
+    ;;
+  
   cv)
     make cv
     ;;
@@ -39,6 +43,7 @@ case "$1" in
     echo "Commands:"
     echo "  dev    - Dev server"
     echo "  build  - Build site"
+    echo "  lint   - Run ESLint"
     echo "  cv     - Generate CV PDF"
     echo "  test   - Validate and build"
     echo "  all    - Build CV + Portfolio"

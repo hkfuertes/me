@@ -30,12 +30,13 @@ const allWork = [
         date: item.data.date,
         updated: item.data.updated,
         description: item.data.description,
-        url: `/blog/${item.id}`,
+        url: item.rendered?.html ? `/blog/${item.id}` : item.data.url, // Si no hay README, enlazar al repo
         externalUrl: item.data.url,
         tags: item.data.tags || [],
         stars: item.data.stars || 0,
         forks: item.data.forks || 0,
-        language: item.data.language
+        language: item.data.language,
+        hasReadme: !!item.rendered?.html
     })),
     // Contribuciones (PRs merged a proyectos de terceros)
     ...contributions.map(item => ({
@@ -139,8 +140,8 @@ function getTypeLabel(type: string) {
                                         <a 
                                             href={item.url} 
                                             class="block group/link flex-1 pr-16"
-                                            target={item.type === 'contribution' ? '_blank' : undefined}
-                                            rel={item.type === 'contribution' ? 'noopener noreferrer' : undefined}
+                                            target={item.type === 'contribution' || (item.type === 'github' && !item.hasReadme) ? '_blank' : undefined}
+                                            rel={item.type === 'contribution' || (item.type === 'github' && !item.hasReadme) ? 'noopener noreferrer' : undefined}
                                         >
                                             <h2 class="text-lg font-bold text-gray-900 mb-2 group-hover/link:text-gray-800 transition-colors line-clamp-1">
                                                 {item.title}
