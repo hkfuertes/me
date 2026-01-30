@@ -1,39 +1,64 @@
-# Miguel Fuertes - Personal Website
+# Miguel Fuertes - Portfolio
 
-Repositorio del portfolio personal y profesional de Miguel Fuertes.
+Personal portfolio and professional website built with Astro, featuring automated CV generation and GitHub integration.
 
-## 🌐 Ver Online
+## Live Site
 
-- **Producción**: [mfuertes.net](https://mfuertes.net)
+- **Production**: [mfuertes.net](https://mfuertes.net)
 - **GitHub Pages**: [hkfuertes.github.io](https://hkfuertes.github.io)
 
-## 📦 Contenido del Repositorio
+## Repository Structure
 
-Este monorepo contiene:
+This monorepo contains:
 
-- **`portfolio/`** - Portfolio web (Astro + TailwindCSS)
-- **`blog/`** - Contenido del blog (Markdown + Gists YAML)
-- **`Miguel_Fuertes_CV.yaml`** - CV en formato YAML (RenderCV compatible)
+- **`portfolio/`** - Portfolio website (Astro + TailwindCSS)
+- **`blog/`** - Blog content (Markdown + Gists YAML)
+- **`Miguel_Fuertes_CV.yaml`** - CV in YAML format (RenderCV compatible)
 
-## 🚀 Inicio Rápido
+## Tech Stack
 
-### Opción 1: Docker (Recomendado)
+- **Framework**: Astro 5.x
+- **Styling**: TailwindCSS 4.x
+- **CV Generation**: RenderCV (Python)
+- **Deployment**: GitHub Pages
+- **CI/CD**: GitHub Actions
+- **Linting**: ESLint with Astro plugin
+- **Content**: GitHub Gists + Markdown
+
+## Quick Start
+
+### Development (Docker - Recommended)
 
 ```bash
-# Desarrollo
-./dev.sh dev
+# Start dev server (http://localhost:4321)
+./scripts/dev.sh dev
 
-# Build
-./dev.sh build
+# Build site
+./scripts/dev.sh build
 
-# Ver logs
-./dev.sh logs
+# Generate CV PDF
+./scripts/dev.sh cv
 
-# Detener
-./dev.sh down
+# Run linter
+./scripts/dev.sh lint
+
+# Test build (validation + build)
+./scripts/dev.sh test
+
+# Build everything (CV + Portfolio)
+./scripts/dev.sh all
+
+# Stop services
+./scripts/dev.sh down
+
+# View logs
+./scripts/dev.sh logs
+
+# Clean containers
+./scripts/dev.sh clean
 ```
 
-### Opción 2: Local
+### Development (Local)
 
 ```bash
 cd portfolio
@@ -41,58 +66,211 @@ npm install
 npm run dev
 ```
 
-## 📝 Estructura del Sitio
+### Make Commands
 
-```
-https://mfuertes.net/
-├── /                   # Landing page (tarjeta de visita)
-├── /projects           # Proyectos y experiencia profesional
-├── /blog               # Blog posts y gists
-└── /blog/[id]          # Post individual
+```bash
+# CV
+make cv                    # Generate CV PDF and copy to public/
+make render                # Generate CV PDF only
+
+# Portfolio
+make dev                   # Start dev server
+make build                 # Build portfolio
+make lint                  # Run ESLint
+
+# Combined
+make all                   # Build CV + Portfolio
+make test                  # Validate and build
+
+# Docker
+make up                    # Start app
+make down                  # Stop app
 ```
 
-## ✍️ Añadir Contenido
+## Deployment
+
+### Automatic Deployment
+
+The site automatically deploys to GitHub Pages via GitHub Actions on:
+- Push to `main` or `master` branch
+- Manual trigger via GitHub Actions UI
+
+### Manual Deployment
+
+1. Go to GitHub Actions
+2. Select "Deploy to GitHub Pages" workflow
+3. Click "Run workflow"
+
+## Pipeline Overview
+
+### GitHub Actions Workflow
+
+**Triggers:**
+- Push to main/master
+- Manual via workflow_dispatch
+
+**Steps:**
+1. Pre-build validation
+2. CV PDF generation with RenderCV
+3. Astro build with GITHUB_TOKEN
+4. Deploy to GitHub Pages
+
+**Optimizations:**
+- npm cache (node_modules)
+- Astro build cache (.astro)
+- GITHUB_TOKEN for API loaders
+
+### Pre-build Validation
+
+Validates before building:
+- CV YAML syntax
+- gists.yaml existence and syntax
+- GITHUB_TOKEN presence (warning if missing)
+- package.json, node_modules, configs
+
+### Lint Check (PR Only)
+
+ESLint runs automatically on Pull Requests:
+- Checks all Astro files
+- Must pass before merge
+- Can run locally: `make lint`
+
+## Adding Content
 
 ### Blog Posts
 
-**Opción 1: Markdown local**
-1. Crea un archivo `.md` en `/blog/`
-2. El post aparecerá automáticamente
+**Option 1: Local Markdown**
+1. Create a `.md` file in `/blog/`
+2. Post appears automatically
 
-**Opción 2: GitHub Gists**
-1. Crea un gist público en GitHub
-2. Añade la URL a `/blog/gists.yaml`:
+**Option 2: GitHub Gists**
+1. Create a public gist on GitHub
+2. Add URL to `/blog/gists.yaml`:
    ```yaml
    gists:
-     - https://gist.github.com/hkfuertes/[tu-gist-id]
+     - https://gist.github.com/hkfuertes/[gist-id]
    ```
 
-### Proyectos y Experiencia
+### Projects
 
-Edita `/Miguel_Fuertes_CV.yaml` - Los cambios se reflejan automáticamente en `/projects`
+Projects are automatically loaded from your public GitHub repositories. To exclude repos:
+- Archive them on GitHub
+- Make them private
+- They must have at least 0 stars (configurable in content.config.ts)
 
-## 🚢 Deploy
+### CV Updates
 
-El sitio se despliega automáticamente a GitHub Pages mediante GitHub Actions cuando haces push a `main`.
+Edit `Miguel_Fuertes_CV.yaml` - Changes reflect automatically in the generated PDF.
 
-### Deploy Manual
+## Environment Variables
 
-1. Ve a Actions en GitHub
-2. Selecciona "Deploy to GitHub Pages"
-3. Click en "Run workflow"
+### Local Development
 
-## 🛠️ Stack Tecnológico
+```bash
+# Optional: For GitHub API loaders
+export GITHUB_TOKEN=ghp_xxxxxxxxxxxxx
+```
 
-- **Framework**: Astro 5.x
-- **Estilos**: TailwindCSS 4.x
-- **Deploy**: GitHub Pages
-- **CI/CD**: GitHub Actions
-- **CMS**: GitHub Gists + Markdown
+Add to `.env` or `docker-compose.yml`:
+```env
+GITHUB_TOKEN=ghp_xxxxxxxxxxxxx
+```
 
-## 📄 Documentación
+### GitHub Actions
 
-Para más detalles sobre el portfolio, ver [`portfolio/README.md`](portfolio/README.md)
+- `GITHUB_TOKEN`: Auto-provided by GitHub Actions
+- No manual configuration required
 
-## 📜 Licencia
+## File Structure
+
+```
+.
+├── .github/
+│   └── workflows/
+│       ├── deploy.yml              # CI/CD pipeline
+│       └── lint.yml                # PR lint check
+├── scripts/
+│   ├── pre-build.sh                # Pre-build validation
+│   └── dev.sh                      # Development script
+├── portfolio/
+│   ├── src/
+│   │   ├── content.config.ts       # Content configuration
+│   │   ├── pages/                  # Astro pages
+│   │   └── utils/                  # GitHub loaders
+│   ├── public/
+│   │   └── cv.pdf                  # Generated CV (auto)
+│   ├── eslint.config.js            # ESLint config
+│   └── package.json
+├── blog/
+│   └── gists.yaml                  # Configured gists
+├── Miguel_Fuertes_CV.yaml          # CV source
+├── Makefile                        # Make commands
+└── docker-compose.yml              # Docker services
+```
+
+## Troubleshooting
+
+### CV Generation Fails
+
+```bash
+# Verify YAML syntax
+make render
+
+# View detailed errors
+docker compose run --rm rendercv render Miguel_Fuertes_CV.yaml
+```
+
+### GitHub Loaders Fail
+
+```bash
+# Check token
+echo $GITHUB_TOKEN
+
+# Set token
+export GITHUB_TOKEN=ghp_xxxxxxxxxxxxx
+```
+
+### Build Fails
+
+```bash
+# Run validation
+./scripts/pre-build.sh
+
+# View detailed logs
+docker compose run --rm build
+```
+
+### Lint Fails
+
+```bash
+# Run lint locally
+make lint
+
+# Auto-fix issues
+docker compose run --rm app npm run lint:fix
+```
+
+### Hot Reload Not Working
+
+```bash
+# Restart server
+./scripts/dev.sh down
+./scripts/dev.sh dev
+```
+
+## Performance
+
+**Build times (approximate):**
+- First build: ~2-3 min (with cache: ~1 min)
+- Subsequent builds: ~30-60s
+- Hot reload: <1s
+
+**Optimizations:**
+- npm dependencies cache
+- Astro build cache
+- Early validation (fail fast)
+- Parallelization where possible
+
+## License
 
 MIT

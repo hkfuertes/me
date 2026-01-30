@@ -19,13 +19,13 @@ cv: render
 
 # Portfolio
 dev:
-	@./dev.sh dev
+	@./scripts/dev.sh dev
 
 build:
-	@./dev.sh build
+	@./scripts/dev.sh build
 
 lint:
-	@./dev.sh lint
+	@./scripts/dev.sh lint
 
 # Combined
 all: cv build

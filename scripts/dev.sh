@@ -38,7 +38,7 @@ case "$1" in
     ;;
   
   *)
-    echo "Usage: ./dev.sh [command]"
+    echo "Usage: ./scripts/dev.sh [command]"
     echo ""
     echo "Commands:"
     echo "  dev    - Dev server"
