@@ -2,7 +2,8 @@
 import type { Loader } from 'astro/loaders';
 
 interface GitHubProjectsLoaderOptions {
-    projects: string[];
+    with_readme: string[];
+    without_readme: string[];
 }
 
 function extractRepoInfo(url: string): { owner: string; repo: string } | null {
@@ -17,7 +18,8 @@ export function GitHubProjectsLoader(options: GitHubProjectsLoaderOptions): Load
     return {
         name: 'github-projects-loader',
         load: async ({ store, logger, renderMarkdown }) => {
-            logger.info(`Loading ${options.projects.length} GitHub projects`);
+            const totalProjects = options.with_readme.length + options.without_readme.length;
+            logger.info(`Loading ${totalProjects} GitHub projects`);
 
             // GitHub API headers with optional token
             const headers: HeadersInit = {
@@ -26,12 +28,18 @@ export function GitHubProjectsLoader(options: GitHubProjectsLoaderOptions): Load
             };
             
             // Add token if available (from environment)
-            const token = import.meta.env.GITHUB_TOKEN || process.env.GITHUB_TOKEN;
+            const token = process.env.GITHUB_TOKEN;
             if (token) {
                 headers['Authorization'] = `Bearer ${token}`;
             }
 
-            for (const projectUrl of options.projects) {
+            // Process both arrays
+            const projectsToLoad = [
+                ...options.with_readme.map(url => ({ url, showReadme: true })),
+                ...options.without_readme.map(url => ({ url, showReadme: false })),
+            ];
+
+            for (const { url: projectUrl, showReadme } of projectsToLoad) {
                 const repoInfo = extractRepoInfo(projectUrl);
                 
                 if (!repoInfo) {
@@ -56,27 +64,29 @@ export function GitHubProjectsLoader(options: GitHubProjectsLoaderOptions): Load
 
                     const repoData = await repoResponse.json();
 
-                    // Try to fetch README
+                    // Try to fetch README (only if show_readme is true)
                     let readmeContent = '';
                     let rendered = null;
 
-                    try {
-                        const readmeResponse = await fetch(
-                            `https://api.github.com/repos/${fullName}/readme`,
-                            { headers }
-                        );
+                    if (showReadme) {
+                        try {
+                            const readmeResponse = await fetch(
+                                `https://api.github.com/repos/${fullName}/readme`,
+                                { headers }
+                            );
 
-                        if (readmeResponse.ok) {
-                            const readmeData = await readmeResponse.json();
-                            const contentResponse = await fetch(readmeData.download_url);
-                            
-                            if (contentResponse.ok) {
-                                readmeContent = await contentResponse.text();
-                                rendered = await renderMarkdown(readmeContent);
+                            if (readmeResponse.ok) {
+                                const readmeData = await readmeResponse.json();
+                                const contentResponse = await fetch(readmeData.download_url);
+                                
+                                if (contentResponse.ok) {
+                                    readmeContent = await contentResponse.text();
+                                    rendered = await renderMarkdown(readmeContent);
+                                }
                             }
+                        } catch (error) {
+                            logger.warn(`No README for ${fullName}`);
                         }
-                    } catch (error) {
-                        logger.warn(`No README for ${fullName}`);
                     }
 
                     // Use repo name as ID (sanitized)
@@ -96,6 +106,7 @@ export function GitHubProjectsLoader(options: GitHubProjectsLoaderOptions): Load
                             stars: repoData.stargazers_count,
                             forks: repoData.forks_count,
                             language: repoData.language || '',
+                            show_readme: showReadme,
                         },
                         rendered: rendered || undefined,
                     });
