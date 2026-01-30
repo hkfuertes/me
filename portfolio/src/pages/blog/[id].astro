@@ -173,10 +173,8 @@ function formatDate(date: Date) {
         font-family: ui-monospace, monospace;
     }
     
-    /* Code blocks - darker background */
+    /* Code blocks - let Shiki handle all styling */
     .article-content :global(pre) {
-        background-color: #0d1117 !important;
-        border: 1px solid #1a3a24;
         border-radius: 0.5rem;
         padding: 1rem;
         overflow-x: auto;
@@ -184,7 +182,6 @@ function formatDate(date: Date) {
     }
     
     .article-content :global(pre code) {
-        background: transparent !important;
         padding: 0 !important;
         font-size: 0.875rem;
         line-height: 1.7;
