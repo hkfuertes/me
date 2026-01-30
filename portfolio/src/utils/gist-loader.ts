@@ -16,6 +16,17 @@ export function GistLoader(options: GistLoaderOptions): Loader {
         load: async ({ store, logger, renderMarkdown }) => {
             logger.info(`Loading ${options.gists.length} gists`);
 
+            // GitHub API headers with optional token
+            const headers: HeadersInit = {
+                'Accept': 'application/vnd.github+json',
+                'X-GitHub-Api-Version': '2022-11-28',
+            };
+            
+            const token = process.env.GITHUB_TOKEN;
+            if (token) {
+                headers['Authorization'] = `Bearer ${token}`;
+            }
+
             for (const gistUrl of options.gists) {
                 const gistId = extractGistId(gistUrl);
                 
@@ -27,12 +38,7 @@ export function GistLoader(options: GistLoaderOptions): Loader {
                 try {
                     const response = await fetch(
                         `https://api.github.com/gists/${gistId}`,
-                        {
-                            headers: {
-                                'Accept': 'application/vnd.github+json',
-                                'X-GitHub-Api-Version': '2022-11-28',
-                            },
-                        }
+                        { headers }
                     );
 
                     if (!response.ok) {
