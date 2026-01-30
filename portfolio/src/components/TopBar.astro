@@ -9,6 +9,8 @@ interface Props {
 
 const { currentPath = "/", headings = [] } = Astro.props;
 
+const hasLeftSlot = Astro.slots.has('left');
+
 // Determine back link based on current path
 const isArticlePage = currentPath.startsWith('/blog/') && currentPath !== '/blog' && currentPath !== '/blog/';
 const backLink = isArticlePage ? '/blog' : '/';
@@ -20,13 +22,15 @@ const backLink = isArticlePage ? '/blog' : '/';
     
     <nav class="max-w-5xl mx-auto px-6 py-4">
         <div class="flex items-center justify-between">
-            <!-- Left: Back arrow + ToC select -->
+            <!-- Left: Back arrow + slot (search/toc) -->
             <div class="flex items-center gap-4 flex-1 mr-6" style="min-height: 42px;">
                 <a href={backLink} class="text-gray-600 hover:text-gray-900 transition-colors flex-shrink-0">
                     <Icon name="tabler:arrow-left" class="w-5 h-5" />
                 </a>
                 
-                {headings.length > 0 && (
+                {hasLeftSlot ? (
+                    <slot name="left" />
+                ) : headings.length > 0 && (
                     <div class="relative group flex-1">
                         <div class="border border-gray-300 rounded bg-white group-hover:rounded-b-none group-hover:border-b-transparent transition-all">
                             <button

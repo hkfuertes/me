@@ -43,7 +43,7 @@ export function GitHubContributionsLoader(options: GitHubContributionsLoaderOpti
                 };
                 
                 // Add token if available (from environment)
-                const token = import.meta.env.GITHUB_TOKEN || process.env.GITHUB_TOKEN;
+                const token = process.env.GITHUB_TOKEN;
                 if (token) {
                     headers['Authorization'] = `Bearer ${token}`;
                 }
