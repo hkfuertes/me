@@ -1,304 +1,63 @@
-# Miguel Fuertes - Portfolio
+# Miguel Fuertes
 
-Personal portfolio and professional website built with Astro, featuring automated CV generation and GitHub integration.
+Senior Software Engineer specializing in backend development, search platforms, and SEO optimization.
 
-## Live Site
+## About
 
-- **Production**: [mfuertes.net](https://mfuertes.net)
-- **GitHub Pages**: [hkfuertes.github.io](https://hkfuertes.github.io)
+Backend engineer with 9+ years of experience building scalable systems across search, personalization, and fan engagement platforms. Currently at Gartner, working on search and SEO infrastructure for GetApp, Capterra, and Software Advice.
 
-## Repository Structure
+**Location**: Barcelona, Spain (Remote)
 
-This monorepo contains:
+**Website**: [mfuertes.net](https://mfuertes.net)
 
-- **`portfolio/`** - Portfolio website (Astro + TailwindCSS)
-  - **`src/data/`** - Content configuration (gists.yaml, projects.yaml)
-- **`Miguel_Fuertes_CV.yaml`** - CV in YAML format (RenderCV compatible)
+**Contact**: [mjfuertesf@gmail.com](mailto:mjfuertesf@gmail.com)
 
-## Tech Stack
+## Experience Highlights
 
-- **Framework**: Astro 5.x
-- **Styling**: TailwindCSS 4.x
-- **CV Generation**: RenderCV (Python)
-- **Deployment**: GitHub Pages
-- **CI/CD**: GitHub Actions
-- **Linting**: ESLint with Astro plugin
-- **Content**: GitHub Gists + Markdown
+**Gartner** - Senior Software Engineer (2022-2025)
+Backend engineer for search, personalization, and SEO platforms across GetApp, Capterra, and Software Advice. Built and maintained Ruby on Rails and Elixir services for search indexing, personalization, sitemaps, and content similarity analysis.
 
-## Quick Start
+**ATOS** - Lead Software Engineer (2019-2022)
+Lead maintainer of Microsoft Sports Digital Platform for Ligue 1 fan engagement. Managed enterprise-scale platform across Azure services with multi-region deployment.
 
-### Development (Docker - Recommended)
+**Microsoft** - Program Manager (2016-2019)
+Program Manager for white-label fan platform deployed to major sports organizations including LFP, LaLiga, and Real Sociedad.
 
-```bash
-# Start dev server (http://localhost:4321)
-./scripts/dev.sh dev
+## Technical Skills
 
-# Build site
-./scripts/dev.sh build
+**Languages**: Ruby (Rails), Elixir (Phoenix), PHP (Symfony), C# (.NET), JavaScript
 
-# Generate CV PDF
-./scripts/dev.sh cv
+**Infrastructure**: AWS (S3, CloudFront), Azure (B2C, CosmosDB), Kafka, PostgreSQL, OpenSearch, Solr
 
-# Run linter
-./scripts/dev.sh lint
+**Domains**: SEO platforms, search optimization, personalization engines, content similarity, multi-region deployments
 
-# Test build (validation + build)
-./scripts/dev.sh test
+## Notable Projects
 
-# Build everything (CV + Portfolio)
-./scripts/dev.sh all
+- [msm8916-openwrt](https://github.com/hkfuertes/msm8916-openwrt) - OpenWrt SNAPSHOT for Chinese 4G Dongles/MiFis (15 stars, 4 forks)
+- [AAGW](https://github.com/hkfuertes/AAGW) - Android Auto Wireless Gateway (7 stars)
+- [WirelessAndroidAutoDongle](https://github.com/nisargjhaveri/WirelessAndroidAutoDongle) - Contributor
+- [UxPlay-Buildroot](https://github.com/hkfuertes/UxPlay-Buildroot) - Minimal Raspberry Pi images for AirPlay 2 Mirroring
 
-# Stop services
-./scripts/dev.sh down
+## Education
 
-# View logs
-./scripts/dev.sh logs
+- M.Ed. Teacher Training - Nebrija University (2020-2022)
+- M.Sc. Biomedical Engineering - Public University of Navarra (2017-2019)
+- Major Computer Science - Public University of Navarra (2011-2014)
+  - Study abroad: Millersville, PA (2012)
 
-# Clean containers
-./scripts/dev.sh clean
-```
+## Connect
 
-### Development (Local)
+- GitHub: [@hkfuertes](https://github.com/hkfuertes)
+- LinkedIn: [hkfuertes](https://linkedin.com/in/hkfuertes)
+- Website: [mfuertes.net](https://mfuertes.net)
 
-```bash
-cd portfolio
-npm install
-npm run dev
-```
+## This Repository
 
-### Make Commands
+Personal portfolio and professional website built with Astro 5.x and TailwindCSS 4.x. Features automated CV generation and GitHub integration for blog posts and project showcase.
 
-```bash
-# CV
-make cv                    # Generate CV PDF and copy to public/
-make render                # Generate CV PDF only
+**Tech Stack**: Astro, TailwindCSS, RenderCV, GitHub Actions, GitHub Pages
 
-# Portfolio
-make dev                   # Start dev server
-make build                 # Build portfolio
-make lint                  # Run ESLint
-
-# Combined
-make all                   # Build CV + Portfolio
-make test                  # Validate and build
-
-# Docker
-make up                    # Start app
-make down                  # Stop app
-```
-
-## Deployment
-
-### GitHub Pages Configuration
-
-**Custom Domain Setup (mfuertes.net)**
-
-1. Configure in GitHub Settings:
-   - Repository → Settings → Pages
-   - Custom domain: `mfuertes.net`
-   - Enforce HTTPS: enabled
-
-2. Configure DNS (at domain provider):
-   ```
-   A Record:    @ → 185.199.108.153
-   A Record:    @ → 185.199.109.153
-   A Record:    @ → 185.199.110.153
-   A Record:    @ → 185.199.111.153
-   CNAME Record: www → hkfuertes.github.io
-   ```
-
-3. Configure environment variables:
-   ```bash
-   # .env
-   PUBLIC_SITE_URL=https://mfuertes.net
-   ```
-
-**For standard GitHub Pages setup, see GITHUB_PAGES_SETUP.md**
-
-### Automatic Deployment
-
-The site automatically deploys to GitHub Pages via GitHub Actions on:
-- Push to `main` or `master` branch
-- Manual trigger via GitHub Actions UI
-
-### Manual Deployment
-
-1. Go to GitHub Actions
-2. Select "Deploy to GitHub Pages" workflow
-3. Click "Run workflow"
-
-## Pipeline Overview
-
-### GitHub Actions Workflow
-
-**Triggers:**
-- Push to main/master
-- Manual via workflow_dispatch
-
-**Steps:**
-1. Pre-build validation
-2. CV PDF generation with RenderCV
-3. Astro build with GITHUB_TOKEN
-4. Deploy to GitHub Pages
-
-**Optimizations:**
-- npm cache (node_modules)
-- Astro build cache (.astro)
-- GITHUB_TOKEN for API loaders
-
-### Pre-build Validation
-
-Validates before building:
-- CV YAML syntax
-- gists.yaml existence and syntax
-- GITHUB_TOKEN presence (warning if missing)
-- package.json, node_modules, configs
-
-### Lint Check (PR Only)
-
-ESLint runs automatically on Pull Requests:
-- Checks all Astro files
-- Must pass before merge
-- Can run locally: `make lint`
-
-## Adding Content
-
-### Blog Posts
-
-**Option 1: GitHub Gists**
-1. Create a public gist on GitHub
-2. Add URL to `portfolio/src/data/gists.yaml`:
-   ```yaml
-   gists:
-     - https://gist.github.com/hkfuertes/[gist-id]
-   ```
-
-### Projects
-
-Add GitHub repository URLs to `portfolio/src/data/projects.yaml`:
-```yaml
-projects:
-  - https://github.com/username/repo-name
-```
-
-Projects will automatically:
-- Fetch repository metadata (stars, forks, description)
-- Load README if available
-- Display in timeline with proper formatting
-
-### CV Updates
-
-Edit `Miguel_Fuertes_CV.yaml` - Changes reflect automatically in the generated PDF.
-
-## Environment Variables
-
-### Local Development
-
-```bash
-# Optional: For GitHub API loaders
-export GITHUB_TOKEN=ghp_xxxxxxxxxxxxx
-```
-
-Add to `.env` or `docker-compose.yml`:
-```env
-GITHUB_TOKEN=ghp_xxxxxxxxxxxxx
-```
-
-### GitHub Actions
-
-- `GITHUB_TOKEN`: Auto-provided by GitHub Actions
-- No manual configuration required
-
-## File Structure
-
-```
-.
-├── .github/
-│   └── workflows/
-│       ├── deploy.yml              # CI/CD pipeline
-│       └── lint.yml                # PR lint check
-├── scripts/
-│   ├── pre-build.sh                # Pre-build validation
-│   └── dev.sh                      # Development script
-├── portfolio/
-│   ├── src/
-│   │   ├── data/
-│   │   │   ├── gists.yaml          # Configured gists
-│   │   │   └── projects.yaml       # GitHub projects
-│   │   ├── content.config.ts       # Content configuration
-│   │   ├── pages/                  # Astro pages
-│   │   └── utils/                  # GitHub loaders
-│   ├── public/
-│   │   └── cv.pdf                  # Generated CV (auto)
-│   ├── eslint.config.js            # ESLint config
-│   └── package.json
-├── Miguel_Fuertes_CV.yaml          # CV source
-├── Makefile                        # Make commands
-└── docker-compose.yml              # Docker services
-```
-
-## Troubleshooting
-
-### CV Generation Fails
-
-```bash
-# Verify YAML syntax
-make render
-
-# View detailed errors
-docker compose run --rm rendercv render Miguel_Fuertes_CV.yaml
-```
-
-### GitHub Loaders Fail
-
-```bash
-# Check token
-echo $GITHUB_TOKEN
-
-# Set token
-export GITHUB_TOKEN=ghp_xxxxxxxxxxxxx
-```
-
-### Build Fails
-
-```bash
-# Run validation
-./scripts/pre-build.sh
-
-# View detailed logs
-docker compose run --rm build
-```
-
-### Lint Fails
-
-```bash
-# Run lint locally
-make lint
-
-# Auto-fix issues
-docker compose run --rm app npm run lint:fix
-```
-
-### Hot Reload Not Working
-
-```bash
-# Restart server
-./scripts/dev.sh down
-./scripts/dev.sh dev
-```
-
-## Performance
-
-**Build times (approximate):**
-- First build: ~2-3 min (with cache: ~1 min)
-- Subsequent builds: ~30-60s
-- Hot reload: <1s
-
-**Optimizations:**
-- npm dependencies cache
-- Astro build cache
-- Early validation (fail fast)
-- Parallelization where possible
+For technical documentation, development setup, and deployment instructions, see [MAINTENANCE.md](MAINTENANCE.md).
 
 ## License
 
