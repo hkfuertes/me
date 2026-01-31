@@ -89,6 +89,32 @@ make down                  # Stop app
 
 ## Deployment
 
+### GitHub Pages Configuration
+
+**Custom Domain Setup (mfuertes.net)**
+
+1. Configure in GitHub Settings:
+   - Repository → Settings → Pages
+   - Custom domain: `mfuertes.net`
+   - Enforce HTTPS: enabled
+
+2. Configure DNS (at domain provider):
+   ```
+   A Record:    @ → 185.199.108.153
+   A Record:    @ → 185.199.109.153
+   A Record:    @ → 185.199.110.153
+   A Record:    @ → 185.199.111.153
+   CNAME Record: www → hkfuertes.github.io
+   ```
+
+3. Configure environment variables:
+   ```bash
+   # .env
+   PUBLIC_SITE_URL=https://mfuertes.net
+   ```
+
+**For standard GitHub Pages setup, see GITHUB_PAGES_SETUP.md**
+
 ### Automatic Deployment
 
 The site automatically deploys to GitHub Pages via GitHub Actions on:
