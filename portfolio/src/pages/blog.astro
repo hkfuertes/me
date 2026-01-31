@@ -115,7 +115,7 @@ function getTypeLabel(item: { type: string; showReadme?: boolean }) {
             slot="left"
             type="text" 
             id="search-input"
-            placeholder="Filter by title..."
+            placeholder="Filter..."
             class="flex-1 px-3 py-2 border border-[#2a2e38] bg-[#1a1d23] text-gray-100 placeholder:text-gray-400 text-sm focus:outline-none focus:border-emerald-500 transition-colors"
             style="min-height: 42px;"
         />
@@ -149,17 +149,17 @@ function getTypeLabel(item: { type: string; showReadme?: boolean }) {
                         <!-- Items del año -->
                         <div class="grid md:grid-cols-3 gap-4">
                             {yearItems.map(item => (
-                                <article class="border border-[#2a2e38] bg-[#1a1d23] p-4 hover:border-emerald-600 transition-colors group flex flex-col relative">
+                                <article class="border border-[#2a2e38] bg-[#1a1d23] p-4 hover:border-emerald-600 transition-colors group flex flex-col relative" data-tags={item.tags.join(' ')}>
                                     {/* Updated badge - esquina superior derecha */}
                                     {item.updated && item.updated.getTime() !== item.date.getTime() && (
                                         <div class="absolute top-3 right-3 text-gray-500 text-[10px]">
                                             {formatUpdatedDate(item.updated)}
                                         </div>
                                     )}
-                                    
+
                                     {item.url ? (
-                                        <a 
-                                            href={item.url} 
+                                        <a
+                                            href={item.url}
                                             class="block group/link flex-1 pr-16"
                                             target={item.type === 'contribution' || (item.type === 'github' && !item.showReadme) ? '_blank' : undefined}
                                             rel={item.type === 'contribution' || (item.type === 'github' && !item.showReadme) ? 'noopener noreferrer' : undefined}
@@ -190,7 +190,17 @@ function getTypeLabel(item: { type: string; showReadme?: boolean }) {
                                         </div>
                                     )}
                                     
-                                    <div class="flex items-center gap-2 text-xs mt-auto">
+                                    {item.tags.length > 0 && item.type !== 'contribution' && (
+                                        <div class="flex flex-wrap gap-1.5 mt-auto">
+                                            {item.tags.map(tag => (
+                                                <span class="shrink-0 text-[10px] px-1.5 py-0.5 text-emerald-400 border border-emerald-500/20">
+                                                    {tag}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    )}
+
+                                    <div class={`flex items-center gap-2 text-xs ${item.tags.length > 0 && item.type !== 'contribution' ? 'mt-2' : 'mt-auto'}`}>
                                         <div class="text-gray-400">{formatDate(item.date)}</div>
                                         <div class="text-gray-600">•</div>
                                         <div class={`inline-block px-2 py-0.5 font-medium border uppercase tracking-wider ${
@@ -235,10 +245,12 @@ function getTypeLabel(item: { type: string; showReadme?: boolean }) {
         
         searchInput?.addEventListener('input', (e) => {
             const query = (e.target as HTMLInputElement).value.toLowerCase();
-            
+
             articles.forEach(article => {
                 const title = article.querySelector('h2')?.textContent?.toLowerCase() || '';
-                const shouldShow = title.includes(query);
+                const description = article.querySelector('p')?.textContent?.toLowerCase() || '';
+                const tags = (article.getAttribute('data-tags') || '').toLowerCase();
+                const shouldShow = title.includes(query) || description.includes(query) || tags.includes(query);
                 article.style.display = shouldShow ? 'flex' : 'none';
             });
             
