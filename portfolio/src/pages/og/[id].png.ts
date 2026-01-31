@@ -170,15 +170,11 @@ export const getStaticPaths: GetStaticPaths = async () => {
     let ogImageTitle = item.data.title;
 
     if (isGitHub) {
-      if (item.data.description && item.data.description.length > 20) {
-        ogImageTitle = item.data.description;
-      } else {
-        ogImageTitle = item.data.title
-          .replace(/[-_]/g, ' ')
-          .split(' ')
-          .map((word: string) => word.charAt(0).toUpperCase() + word.slice(1))
-          .join(' ');
-      }
+      // Formatear título de GitHub: "virtual-screen" -> "Virtual Screen", "pi_uvc_screen_share" -> "Pi Uvc Screen Share"
+      ogImageTitle = item.data.title
+        .split(/[-_]/)  // Split on both hyphens and underscores
+        .map((word: string) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
     }
 
     return {

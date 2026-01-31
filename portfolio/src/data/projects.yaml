@@ -3,7 +3,7 @@
 # For when a gist is not enougth
 with_readme:
   - https://github.com/hkfuertes/virtual-screen
-  - https://github.com/hkfuertes/pi_uvc_screen_share
+  - https://github.com/hkfuertes/raspberry_pi_UVC_screen_share
   - https://github.com/hkfuertes/phpchords
 
 

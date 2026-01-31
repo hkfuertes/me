@@ -46,11 +46,31 @@ const slug = isGitHub
 // SEO: OG image URL (static route generated at build time using slug)
 const ogImage = getOgImageUrl(slug);
 
+// Format date helper
+function formatDate(date: Date) {
+    return date.toLocaleDateString("en-US", {
+        month: "long",
+        day: "numeric",
+        year: "numeric"
+    });
+}
+
+// Format GitHub project title: "virtual-screen" -> "Virtual Screen", "pi_uvc_screen_share" -> "Pi Uvc Screen Share"
+function formatGitHubTitle(title: string): string {
+    return title
+        .split(/[-_]/)  // Split on both hyphens and underscores
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
+}
+
+// Get display title based on post type
+const displayTitle = isGitHub ? formatGitHubTitle(post.data.title) : post.data.title;
+
 // JSON-LD Structured Data
 const jsonLd = {
     "@context": "https://schema.org",
     "@type": isGitHub ? "SoftwareSourceCode" : "Article",
-    "headline": post.data.title,
+    "headline": displayTitle,
     "description": post.data.description,
     "datePublished": post.data.date.toISOString(),
     "dateModified": (post.data.updated || post.data.date).toISOString(),
@@ -68,18 +88,10 @@ const jsonLd = {
         "programmingLanguage": post.data.language,
     }),
 };
-
-function formatDate(date: Date) {
-    return date.toLocaleDateString("en-US", {
-        month: "long",
-        day: "numeric",
-        year: "numeric"
-    });
-}
 ---
 
 <BaseLayout 
-    title={post.data.title}
+    title={displayTitle}
     description={post.data.description} 
     headings={headings}
     image={ogImage}
@@ -106,7 +118,7 @@ function formatDate(date: Date) {
                     </div>
                     
                     <h1 class="text-4xl md:text-5xl font-bold text-gray-100 mb-4 leading-tight">
-                        {post.data.title}
+                        {displayTitle}
                     </h1>
                     
                     {post.data.description && (

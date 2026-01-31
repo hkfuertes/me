@@ -8,6 +8,14 @@ import { getCollection } from "astro:content";
 import { Icon } from "astro-icon/components";
 import { generateSlug, extractSlugFromGithubId } from "@/utils/slugify";
 
+// Format GitHub project title: "virtual-screen" -> "Virtual Screen"
+function formatGitHubTitle(title: string): string {
+    return title
+        .split(/[-_]/)  // Split on both hyphens and underscores
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
+}
+
 // Cargar solo gists y repos públicos de GitHub
 const gists = await getCollection("gists");
 const githubRepos = await getCollection("githubRepos");
@@ -36,9 +44,10 @@ const allWork = [
     // GitHub Repos públicos (automático)
     ...githubRepos.map(item => {
         const slug = extractSlugFromGithubId(item.id.replace('github-hkfuertes-', ''));
+        const formattedTitle = formatGitHubTitle(item.data.title);
         return {
             type: 'github',
-            title: item.data.title,
+            title: formattedTitle,
             date: item.data.date,
             updated: item.data.updated,
             description: item.data.description,
