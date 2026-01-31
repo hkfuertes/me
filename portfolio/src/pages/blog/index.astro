@@ -1,0 +1,173 @@
+---
+import '@/styles/global.css'
+import TopBar from "@/components/TopBar.astro";
+import BlogCard from "@/components/BlogCard.astro";
+import YearSeparator from "@/components/YearSeparator.astro";
+import { getCollection } from "astro:content";
+import { Icon } from "astro-icon/components";
+
+// Cargar solo gists y repos públicos de GitHub
+const gists = await getCollection("gists");
+const githubRepos = await getCollection("githubRepos");
+const contributions = await getCollection("contributions");
+
+// Unificar todo en un solo array con tipos
+const allWork = [
+    // Gists
+    ...gists.map(item => ({
+        type: 'gist',
+        title: item.data.title,
+        date: item.data.date,
+        updated: item.data.updated,
+        description: item.data.description,
+        url: `/blog/${item.id}`,
+        externalUrl: item.data.url,
+        tags: item.data.tags || [],
+        stars: item.data.stars || 0,
+        forks: item.data.forks || 0,
+        showReadme: false,
+        state: undefined
+    })),
+    // GitHub Repos públicos (automático)
+    ...githubRepos.map(item => ({
+        type: 'github',
+        title: item.data.title,
+        date: item.data.date,
+        updated: item.data.updated,
+        description: item.data.description,
+        url: item.data.showReadme ? `/blog/${item.id}` : item.data.url,
+        externalUrl: item.data.url,
+        tags: item.data.tags || [],
+        stars: item.data.stars || 0,
+        forks: item.data.forks || 0,
+        language: item.data.language,
+        showReadme: item.data.showReadme || false,
+        state: undefined
+    })),
+    // Contribuciones (PRs merged a proyectos de terceros)
+    ...contributions.map(item => ({
+        type: 'contribution',
+        title: item.data.title,
+        date: item.data.mergedAt || item.data.date,
+        updated: item.data.updated,
+        description: item.data.repo,
+        url: item.data.url,
+        externalUrl: item.data.url,
+        tags: item.data.tags || [],
+        stars: 0,
+        forks: 0,
+        repo: item.data.repo,
+        additions: item.data.additions || 0,
+        deletions: item.data.deletions || 0,
+        prNumber: item.data.prNumber,
+        state: item.data.state || 'open',
+        showReadme: false
+    }))
+];
+
+// Ordenar por fecha (más reciente primero)
+const sortedWork = allWork.sort((a, b) => b.date.getTime() - a.date.getTime());
+
+// Obtener años únicos
+const years = [...new Set(sortedWork.map(item => item.date.getFullYear()))].sort((a, b) => b - a);
+---
+
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Senior Software Engineer with 10+ years experience in backend development, cloud platforms, and embedded systems." />
+    <meta name="author" content="Miguel Fuertes" />
+    <title>Work - Miguel Fuertes</title>
+</head>
+<body class="bg-dark-bg text-gray-100 min-h-screen antialiased transition-colors">
+    <TopBar currentPath={Astro.url.pathname}>
+        <div slot="left" class="flex-1 relative">
+            <Icon 
+                name="tabler:search" 
+                class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none"
+            />
+            <input 
+                type="text" 
+                id="search-input"
+                placeholder="Filter..."
+                class="w-full pl-10 pr-3 py-2 border border-dark-border bg-dark-surface text-gray-100 placeholder:text-gray-400 text-sm focus:outline-none focus:border-emerald-500 transition-colors"
+                style="min-height: 42px;"
+            />
+        </div>
+    </TopBar>
+    
+    <div class="min-h-screen bg-dark-bg">
+        <!-- Grid de fondo -->
+        <div class="fixed inset-0 bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none"></div>
+        
+        <div class="relative max-w-5xl mx-auto px-6 py-12">
+            <!-- Header -->
+            <div class="mb-8">
+                <p class="text-lg text-gray-400 font-light max-w-3xl mx-auto text-center italic">
+                    Things I've built, written, and contributed to.
+                </p>
+            </div>
+            
+            <!-- Timeline por años -->
+            <div id="timeline-container">
+            {years.map(year => {
+                const yearItems = sortedWork.filter(item => item.date.getFullYear() === year);
+                
+                return (
+                    <div class="year-section mb-12">
+                        <YearSeparator year={year} />
+                        
+                        <!-- Items del año -->
+                        <div class="grid md:grid-cols-3 gap-4">
+                            {yearItems.map(item => (
+                                <BlogCard 
+                                    type={item.type}
+                                    title={item.title}
+                                    description={item.description}
+                                    url={item.url}
+                                    date={item.date}
+                                    updated={item.updated}
+                                    tags={item.tags}
+                                    stars={item.stars}
+                                    forks={item.forks}
+                                    showReadme={item.showReadme}
+                                    state={item.state}
+                                />
+                            ))}
+                        </div>
+                    </div>
+                );
+            })}
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const searchInput = document.getElementById('search-input') as HTMLInputElement;
+        const articles = document.querySelectorAll('article[data-tags]');
+        
+        searchInput?.addEventListener('input', (e) => {
+            const query = (e.target as HTMLInputElement).value.toLowerCase();
+
+            articles.forEach(article => {
+                const title = article.querySelector('h2')?.textContent?.toLowerCase() || '';
+                const description = article.querySelector('p')?.textContent?.toLowerCase() || '';
+                const tags = (article.getAttribute('data-tags') || '').toLowerCase();
+                const shouldShow = title.includes(query) || description.includes(query) || tags.includes(query);
+                (article as HTMLElement).style.display = shouldShow ? 'flex' : 'none';
+            });
+            
+            // Hide year sections if all articles are hidden
+            const yearSections = document.querySelectorAll('.year-section');
+            yearSections.forEach(yearSection => {
+                const visibleArticles = yearSection.querySelectorAll('article:not([style*="display: none"])');
+                (yearSection as HTMLElement).style.display = visibleArticles.length > 0 ? 'block' : 'none';
+            });
+        });
+    </script>
+</body>
+</html>
+

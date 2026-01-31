@@ -1,0 +1,139 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+    type: string;
+    title: string;
+    description?: string;
+    url?: string;
+    date: Date;
+    updated?: Date;
+    tags: string[];
+    stars: number;
+    forks: number;
+    showReadme?: boolean;
+    state?: string;
+}
+
+const { 
+    type, 
+    title, 
+    description, 
+    url, 
+    date, 
+    updated, 
+    tags, 
+    stars, 
+    forks, 
+    showReadme,
+    state 
+} = Astro.props;
+
+function formatDate(date: Date): string {
+    return new Intl.DateTimeFormat('en-US', {
+        month: 'short',
+        day: 'numeric'
+    }).format(date);
+}
+
+function formatUpdatedDate(date: Date): string {
+    return `Updated ${new Intl.DateTimeFormat('en-US', {
+        month: 'short',
+        day: 'numeric'
+    }).format(date)}`;
+}
+
+function getTypeLabel(type: string, showReadme?: boolean): string {
+    if (type === 'gist') return 'Writing';
+    if (type === 'github') return showReadme ? 'Writing' : 'Project';
+    if (type === 'contribution') return 'Contribution';
+    return type;
+}
+
+const isExternal = type === 'contribution' || (type === 'github' && !showReadme);
+---
+
+<article class="border border-dark-border bg-dark-surface p-4 hover:border-emerald-600 transition-colors group flex flex-col relative" data-tags={tags.join(' ')}>
+    <!-- Updated badge -->
+    {updated && updated.getTime() !== date.getTime() && (
+        <div class="absolute top-3 right-3 text-gray-500 text-[10px]">
+            {formatUpdatedDate(updated)}
+        </div>
+    )}
+
+    <!-- Content -->
+    {url ? (
+        <a
+            href={url}
+            class="block group/link flex-1 pr-16"
+            target={isExternal ? '_blank' : undefined}
+            rel={isExternal ? 'noopener noreferrer' : undefined}
+        >
+            <h2 class="text-lg font-bold text-gray-100 mb-2 group-hover/link:text-emerald-300 transition-colors line-clamp-1">
+                {title}
+            </h2>
+            <p class="text-sm text-gray-400 mb-3 line-clamp-1">
+                {description ? (
+                    description
+                ) : (
+                    <span class="italic text-gray-500">Interesting project...</span>
+                )}
+            </p>
+        </a>
+    ) : (
+        <div class="flex-1 pr-16">
+            <h2 class="text-lg font-bold text-gray-100 mb-2 line-clamp-1">
+                {title}
+            </h2>
+            <p class="text-sm text-gray-400 mb-3 line-clamp-1">
+                {description ? (
+                    description
+                ) : (
+                    <span class="italic text-gray-500">Interesting project...</span>
+                )}
+            </p>
+        </div>
+    )}
+    
+    <!-- Tags -->
+    {tags.length > 0 && type !== 'contribution' && (
+        <div class="flex flex-wrap gap-1.5 mt-auto">
+            {tags.map(tag => (
+                <span class="shrink-0 text-[10px] px-1.5 py-0.5 text-emerald-400 border border-emerald-500/20">
+                    {tag}
+                </span>
+            ))}
+        </div>
+    )}
+
+    <!-- Metadata footer -->
+    <div class={`flex items-center gap-2 text-xs ${tags.length > 0 && type !== 'contribution' ? 'mt-2' : 'mt-auto'}`}>
+        <div class="text-gray-400">{formatDate(date)}</div>
+        <div class="text-gray-600">•</div>
+        <div class={`inline-block px-2 py-0.5 font-medium border uppercase tracking-wider ${
+            type === 'contribution' && state === 'open'
+                ? 'border-green-500 text-green-400'
+                : 'border-dark-border text-gray-300'
+        }`}>
+            {getTypeLabel(type, showReadme)}
+        </div>
+        {stars > 0 && (
+            <>
+                <div class="text-gray-600">•</div>
+                <div class="text-gray-300 flex items-center gap-1">
+                    <Icon name="tabler:star" class="w-3 h-3" />
+                    <span>{stars}</span>
+                </div>
+            </>
+        )}
+        {forks > 0 && (
+            <>
+                <div class="text-gray-600">•</div>
+                <div class="text-gray-300 flex items-center gap-1">
+                    <Icon name="tabler:git-fork" class="w-3 h-3" />
+                    <span>{forks}</span>
+                </div>
+            </>
+        )}
+    </div>
+</article>

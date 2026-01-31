@@ -16,7 +16,7 @@ const isArticlePage = currentPath.startsWith('/blog/') && currentPath !== '/blog
 const backLink = isArticlePage ? '/blog' : '/';
 ---
 
-<header class="fixed top-0 left-0 right-0 z-50 bg-[#0f1114]/90 backdrop-blur-sm border-b border-[#2a2e38]">
+<header class="fixed top-0 left-0 right-0 z-50 bg-dark-bg/90 backdrop-blur-sm border-b border-dark-border">
     <!-- Progress bar -->
     <div id="progress-bar" class="absolute bottom-[-1px] left-0 h-0.5 bg-emerald-400 transition-all duration-150" style="width: 0%"></div>
     
@@ -32,7 +32,7 @@ const backLink = isArticlePage ? '/blog' : '/';
                     <slot name="left" />
                 ) : headings.length > 0 && (
                     <div class="relative group flex-1">
-                        <div class="border border-[#2a2e38] rounded bg-[#1a1d23] group-hover:rounded-b-none group-hover:border-b-transparent transition-all">
+                        <div class="border border-dark-border rounded bg-dark-surface group-hover:rounded-b-none group-hover:border-b-transparent transition-all">
                             <button
                                 class="w-full text-sm text-gray-400 px-3 py-2 flex items-center justify-between gap-2 transition-colors"
                                 style="min-height: 42px;"
@@ -41,11 +41,11 @@ const backLink = isArticlePage ? '/blog' : '/';
                                 <Icon name="tabler:chevron-down" class="w-4 h-4 transition-transform group-hover:rotate-180" />
                             </button>
                         </div>
-                        <ul class="hidden group-hover:block absolute left-0 right-0 top-full bg-[#1a1d23] border border-[#2a2e38] border-t-0 rounded-b shadow-lg overflow-hidden z-50 max-h-[400px] overflow-y-auto">
+                        <ul class="hidden group-hover:block absolute left-0 right-0 top-full bg-dark-surface border border-dark-border border-t-0 rounded-b shadow-lg overflow-hidden z-50 max-h-[400px] overflow-y-auto">
                             <li>
                                 <a
                                     href="#"
-                                    class="block px-4 py-2.5 text-sm transition-all hover:bg-[#2a2e38] text-gray-400 italic font-mono"
+                                    class="block px-4 py-2.5 text-sm transition-all hover:bg-dark-border text-gray-400 italic font-mono"
                                     onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;"
                                 >
                                     GOTO 0;
@@ -62,7 +62,7 @@ const backLink = isArticlePage ? '/blog' : '/';
                                             <li>
                                                 <a
                                                     href={`#${heading.id}`}
-                                                    class="block px-4 py-2.5 text-sm transition-all hover:bg-[#2a2e38] hover:text-emerald-300 text-gray-100 font-medium"
+                                                    class="block px-4 py-2.5 text-sm transition-all hover:bg-dark-border hover:text-emerald-300 text-gray-100 font-medium"
                                                 >
                                                     <span class="text-emerald-400 font-mono mr-2">{h2Counter}.</span>
                                                     {heading.text}
@@ -75,7 +75,7 @@ const backLink = isArticlePage ? '/blog' : '/';
                                             <li>
                                                 <a
                                                     href={`#${heading.id}`}
-                                                    class="block px-4 py-2.5 text-sm transition-all hover:bg-[#2a2e38] text-gray-300 pl-8"
+                                                    class="block px-4 py-2.5 text-sm transition-all hover:bg-dark-border text-gray-300 pl-8"
                                                 >
                                                     <span class="text-gray-500 font-mono mr-2">{h2Counter}.{h3Counter}</span>
                                                     {heading.text}
@@ -116,7 +116,7 @@ const backLink = isArticlePage ? '/blog' : '/';
                 <a 
                     href="/Miguel_Fuertes_CV.pdf" 
                     target="_blank"
-                    class="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium border border-[#2a2e38] text-gray-300 uppercase tracking-wider transition-all hover:bg-emerald-600 hover:text-white hover:border-emerald-600"
+                    class="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium border border-dark-border text-gray-300 uppercase tracking-wider transition-all hover:bg-emerald-600 hover:text-white hover:border-emerald-600"
                 >
                     <Icon name="tabler:download" class="w-3.5 h-3.5" />
                     RESUME

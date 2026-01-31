@@ -1,0 +1,12 @@
+---
+interface Props {
+    year: number;
+}
+
+const { year } = Astro.props;
+---
+
+<div class="flex items-center gap-4 mb-8">
+    <div class="text-3xl font-bold text-gray-100">{year}</div>
+    <div class="flex-1 h-px bg-dark-border"></div>
+</div>

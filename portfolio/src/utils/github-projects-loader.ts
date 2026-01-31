@@ -109,7 +109,7 @@ export function GitHubProjectsLoader(options: GitHubProjectsLoaderOptions): Load
                             stars: repoData.stargazers_count,
                             forks: repoData.forks_count,
                             language: repoData.language || '',
-                            show_readme: showReadme,
+                            showReadme: showReadme,
                         },
                         rendered: rendered || undefined,
                     });
