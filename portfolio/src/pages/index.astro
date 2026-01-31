@@ -44,9 +44,12 @@ const ogImage = `${SEO_CONFIG.siteUrl}/og-home.png`;
                     I build backend systems, SEO platforms, and embedded solutions. 
                     Over 10 years working with Ruby, Elixir, C#, AWS, and Azure.
                 </p>
-                <p class="text-gray-400 text-sm mb-6">
+                <!-- Hidden on mobile, visible on desktop -->
+                <p class="hidden md:block text-gray-400 text-sm mb-6">
                     Currently focused on search infrastructure and personalization engines.
                 </p>
+                <!-- Spacing adjustment for mobile -->
+                <div class="md:hidden mb-6"></div>
                 
                 <!-- Redes sociales -->
                 <div class="flex items-center justify-center gap-4 text-sm">
