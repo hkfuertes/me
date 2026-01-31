@@ -1,13 +1,20 @@
 import type { APIRoute } from 'astro';
 import { ImageResponse } from '@vercel/og';
 import { SEO_CONFIG } from '@/data/seo';
+import fs from 'fs';
+import path from 'path';
 
 /**
  * Static OG image for landing page
- * Shows: Name, title, contact info following Swiss Design aesthetic
+ * Shows: Name, title, contact info, profile photo following Swiss Design aesthetic
  */
 export const GET: APIRoute = async () => {
   const { author, defaultDescription } = SEO_CONFIG;
+  
+  // Read profile image and convert to base64
+  const profileImagePath = path.join(process.cwd(), 'public', 'images', 'profile.jpeg');
+  const profileImageBuffer = fs.readFileSync(profileImagePath);
+  const profileImageBase64 = `data:image/jpeg;base64,${profileImageBuffer.toString('base64')}`;
   
   const html = {
     type: 'div',
@@ -50,35 +57,63 @@ export const GET: APIRoute = async () => {
               position: 'relative',
             },
             children: [
-              // Top: Name
+              // Top: Name + Profile Photo
               {
                 type: 'div',
                 props: {
                   style: {
                     display: 'flex',
-                    flexDirection: 'column',
-                    gap: '24px',
+                    justifyContent: 'space-between',
+                    alignItems: 'flex-start',
+                    gap: '40px',
                   },
                   children: [
+                    // Name section
                     {
                       type: 'div',
                       props: {
                         style: {
-                          fontSize: '72px',
-                          fontWeight: '700',
-                          color: '#f3f4f6',
-                          lineHeight: '1',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          gap: '24px',
+                          flex: '1',
                         },
-                        children: author.name,
+                        children: [
+                          {
+                            type: 'div',
+                            props: {
+                              style: {
+                                fontSize: '72px',
+                                fontWeight: '700',
+                                color: '#f3f4f6',
+                                lineHeight: '1',
+                              },
+                              children: author.name,
+                            },
+                          },
+                          {
+                            type: 'div',
+                            props: {
+                              style: {
+                                width: '64px',
+                                height: '4px',
+                                backgroundColor: '#6ee7b7',
+                              },
+                            },
+                          },
+                        ],
                       },
                     },
+                    // Profile photo
                     {
-                      type: 'div',
+                      type: 'img',
                       props: {
+                        src: profileImageBase64,
                         style: {
-                          width: '64px',
-                          height: '4px',
-                          backgroundColor: '#6ee7b7',
+                          width: '160px',
+                          height: '160px',
+                          objectFit: 'cover',
+                          border: '3px solid #6ee7b7',
                         },
                       },
                     },
