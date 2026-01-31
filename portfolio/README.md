@@ -7,15 +7,20 @@ Minimalist portfolio with Swiss Design aesthetic built with Astro and deployed t
 - **Framework**: Astro 5.x
 - **Styling**: TailwindCSS 4.x
 - **Content**: GitHub Gists + YAML configuration
+- **SEO**: Complete meta tags, JSON-LD, auto-generated OG images, sitemap
 - **Deployment**: GitHub Pages (automated via Actions)
 
 ## Site Structure
 
 ```
 https://mfuertes.net/
-├── /              Landing page
-├── /blog          Timeline of blog posts, projects, and contributions
-├── /blog/[id]     Individual post pages
+├── /                   Landing page
+├── /blog               Timeline of blog posts, projects, and contributions
+├── /blog/[id]          Individual post pages (with full SEO)
+├── /og/[id].png        Auto-generated OG images for blog/projects
+├── /og-home.png        Static OG image for landing page
+├── /sitemap.xml        Auto-generated sitemap
+├── /robots.txt         Search engine directives
 └── /Miguel_Fuertes_CV.pdf
 ```
 
@@ -33,6 +38,7 @@ https://mfuertes.net/
 ```bash
 # Set GitHub token in .env
 echo "GITHUB_TOKEN=your_token_here" > .env
+echo "PUBLIC_SITE_URL=http://localhost:4321" >> .env
 
 # Start dev server
 make up
@@ -48,8 +54,9 @@ docker compose logs -f app
 # Install dependencies
 npm install
 
-# Set GitHub token
+# Set environment variables
 export GITHUB_TOKEN=your_token_here
+export PUBLIC_SITE_URL=http://localhost:4321
 
 # Start dev server
 npm run dev
@@ -62,7 +69,7 @@ Access at `http://localhost:4321`
 ```bash
 npm run dev         # Start dev server
 npm run dev:clean   # Start dev server with clean cache
-npm run build       # Build for production
+npm run build       # Build for production (includes OG image generation)
 npm run preview     # Preview production build
 ```
 
@@ -168,16 +175,66 @@ portfolio/
 Create `.env` file:
 
 ```bash
+# Required: GitHub API access
 GITHUB_TOKEN=ghp_your_personal_access_token
+
+# Required: Production domain for SEO
+PUBLIC_SITE_URL=https://yourdomain.com
 ```
 
-Required for:
+**GITHUB_TOKEN** - Required for:
 - Increased API rate limits (60 req/hour without, 5000 req/hour with token)
 - Access to private gists (if needed)
 
-Generate token at: https://github.com/settings/tokens
+Generate token at: https://github.com/settings/tokens (scopes: `public_repo`, `gist`)
 
-Required scopes: `public_repo`, `gist`
+**PUBLIC_SITE_URL** - Used for:
+- Canonical URLs in meta tags
+- Open Graph image URLs
+- Sitemap generation
+- Structured data
+
+## SEO Features
+
+This portfolio includes comprehensive SEO optimization:
+
+- **Meta Tags**: Complete Open Graph, Twitter Cards, and article metadata
+- **Structured Data**: JSON-LD for articles and projects (Schema.org)
+- **Dynamic OG Images**: Auto-generated social sharing images (`/og-image.png`)
+- **Sitemap**: Auto-generated at `/sitemap.xml`
+- **Robots.txt**: Search engine directives at `/robots.txt`
+
+See [SEO.md](./SEO.md) for complete documentation.
+
+### SEO Configuration
+
+Edit `src/config/seo.ts`:
+```typescript
+export const SEO_CONFIG = {
+  siteUrl: 'https://yourdomain.com',
+  siteName: 'Your Name',
+  author: {
+    name: 'Your Name',
+    email: 'your@email.com',
+    twitter: '@yourhandle',
+  },
+}
+```
+
+### Testing SEO
+
+```bash
+# Test sitemap
+curl http://localhost:4321/sitemap.xml
+
+# Test OG image
+curl http://localhost:4321/og-image.png?title=Test > test.png
+
+# Validate with online tools
+- Open Graph: https://www.opengraph.xyz/
+- Twitter Cards: https://cards-dev.twitter.com/validator
+- Structured Data: https://search.google.com/test/rich-results
+```
 
 ## Troubleshooting
 

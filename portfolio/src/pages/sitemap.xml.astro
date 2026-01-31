@@ -1,0 +1,35 @@
+---
+import { getCollection } from 'astro:content';
+import { SEO_CONFIG } from '@/data/seo';
+
+const gists = await getCollection('gists');
+const githubRepos = await getCollection('githubRepos');
+
+const allPosts = [...gists, ...githubRepos];
+
+// Páginas estáticas
+const staticPages = [
+  { url: '', changefreq: 'weekly', priority: 1.0 },
+  { url: 'blog', changefreq: 'daily', priority: 0.9 },
+];
+
+// Páginas dinámicas (posts)
+const dynamicPages = allPosts.map(post => ({
+  url: `blog/${post.id}`,
+  lastmod: (post.data.updated || post.data.date).toISOString(),
+  changefreq: 'monthly',
+  priority: 0.7,
+}));
+
+const pages = [...staticPages, ...dynamicPages];
+---
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  {pages.map(({ url, lastmod, changefreq, priority }) => (
+    <url>
+      <loc>{`${SEO_CONFIG.siteUrl}/${url}`}</loc>
+      {lastmod && <lastmod>{lastmod}</lastmod>}
+      <changefreq>{changefreq}</changefreq>
+      <priority>{priority}</priority>
+    </url>
+  ))}
+</urlset>

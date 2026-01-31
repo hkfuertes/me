@@ -3,6 +3,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
 import { addHeadingIds } from "../../utils/add-heading-ids";
 import { Icon } from "astro-icon/components";
+import { SEO_CONFIG, getOgImageUrl } from "@/data/seo";
 
 export async function getStaticPaths() {
     const gists = await getCollection("gists");
@@ -23,6 +24,32 @@ const typeLabel = 'Writing';
 // Add IDs to headings and extract ToC
 const { html, headings } = addHeadingIds(post.rendered?.html || '');
 
+// SEO: OG image URL (static route generated at build time)
+const ogImage = getOgImageUrl(post.id);
+
+// JSON-LD Structured Data
+const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": isGitHub ? "SoftwareSourceCode" : "Article",
+    "headline": post.data.title,
+    "description": post.data.description,
+    "datePublished": post.data.date.toISOString(),
+    "dateModified": (post.data.updated || post.data.date).toISOString(),
+    "author": {
+        "@type": "Person",
+        "name": SEO_CONFIG.author.name,
+        "email": SEO_CONFIG.author.email,
+    },
+    "publisher": {
+        "@type": "Person",
+        "name": SEO_CONFIG.siteName,
+    },
+    ...(isGitHub && {
+        "codeRepository": post.data.url,
+        "programmingLanguage": post.data.language,
+    }),
+};
+
 function formatDate(date: Date) {
     return date.toLocaleDateString("en-US", {
         month: "long",
@@ -32,7 +59,19 @@ function formatDate(date: Date) {
 }
 ---
 
-<BaseLayout title={`${post.data.title} - Miguel Fuertes`} description={post.data.description} headings={headings}>
+<BaseLayout 
+    title={post.data.title}
+    description={post.data.description} 
+    headings={headings}
+    image={ogImage}
+    type="article"
+    publishedTime={post.data.date}
+    modifiedTime={post.data.updated || post.data.date}
+    tags={post.data.tags || []}
+>
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    
     <div class="min-h-screen bg-dark-bg">
         <!-- Grid de fondo -->
         <div class="fixed inset-0 bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none"></div>

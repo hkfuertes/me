@@ -1,0 +1,12 @@
+---
+import { SEO_CONFIG } from '@/data/seo';
+
+const robotsTxt = `# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: ${SEO_CONFIG.siteUrl}/sitemap.xml
+`;
+---
+{robotsTxt}
