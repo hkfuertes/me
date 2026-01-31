@@ -300,6 +300,51 @@ python -c "import yaml; yaml.safe_load(open('portfolio/src/data/gists.yaml'))"
 - Check GITHUB_TOKEN has `public_repo` scope
 - Verify README.md exists
 
+### GitHub API Rate Limits in GitHub Actions
+
+**Symptoms:**
+```
+[WARN] [gist-loader] Failed to fetch gist: 403
+[WARN] [github-projects-loader] Failed to fetch repo: 404
+```
+
+**Cause:**
+GitHub Actions `GITHUB_TOKEN` has rate limits (1,000 requests/hour per repository).
+
+**Solutions:**
+
+1. **Verify token permissions in repository settings:**
+   - Go to: Settings → Actions → General → Workflow permissions
+   - Select: "Read and write permissions"
+   - Enable: "Allow GitHub Actions to create and approve pull requests"
+
+2. **Add metadata permission to workflow:**
+   Already configured in `.github/workflows/deploy_github.yml`:
+   ```yaml
+   permissions:
+     contents: read
+     metadata: read  # Required for API loaders
+   ```
+
+3. **Use Personal Access Token (if needed):**
+   - Create PAT with `public_repo` and `gist` scopes
+   - Add as repository secret: `GH_PERSONAL_TOKEN`
+   - Update workflow to use it:
+     ```yaml
+     env:
+       GITHUB_TOKEN: ${{ secrets.GH_PERSONAL_TOKEN }}
+     ```
+
+4. **Reduce API calls:**
+   - Remove unused gists from `gists.yaml`
+   - Remove unused projects from `projects.yaml`
+   - Content will gracefully fallback if API fails
+
+**Rate Limit Info:**
+- Without token: 60 requests/hour
+- With GITHUB_TOKEN: 1,000 requests/hour per repo
+- With Personal Access Token: 5,000 requests/hour
+
 ### Styling Issues
 
 **Tailwind classes not working:**
