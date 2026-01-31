@@ -1,124 +1,216 @@
-# Portfolio Personal - Miguel Fuertes
+# Portfolio - Miguel Fuertes
 
-Portfolio minimalista con diseño Swiss construido con Astro y desplegado en GitHub Pages.
+Minimalist portfolio with Swiss Design aesthetic built with Astro and deployed to GitHub Pages.
 
-## 🎨 Diseño
+## Tech Stack
 
-**Swiss Design / International Typographic Style**
-- Grid preciso y tipografía clara
-- Layout en columnas
-- Mucho espacio negativo
-- Bordes finos y elementos geométricos
-- Jerarquía visual clara
-- Color usado con moderación (azul como acento)
+- **Framework**: Astro 5.x
+- **Styling**: TailwindCSS 4.x
+- **Content**: GitHub Gists + YAML configuration
+- **Deployment**: GitHub Pages (automated via Actions)
 
-## 🚀 Características
-
-- **Landing Minimalista**: Bio, contacto, y tech stack en grid de 3 columnas
-- **Work Unificado**: Timeline cronológica mezclando experiencia, proyectos y posts
-- **GitHub Gists como CMS**: Escribe en Gists, se importan automáticamente
-- **100% Estático**: Build-time rendering, sin JavaScript del lado del cliente
-- **SEO Optimizado**: Meta tags, sitemap, Open Graph
-
-## 📁 Estructura
+## Site Structure
 
 ```
 https://mfuertes.net/
-├── /              # Landing page minimalista
-├── /work          # Timeline unificado (todo mezclado)
-├── /work/[id]     # Posts individuales
+├── /              Landing page
+├── /blog          Timeline of blog posts, projects, and contributions
+├── /blog/[id]     Individual post pages
 └── /Miguel_Fuertes_CV.pdf
 ```
 
-## 🛠️ Stack Tecnológico
+## Development
 
-- **Framework**: [Astro 5.x](https://astro.build)
-- **Estilos**: [TailwindCSS 4.x](https://tailwindcss.com)
-- **CMS**: GitHub Gists + YAML
-- **Deploy**: GitHub Pages + Actions
+### Requirements
 
-## 🚀 Comandos
+- Node.js 18+
+- Docker (optional)
+- GitHub Personal Access Token (for API rate limits)
 
+### Setup
+
+**With Docker:**
 ```bash
-# Desarrollo (Docker)
+# Set GitHub token in .env
+echo "GITHUB_TOKEN=your_token_here" > .env
+
+# Start dev server
 make up
+# or
+docker compose up -d app
 
-# Desarrollo (local)
-npm install
-npm run dev
-
-# Desarrollo limpiando caché (si cambias YAML)
-npm run dev:clean
-
-# Build
-npm run build
+# View logs
+docker compose logs -f app
 ```
 
-## 📝 Gestión de Contenido
+**Without Docker:**
+```bash
+# Install dependencies
+npm install
+
+# Set GitHub token
+export GITHUB_TOKEN=your_token_here
+
+# Start dev server
+npm run dev
+```
+
+Access at `http://localhost:4321`
+
+### Commands
+
+```bash
+npm run dev         # Start dev server
+npm run dev:clean   # Start dev server with clean cache
+npm run build       # Build for production
+npm run preview     # Preview production build
+```
+
+## Content Management
 
 ### Blog Posts (Gists)
 
-Añadir URLs a `src/data/gists.yaml`:
+Edit `src/data/gists.yaml`:
 
 ```yaml
 gists:
-  - https://gist.github.com/hkfuertes/[gist-id]
+  - https://gist.github.com/hkfuertes/9dd10da4a6bd0cdac6706400184539f7
+  - https://gist.github.com/hkfuertes/a37776f4e94de34cc3a4658b15ec1545
 ```
 
-### Proyectos GitHub
+Each gist must contain a Markdown file. Gist metadata (title, date, stars) is fetched from GitHub API.
 
-Añadir URLs a `src/data/projects.yaml`:
+### GitHub Projects
+
+Edit `src/data/projects.yaml`:
 
 ```yaml
-# Proyectos que muestran el README completo
+# Projects that render full README
 with_readme:
-  - https://github.com/hkfuertes/proyecto-1
+  - https://github.com/hkfuertes/virtual-screen
+  - https://github.com/hkfuertes/hyprland
 
-# Proyectos que solo muestran metadatos
+# Projects that only show metadata
 without_readme:
-  - https://github.com/hkfuertes/proyecto-2
+  - https://github.com/hkfuertes/blueprints
+  - https://github.com/hkfuertes/AAGW
 ```
 
-### Contribuciones
+Metadata (stars, forks, language, topics) is fetched from GitHub API.
 
-Las contribuciones (PRs merged) se cargan automáticamente desde GitHub API.
+### Contributions
 
-### ⚠️ Importante: Caché de Content Loaders
+Merged pull requests to third-party repositories are automatically loaded from GitHub API. No configuration needed.
 
-Los loaders de Astro **cachean los datos** para mejorar el rendimiento. Si editas los archivos YAML:
+### Important: Content Loader Cache
 
-**En desarrollo (Docker):**
+Astro caches content loader results. After editing YAML files, you must restart completely:
+
+**With Docker:**
 ```bash
 docker compose down
 docker compose up -d app
 ```
 
-**En desarrollo (local):**
+**Without Docker:**
 ```bash
 npm run dev:clean
-# o manualmente:
+# or manually:
 rm -rf .astro && npm run dev
 ```
 
-El simple `docker compose restart` **NO recarga los datos** porque el caché persiste en memoria.
+Note: `docker compose restart` does NOT reload data because cache persists in memory.
 
-## 🌐 Deploy
+## Deployment
 
-Push a `main` → Deploy automático a GitHub Pages
+### Automatic
 
-O manual:
-1. Actions > Deploy to GitHub Pages
-2. Run workflow
+Push to `main` branch triggers automatic deployment to GitHub Pages via GitHub Actions.
 
-## 🎯 Filosofía de Diseño
+### Manual
 
-Inspirado en el diseño suizo:
-- **Claridad**: Jerarquía tipográfica obvia
-- **Objetividad**: Sin elementos decorativos innecesarios
-- **Funcionalidad**: Grid matemático y espaciado consistente
-- **Universalidad**: Diseño atemporal y accesible
+1. Go to Actions tab in GitHub
+2. Select "Deploy to GitHub Pages" workflow
+3. Click "Run workflow"
 
-## 📄 Licencia
+### Build Output
+
+Static files are generated in `dist/` directory. GitHub Pages serves from `gh-pages` branch.
+
+## Project Structure
+
+```
+portfolio/
+├── src/
+│   ├── components/      Component library
+│   ├── content.config.ts    Content collections config
+│   ├── data/
+│   │   ├── gists.yaml       Gist URLs
+│   │   └── projects.yaml    GitHub project URLs
+│   ├── layouts/         Page layouts
+│   ├── pages/           Route pages
+│   │   ├── index.astro      Landing page
+│   │   ├── blog.astro       Blog timeline
+│   │   └── blog/[id].astro  Post detail page
+│   ├── styles/          Global styles
+│   └── utils/
+│       ├── gist-loader.ts              Loads gists from GitHub API
+│       ├── github-projects-loader.ts   Loads projects from GitHub API
+│       └── github-contributions-loader.ts  Loads PRs from GitHub API
+├── public/              Static assets
+├── astro.config.mjs     Astro configuration
+├── tailwind.config.cjs  Tailwind configuration
+└── package.json         Dependencies
+```
+
+## Environment Variables
+
+Create `.env` file:
+
+```bash
+GITHUB_TOKEN=ghp_your_personal_access_token
+```
+
+Required for:
+- Increased API rate limits (60 req/hour without, 5000 req/hour with token)
+- Access to private gists (if needed)
+
+Generate token at: https://github.com/settings/tokens
+
+Required scopes: `public_repo`, `gist`
+
+## Troubleshooting
+
+### Content not updating after YAML changes
+
+Run full restart:
+```bash
+docker compose down && docker compose up -d app
+# or
+npm run dev:clean
+```
+
+### GitHub API rate limit errors
+
+Add `GITHUB_TOKEN` to `.env` file
+
+### Build fails with module errors
+
+Clear cache and reinstall:
+```bash
+rm -rf node_modules package-lock.json .astro
+npm install
+npm run build
+```
+
+## Design Philosophy
+
+Swiss Design / International Typographic Style:
+- Clear typographic hierarchy
+- Mathematical grid system
+- Minimal decorative elements
+- Functional and timeless
+
+## License
 
 MIT
-
