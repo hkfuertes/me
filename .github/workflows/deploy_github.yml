@@ -32,15 +32,15 @@ jobs:
         with:
           python-version: '3.11'
       
-      - name: Install RenderCV
-        run: pip install rendercv
+      # - name: Install RenderCV
+      #   run: pip install rendercv
       
-      - name: Generate CV PDF
-        run: |
-          rendercv render Miguel_Fuertes_CV.yaml
-          mkdir -p portfolio/public
-          cp rendercv_output/Miguel_Fuertes_CV.pdf portfolio/public/cv.pdf
-          echo "CV PDF generated and copied to public/"
+      # - name: Generate CV PDF
+      #   run: |
+      #     rendercv render Miguel_Fuertes_CV.yaml
+      #     mkdir -p portfolio/public
+      #     cp rendercv_output/Miguel_Fuertes_CV.pdf portfolio/public/cv.pdf
+      #     echo "CV PDF generated and copied to public/"
       
       - name: Install dependencies
         working-directory: ./portfolio
