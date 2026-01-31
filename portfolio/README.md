@@ -47,24 +47,60 @@ make up
 npm install
 npm run dev
 
+# Desarrollo limpiando caché (si cambias YAML)
+npm run dev:clean
+
 # Build
 npm run build
 ```
 
 ## 📝 Gestión de Contenido
 
-### Blog Posts
+### Blog Posts (Gists)
 
-Añadir URLs a `/blog/gists.yaml`:
+Añadir URLs a `src/data/gists.yaml`:
 
 ```yaml
 gists:
   - https://gist.github.com/hkfuertes/[gist-id]
 ```
 
-### Proyectos y Experiencia
+### Proyectos GitHub
 
-Editar `/Miguel_Fuertes_CV.yaml` - Se mezcla automáticamente en `/work`
+Añadir URLs a `src/data/projects.yaml`:
+
+```yaml
+# Proyectos que muestran el README completo
+with_readme:
+  - https://github.com/hkfuertes/proyecto-1
+
+# Proyectos que solo muestran metadatos
+without_readme:
+  - https://github.com/hkfuertes/proyecto-2
+```
+
+### Contribuciones
+
+Las contribuciones (PRs merged) se cargan automáticamente desde GitHub API.
+
+### ⚠️ Importante: Caché de Content Loaders
+
+Los loaders de Astro **cachean los datos** para mejorar el rendimiento. Si editas los archivos YAML:
+
+**En desarrollo (Docker):**
+```bash
+docker compose down
+docker compose up -d app
+```
+
+**En desarrollo (local):**
+```bash
+npm run dev:clean
+# o manualmente:
+rm -rf .astro && npm run dev
+```
+
+El simple `docker compose restart` **NO recarga los datos** porque el caché persiste en memoria.
 
 ## 🌐 Deploy
 

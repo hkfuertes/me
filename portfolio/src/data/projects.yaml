@@ -1,7 +1,11 @@
 # Public GitHub Projects
 # Projects linking to GitHub with README, kind like a Post
 # For when a gist is not enougth
-with_readme: []
+with_readme:
+  - https://github.com/hkfuertes/virtual-screen
+  - https://github.com/hkfuertes/pi_uvc_screen_share
+  - https://github.com/hkfuertes/phpchords
+
 
 # Projects linking directly to GitHub
 without_readme:
@@ -10,20 +14,14 @@ without_readme:
   - https://github.com/hkfuertes/msm8916-openwrt
   - https://github.com/hkfuertes/telegram-db-backup
   - https://github.com/hkfuertes/msm8916-alpine
-  - https://github.com/hkfuertes/pi_uvc_screen_share
   - https://github.com/hkfuertes/hklirc
   - https://github.com/hkfuertes/UxPlay-Buildroot
   - https://github.com/hkfuertes/z2m-mqtt-keyboard
   - https://github.com/hkfuertes/altserverd
-  - https://github.com/hkfuertes/tension-app-project
-  - https://github.com/hkfuertes/csbook_app
   - https://github.com/hkfuertes/eventus
-  - https://github.com/hkfuertes/hyprland
   - https://github.com/hkfuertes/itag-receiver
   - https://github.com/hkfuertes/lecturas
   - https://github.com/hkfuertes/mr6400v7-openwrt
-  - https://github.com/hkfuertes/phpchords
-  - https://github.com/hkfuertes/portfolio
   - https://github.com/hkfuertes/rclone-db-backup
   - https://github.com/hkfuertes/rpi_clock_display
   - https://github.com/hkfuertes/SerialIR
@@ -32,5 +30,4 @@ without_readme:
   - https://github.com/hkfuertes/UxPlay-Packer
   - https://github.com/hkfuertes/voice-assistant-satellite-buildroot
   - https://github.com/hkfuertes/WeatherProvider
-  - https://github.com/hkfuertes/csbook_public
-  - https://github.com/hkfuertes/genpos
+  - https://github.com/hkfuertes/hyprland

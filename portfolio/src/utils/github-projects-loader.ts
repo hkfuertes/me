@@ -20,6 +20,9 @@ export function GitHubProjectsLoader(options: GitHubProjectsLoaderOptions): Load
         load: async ({ store, logger, renderMarkdown }) => {
             const totalProjects = options.with_readme.length + options.without_readme.length;
             logger.info(`Loading ${totalProjects} GitHub projects`);
+            
+            // Clear existing entries to ensure removed projects don't persist
+            store.clear();
 
             // GitHub API headers with optional token
             const headers: HeadersInit = {

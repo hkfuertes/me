@@ -15,6 +15,9 @@ export function GistLoader(options: GistLoaderOptions): Loader {
         name: 'gist-loader',
         load: async ({ store, logger, renderMarkdown }) => {
             logger.info(`Loading ${options.gists.length} gists`);
+            
+            // Clear existing entries to ensure removed gists don't persist
+            store.clear();
 
             // GitHub API headers with optional token
             const headers: HeadersInit = {

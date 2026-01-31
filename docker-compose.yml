@@ -6,7 +6,6 @@ services:
     volumes:
       - cv-data:/work
       - ./portfolio:/app
-      - ./blog:/blog
       - ./Miguel_Fuertes_CV.yaml:/Miguel_Fuertes_CV.yaml:ro
 
   rendercv:
