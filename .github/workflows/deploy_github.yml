@@ -7,8 +7,6 @@ permissions:
   contents: read
   pages: write
   id-token: write
-  # Required for GitHub API loaders (gists, projects, contributions)
-  metadata: read
 
 jobs:
   build:
@@ -61,7 +59,7 @@ jobs:
       - name: Build Astro site
         working-directory: ./portfolio
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PORTFOLIO_GIST_TOKEN || secrets.GITHUB_TOKEN }}
         run: |
           echo "Building with GitHub token (first 8 chars): ${GITHUB_TOKEN:0:8}..."
           npm run build
