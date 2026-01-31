@@ -6,7 +6,7 @@ Senior Software Engineer specializing in backend development, search platforms, 
 
 Backend engineer with 9+ years of experience building scalable systems across search, personalization, and fan engagement platforms. Currently at Gartner, working on search and SEO infrastructure for GetApp, Capterra, and Software Advice.
 
-**Location**: Barcelona, Spain (Remote)
+**Location**: Madrid, Spain
 
 **Website**: [mfuertes.net](https://mfuertes.net)
 
