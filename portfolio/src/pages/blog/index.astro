@@ -6,6 +6,7 @@ import BlogCard from "@/components/BlogCard.astro";
 import YearSeparator from "@/components/YearSeparator.astro";
 import { getCollection } from "astro:content";
 import { Icon } from "astro-icon/components";
+import { generateSlug, extractSlugFromGithubId } from "@/utils/slugify";
 
 // Cargar solo gists y repos públicos de GitHub
 const gists = await getCollection("gists");
@@ -15,36 +16,42 @@ const contributions = await getCollection("contributions");
 // Unificar todo en un solo array con tipos
 const allWork = [
     // Gists
-    ...gists.map(item => ({
-        type: 'gist',
-        title: item.data.title,
-        date: item.data.date,
-        updated: item.data.updated,
-        description: item.data.description,
-        url: `/blog/${item.id}`,
-        externalUrl: item.data.url,
-        tags: item.data.tags || [],
-        stars: item.data.stars || 0,
-        forks: item.data.forks || 0,
-        showReadme: false,
-        state: undefined
-    })),
+    ...gists.map(item => {
+        const slug = generateSlug(item.data.title, item.data.date);
+        return {
+            type: 'gist',
+            title: item.data.title,
+            date: item.data.date,
+            updated: item.data.updated,
+            description: item.data.description,
+            url: `/blog/${slug}`,
+            externalUrl: item.data.url,
+            tags: item.data.tags || [],
+            stars: item.data.stars || 0,
+            forks: item.data.forks || 0,
+            showReadme: false,
+            state: undefined
+        };
+    }),
     // GitHub Repos públicos (automático)
-    ...githubRepos.map(item => ({
-        type: 'github',
-        title: item.data.title,
-        date: item.data.date,
-        updated: item.data.updated,
-        description: item.data.description,
-        url: item.data.showReadme ? `/blog/${item.id}` : item.data.url,
-        externalUrl: item.data.url,
-        tags: item.data.tags || [],
-        stars: item.data.stars || 0,
-        forks: item.data.forks || 0,
-        language: item.data.language,
-        showReadme: item.data.showReadme || false,
-        state: undefined
-    })),
+    ...githubRepos.map(item => {
+        const slug = extractSlugFromGithubId(item.id.replace('github-hkfuertes-', ''));
+        return {
+            type: 'github',
+            title: item.data.title,
+            date: item.data.date,
+            updated: item.data.updated,
+            description: item.data.description,
+            url: item.data.showReadme ? `/blog/${slug}` : item.data.url,
+            externalUrl: item.data.url,
+            tags: item.data.tags || [],
+            stars: item.data.stars || 0,
+            forks: item.data.forks || 0,
+            language: item.data.language,
+            showReadme: item.data.showReadme || false,
+            state: undefined
+        };
+    }),
     // Contribuciones (PRs merged a proyectos de terceros)
     ...contributions.map(item => ({
         type: 'contribution',

@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import { SEO_CONFIG } from '@/data/seo';
+import { generateSlug, extractSlugFromGithubId } from '@/utils/slugify';
 
 const gists = await getCollection('gists');
 const githubRepos = await getCollection('githubRepos');
@@ -13,13 +14,20 @@ const staticPages = [
   { url: 'blog', changefreq: 'daily', priority: 0.9 },
 ];
 
-// Páginas dinámicas (posts)
-const dynamicPages = allPosts.map(post => ({
-  url: `blog/${post.id}`,
-  lastmod: (post.data.updated || post.data.date).toISOString(),
-  changefreq: 'monthly',
-  priority: 0.7,
-}));
+// Páginas dinámicas (posts) - usar slugs SEO-friendly
+const dynamicPages = allPosts.map(post => {
+  const isGitHub = post.id.includes('-');
+  const slug = isGitHub 
+    ? extractSlugFromGithubId(post.id.replace('github-hkfuertes-', ''))
+    : generateSlug(post.data.title, post.data.date);
+  
+  return {
+    url: `blog/${slug}`,
+    lastmod: (post.data.updated || post.data.date).toISOString(),
+    changefreq: 'monthly',
+    priority: 0.7,
+  };
+});
 
 const pages = [...staticPages, ...dynamicPages];
 ---

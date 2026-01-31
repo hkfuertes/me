@@ -1,6 +1,7 @@
 import type { APIRoute, GetStaticPaths } from 'astro';
 import { getCollection } from 'astro:content';
 import { ImageResponse } from '@vercel/og';
+import { generateSlug, extractSlugFromGithubId } from '@/utils/slugify';
 
 interface OGImageOptions {
   title: string;
@@ -156,8 +157,16 @@ export const getStaticPaths: GetStaticPaths = async () => {
   return allContent.map((item) => {
     const isGitHub = item.id.includes('-');
     const contentType = isGitHub ? 'project' : 'blog';
+    
+    // Generar el mismo slug que en [id].astro
+    let slug: string;
+    if (isGitHub) {
+      slug = extractSlugFromGithubId(item.id.replace('github-hkfuertes-', ''));
+    } else {
+      slug = generateSlug(item.data.title, item.data.date);
+    }
 
-    // Determinar el título para la imagen OG (misma lógica que en [id].astro)
+    // Determinar el título para la imagen OG
     let ogImageTitle = item.data.title;
 
     if (isGitHub) {
@@ -173,7 +182,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     }
 
     return {
-      params: { id: item.id },
+      params: { id: slug },
       props: {
         title: ogImageTitle,
         type: contentType,

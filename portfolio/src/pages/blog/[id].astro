@@ -4,18 +4,32 @@ import { getCollection } from "astro:content";
 import { addHeadingIds } from "../../utils/add-heading-ids";
 import { Icon } from "astro-icon/components";
 import { SEO_CONFIG, getOgImageUrl } from "@/data/seo";
+import { generateSlug, extractSlugFromGithubId } from "../../utils/slugify";
 
 export async function getStaticPaths() {
     const gists = await getCollection("gists");
     const githubRepos = await getCollection("githubRepos");
 
-    return [...gists, ...githubRepos].map((post) => ({
-        params: { id: post.id },
-        props: { post },
-    }));
+    return [...gists, ...githubRepos].map((post) => {
+        const isGitHub = post.id.includes('-');
+        let slug: string;
+        
+        if (isGitHub) {
+            // GitHub repos: usar solo el nombre del repo (sin "github-hkfuertes-")
+            slug = extractSlugFromGithubId(post.id.replace('github-hkfuertes-', ''));
+        } else {
+            // Gists: generar slug desde el título
+            slug = generateSlug(post.data.title, post.data.date);
+        }
+        
+        return {
+            params: { id: slug },
+            props: { post, originalId: post.id },
+        };
+    });
 }
 
-const { post } = Astro.props;
+const { post, originalId } = Astro.props;
 
 // Both gists and GitHub repos with README are "Writing"
 const isGitHub = post.id.includes('-');
@@ -24,8 +38,13 @@ const typeLabel = 'Writing';
 // Add IDs to headings and extract ToC
 const { html, headings } = addHeadingIds(post.rendered?.html || '');
 
-// SEO: OG image URL (static route generated at build time)
-const ogImage = getOgImageUrl(post.id);
+// Calculate slug for OG image (must match slug generation in og/[id].png.ts)
+const slug = isGitHub 
+    ? extractSlugFromGithubId(originalId.replace('github-hkfuertes-', ''))
+    : generateSlug(post.data.title, post.data.date);
+
+// SEO: OG image URL (static route generated at build time using slug)
+const ogImage = getOgImageUrl(slug);
 
 // JSON-LD Structured Data
 const jsonLd = {

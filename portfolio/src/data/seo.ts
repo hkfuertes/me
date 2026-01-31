@@ -21,8 +21,9 @@ export function getCanonicalUrl(path: string): string {
 
 /**
  * Get OG image URL for a specific post
- * Uses pre-generated static images from /og/[id].png
+ * Uses pre-generated static images from /og/[slug].png
+ * @param slug - The SEO-friendly slug (same as URL slug)
  */
-export function getOgImageUrl(id: string): string {
-  return `${SEO_CONFIG.siteUrl}/og/${id}.png`
+export function getOgImageUrl(slug: string): string {
+  return `${SEO_CONFIG.siteUrl}/og/${slug}.png`
 }
