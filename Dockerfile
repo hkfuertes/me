@@ -1,13 +1,8 @@
 # Imagen base para desarrollo
 FROM node:20-bookworm
 
-# Instalar Python 3.12 desde Debian testing
+# Instalar Python y dependencias
 RUN apt-get update && apt-get install -y \
-    wget \
-    gnupg \
-    && echo "deb http://deb.debian.org/debian testing main" > /etc/apt/sources.list.d/testing.list \
-    && apt-get update \
-    && apt-get install -y -t testing \
     python3 \
     python3-pip \
     python3-venv \

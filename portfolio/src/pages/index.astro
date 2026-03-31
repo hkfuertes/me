@@ -2,6 +2,11 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { Icon } from "astro-icon/components";
 import { SEO_CONFIG } from "@/data/seo";
+import { getCollection } from "astro:content";
+
+const gists = await getCollection("gists");
+const githubRepos = await getCollection("githubRepos");
+const blogEnabled = gists.length > 0 || githubRepos.length > 0;
 
 const ogImage = `${SEO_CONFIG.siteUrl}/og-home.png`;
 ---
@@ -78,13 +83,26 @@ const ogImage = `${SEO_CONFIG.siteUrl}/og-home.png`;
             
             <!-- CTAs -->
             <div class="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-sm mx-auto">
-                <!-- Blog button: hidden on mobile (desktop-only) -->
-                <a 
-                    href="/blog"
-                    class="hidden md:inline-flex w-full sm:flex-1 text-center items-center justify-center gap-1.5 px-6 py-3 text-sm font-medium bg-emerald-600 text-white transition-all hover:bg-emerald-700"
-                >
-                    Blog
-                </a>
+                {blogEnabled ? (
+                    <!-- Blog button: hidden on mobile (desktop-only) -->
+                    <a
+                        href="/blog"
+                        class="hidden md:inline-flex w-full sm:flex-1 text-center items-center justify-center gap-1.5 px-6 py-3 text-sm font-medium bg-emerald-600 text-white transition-all hover:bg-emerald-700"
+                    >
+                        Blog
+                    </a>
+                ) : (
+                    <!-- GitHub button when blog is disabled -->
+                    <a
+                        href="https://github.com/hkfuertes"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="w-full sm:flex-1 text-center inline-flex items-center justify-center gap-1.5 px-6 py-3 text-sm font-medium bg-emerald-600 text-white transition-all hover:bg-emerald-700"
+                    >
+                        <Icon name="tabler:brand-github" class="w-4 h-4" />
+                        GitHub
+                    </a>
+                )}
                 <!-- Resume button: always visible, full width on mobile -->
                 <a 
                     href="/Miguel_Fuertes_CV.pdf" 

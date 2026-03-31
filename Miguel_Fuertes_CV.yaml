@@ -15,6 +15,15 @@ cv:
   custom_connections:
   sections:
     experience:
+      - company: Wembley Studios
+        position: Senior Software Backend Engineer
+        date:
+        start_date: 2026-02
+        location: Madrid, Spain (Remote)
+        summary: Backend engineer building Azure-based solutions for multiple clients, focused on the Microsoft ecosystem including AI services and Document Intelligence.
+        highlights:
+          - Leading the OCR/Document Intelligence service for automated invoice recognition.
+        stack: [C#, .NET, Azure, AI Services, Document Intelligence]
       - company: Gartner
         position: Senior Software Engineer
         date:
@@ -88,8 +97,6 @@ cv:
         location: Pamplona, Spain
         summary: PHP Symfony1 developer for local business web apps.
         highlights:
-          - Delivered full-cycle Symfony1 client projects
-          - Early Symfony framework experience
         stack: [PHP, Symfony1, JavaScript, HTML/CSS]
     education:
       - institution: Nebrija University
@@ -193,21 +200,5 @@ cv:
         details: SEO platforms, fan engagement, personalization engines, sitemaps generation, content similarity analysis, multi-region deployments
 design:
   theme: classic
-locale:
-  language: english
-settings:
-  current_date: "2025-12-30"
-  render_command:
-    design:
-    locale:
-    typst_path: rendercv_output/NAME_IN_SNAKE_CASE_CV.typ
-    pdf_path: rendercv_output/NAME_IN_SNAKE_CASE_CV.pdf
-    markdown_path: rendercv_output/NAME_IN_SNAKE_CASE_CV.md
-    html_path: rendercv_output/NAME_IN_SNAKE_CASE_CV.html
-    png_path: rendercv_output/NAME_IN_SNAKE_CASE_CV.png
-    dont_generate_markdown: true
-    dont_generate_html: true
-    dont_generate_typst: true
-    dont_generate_pdf: false
-    dont_generate_png: true
-  bold_keywords: []
+rendercv_settings:
+  date: "2026-03-31"

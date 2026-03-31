@@ -21,6 +21,10 @@ const gists = await getCollection("gists");
 const githubRepos = await getCollection("githubRepos");
 const contributions = await getCollection("contributions");
 
+if (gists.length === 0 && githubRepos.length === 0) {
+    return Astro.redirect("https://github.com/hkfuertes", 302);
+}
+
 // Unificar todo en un solo array con tipos
 const allWork = [
     // Gists

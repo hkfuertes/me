@@ -15,7 +15,7 @@ render:
 
 cv: render
 	@mkdir -p portfolio/public
-	@cp rendercv_output/$(FILE:.yaml=.pdf) portfolio/public/cv.pdf
+	@cp rendercv_output/$(FILE:.yaml=.pdf) portfolio/public/$(FILE:.yaml=.pdf)
 
 # Portfolio
 dev:
